@@ -1,8 +1,8 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Universidade Federal de Santa Catarina             
-% Biblioteca Universitária                     
+% Biblioteca Universit�ria                     
 %----------------------------------------------------------------------
-% Exemplo de utilização da documentclass ufscThesis
+% Exemplo de utiliza��o da documentclass ufscThesis
 %----------------------------------------------------------------------                                                           
 % (c)2013 Roberto Simoni (roberto.emc@gmail.com)
 %         Carlos R Rocha (cticarlo@gmail.com)
@@ -12,49 +12,45 @@
 
 %----------------------------------------------------------------------
 % Pacotes usados especificamente neste documento
-\usepackage{graphicx} % Possibilita o uso de figuras e gráficos
+\usepackage{graphicx} % Possibilita o uso de figuras e gr�ficos
 \usepackage{color}    % Possibilita o uso de cores no documento
 \usepackage{listings}
 %----------------------------------------------------------------------
-% Comandos criados pelo usuário
+% Comandos criados pelo usu�rio
 \newcommand{\afazer}[1]{{\color{red}{#1}}} % Para destacar uma parte a ser trabalhada
+\newcommand{\ABNTbibliographyname}{REFER�NCIAS}
 
 %----------------------------------------------------------------------
 
 \input{secoes/identificadoresTrabalho.tex}
 
-\textoResumo {Dadas a complexidade e a heterogeneidade crescentes presentes nos ambientes de computação
-em nuvem, otimizar a utilização de recursos nestes ambientes visando o menor consumo de
-energia torna-se uma tarefa desafiadora. O objetivo deste trabalho é propor a adaptação
-de um \emph{framework} de consolidação de recursos existente, de modo a 
-utilizar uma plataforma de sistemas multiagentes para suportar a criação e 
-destruição de agentes de gerência em ambientes de computação em nuvem. Deste 
-modo, é necessário acoplar uma plataforma de sistemas multiagentes em uma 
-ferramenta de orquestrção em nuvem, assim têm-se a distribuição das tarefas de 
-análise do ambiente, planejamento de ações e execução das mesmas.}
-\palavrasChave {Computação em Nuvem. Sistemas Multiagente. Orquestração}
- 
-\textAbstract {Resumo traduzido para outros idiomas, neste caso, inglês. Segue o formato do resumo feito na língua vernácula. As palavras-chave traduzidas, versão em língua estrangeira, são colocadas abaixo do texto precedidas pela expressão ``Keywords'', separadas por ponto.}
-\keywords {Keyword 1. Keyword 2. Keyword 3.}
+\input{secoes/resumo.tex}
 
 %----------------------------------------------------------------------
-% Início do documento                                
+% In�cio do documento                                
 \begin{document}
 %--------------------------------------------------------
-% Elementos pré-textuais
-%\capa  
-\folhaderosto % Se nao quiser imprimir a ficha, é só não usar o parâmetro
-%\folhaaprovacao
-%\paginadedicatoria
-%\paginaagradecimento
-%\paginaepigrafe
-\paginaresumo
-%\paginaabstract
-%\pretextuais % Substitui todos os elementos pre-textuais acima
-%\listadefiguras % as listas dependem da necessidade do usuário
-%\listadetabelas 
-%\listadeabreviaturas
-%\listadesimbolos
-\sumario
+% Elementos pr�-textuais
+\input{secoes/pretextual.tex}
 %--------------------------------------------------------
 % Elementos textuais
+\chapter{Introdu��o}
+
+\input{secoes/introducao.tex}
+
+\section{Motiva��o e Justificativa}
+
+\input{secoes/motivacao.tex}
+
+\section{Objetivos}
+
+\input{secoes/objetivos.tex}
+
+\chapter{Fundamenta��o}
+
+\input{secoes/fudamentacao.tex}
+
+\bibliographystyle{ufscThesis/ufsc-alf}
+\bibliography{bibliografia}
+
+\end{document}

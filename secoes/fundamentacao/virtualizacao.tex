@@ -1,4 +1,4 @@
-Segundo \citeonline{tholeti2011hypervisors}, virtualização é definida como a criação de substitutos, usando divisões lógicas, para os verdadeiros recursos físicos. Estes possuem a mesma função e interfaces externas, mas diferem em tamanho, performance e custo. Os usuários destes recursos virtuais típicamente não percebem a substituição, uma vez que sistemas virtuais devem obter performance semelhante a sua contraparte física, em relação as aplicações dentro do servidor. Usando virtualização é possível fazer com que um recurso físico seja visto como múltiplos recursos virtuais. A figura \ref{fig:virtualizacao}, demonstra a virtualização de múltiplos sistemas virtuais independentes, que usam recursos virtuais, sobre um único sistema físico.
+Segundo \citeonline{tholeti2011hypervisors}, virtualização é definida como a criação de substitutos, usando divisões lógicas, para os verdadeiros recursos físicos. Estes possuem a mesma função e interfaces externas, mas diferem em tamanho, performance e custo. Os usuários destes recursos virtuais típicamente não percebem a substituição, uma vez que sistemas virtuais devem obter performance semelhante a sua contraparte física, em relação as aplicações dentro do servidor. Usando virtualização é possível fazer com que um recurso físico seja visto como múltiplos recursos virtuais. A figura \ref{fig:virtualizacao} demonstra a virtualização de múltiplos sistemas virtuais independentes, que usam recursos virtuais, sobre um único sistema físico.
 
 \begin{figure}[!htb]
  	\centering
@@ -12,9 +12,9 @@ Os virtualizadores são componentes de software ou firmware, capazes de virtualiz
 \begin{itemize}
 	\item Tipo 1: A virtualização de tipo 1 é caracterizada quando o virtualizador executa diretamente sobre o hardware do sistema. Este método é mais eficiente, tendo o melhor desempenho entre os métodos de virtualização;
 	
-	\item Tipo 2: A virtualização de tipo 2 é caracterizada quando o virtualizador executa sobre um sistema operacional hospedeiro, que prôve serviços de virtualização, tais como suporte à entrada/saída de dados e gerenciamento de memória.
+	\item Tipo 2: A virtualização de tipo 2 é caracterizada quando o virtualizador executa sobre um sistema operacional hospedeiro, que provê serviços de virtualização, tais como suporte à entrada/saída de dados e gerenciamento de memória.
 	
-	\item Virtualização por uso de containers: Este modo de virtualização é caracterizado pela abstinência do virtualizador. A virtualização ocorre a nível de sistema operacional \abreviatura{SO}{Sistema Operacional} (SO). Existe um SO raiz, que permite a virtualização de instâncias deste sistema operacional. Este modo de virtualização resulta num uso eficiente de memória, sendo esta sua vantagem diante dos outros métodos de virtualização. Todavia, como todas instâncias virtuais são imagens do SO raíz, todas as instâncias serão da mesma versão que o SO raíz.
+	\item Virtualização por uso de containers: Este modo de virtualização é caracterizado pela abstinência do virtualizador. A virtualização ocorre a nível de sistema operacional\abreviatura{SO}{Sistema Operacional} (SO). Existe um SO raiz, que permite a virtualização de instâncias suas. Este modo de virtualização resulta num uso eficiente de memória, sendo esta sua vantagem diante dos outros métodos de virtualização. Todavia, como todas instâncias virtuais são imagens do SO raíz, todas as instâncias serão da mesma versão que o SO raíz.
 	
 \end{itemize}
 

@@ -35,7 +35,7 @@ A comunicação intra-plataforma (entre agentes residentes do mesmo container ou d
 	
 	\item Mesma Plataforma, JVM diferente -- as mensagens são trocadas através de \textit{Remote Method Invocation}\abreviatura{RMI}{Remote Method Invocation} (RMI), uma interface IIOP para objetos Java. O objeto \textit{ACLMessage} é serializado no remetenre e des-serializado no destinatário;
 	
-	\item Plataformas diferentes, ambas JADE -- uma chamada direta entre ACCs é feito usando o padrão \textit{Common Object Request Broker Architeture}\abreviatura{CORBA}{Common Object Request Broker Architeture} (CORBA). Desta forma, um objeto Java é transformado em literal, depois em \textit{stream} de bytes IIOP pelo remetente e o processo inverso acontece no destinatário;
+	\item Plataformas diferentes, ambas JADE -- uma chamada direta entre ACCs é feito usando o padrão CORBA. Desta forma, um objeto Java é transformado em literal, depois em \textit{stream} de bytes IIOP pelo remetente e o processo inverso acontece no destinatário;
 	
 	\item Plataformas diferentes (não-JADE) -- mesmo caso que o anterior, a única mudança está no destinatário, onde o processo de tratamento do \textit{stream} de bytes no padrão FIPA é tratado como uma caixa preta.
 \end{itemize}
@@ -69,4 +69,6 @@ O Jadex faz uso de \abreviatura{XML}{Extended Markup Language} \textit{extended 
 	\includegraphics[width=1\textwidth]{figuras/jadex.png}
 \end{figure}
 
-TODO para Alexandre: Terminar JADEX usando Jadex1 e Jadex2
+O JADEX roda sobre a plataforma do JADE. A integração ocorre através de uma ferramenta de integração desenvolvida para injetar os agentes JADEX dentro do banco de agentes do JADE. Estes agentes são então instanciados através de modelos criados a partir de seus arquivos descritores e seus comportamentos são mapeados como \emph{cyclic behaviours}, uma forma de comportamento disponível provido pela plataforma JADE. Dessa forma, os planos são executados passo a passo e mantém acesso sobre todas as características do agente. O JADEX, dessa forma, acaba servindo como uma extensão para a plataforma JADE, complementando-a com a possibilidade de especificaçar agentes cognitivos complexos que usam a estratégia de BDI para tomada de decisões.
+
+ 

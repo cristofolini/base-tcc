@@ -1,20 +1,20 @@
-Dadas a complexidade e heterogeneidade de ambientes de computaÃ§Ã£o em nuvem, que possuem inÃºmeros componentes e variÃ¡veis dinÃ¢micas interligadas que necessitam ser orquestradas, a gerÃªncia destes ambientes torna-se humanamente impossÃ­vel \cite{forecasting}. Tendo isso em vista, ferramentas foram criadas com o objetivo de orquestrar a infraestrutura do ambiente, realizando a ligaÃ§Ã£o dos diferentes componentes como servidores de armazenamento, virtualizaÃ§Ã£o e dispositivos de redes para prover a abstraÃ§Ã£o de uma nuvem computacional.
+Dadas a complexidade e heterogeneidade de ambientes de computação em nuvem, que possuem inúmeros componentes e variáveis dinâmicas interligadas que necessitam ser orquestradas, a gerência destes ambientes torna-se humanamente impossível \cite{forecasting}. Tendo isso em vista, ferramentas foram criadas com o objetivo de orquestrar a infraestrutura do ambiente, realizando a ligação dos diferentes componentes como servidores de armazenamento, virtualização e dispositivos de redes para prover a abstração de uma nuvem computacional.
 
-\citeonline{tcc-gabriel} cita cinco componentes que compÃµe as ferramentas disponÃ­veis para orquestraÃ§Ã£o:
+\citeonline{tcc-gabriel} cita cinco componentes que compõe as ferramentas disponíveis para orquestração:
 \begin{enumerate} 
- \item Um gerente de identidades que realiza a gerÃªncia das credenciais dos usuÃ¡rios (autenticaÃ§Ã£o e autorizaÃ§Ã£o), possibilitando maior seguranÃ§a na organizaÃ§Ã£o da infraestrutura;
- \item Um gerente de alocaÃ§Ã£o que aloca mÃ¡quinas virtuais quando sÃ£o instanciadas, ligadas ou migradas;
- \item Um \emph{hypervisor} que Ã© o componente que interage com diferentes virtualizadores, sendo responsÃ¡vel por enviar comandos e gerenciar cada cluster;
- \item Um componente de armazenamento que realiza a distribuiÃ§Ã£o e o compartilhamento dos HDs de mÃ¡quinas virtuais entre os servidores;
- \item Um elemento encarregado de gerenciar a configuraÃ§Ã£o da rede.
+ \item Um gerente de identidades que realiza a gerência das credenciais dos usuários (autenticação e autorização), possibilitando maior segurança na organização da infraestrutura;
+ \item Um gerente de alocação que aloca máquinas virtuais quando são instanciadas, ligadas ou migradas;
+ \item Um \emph{hypervisor} que é o componente que interage com diferentes virtualizadores, sendo responsável por enviar comandos e gerenciar cada cluster;
+ \item Um componente de armazenamento que realiza a distribuição e o compartilhamento dos HDs de máquinas virtuais entre os servidores;
+ \item Um elemento encarregado de gerenciar a configuração da rede.
 \end{enumerate}
 
-A Figura \ref{fig:orquestracao}, retirada desse estudo, mostra de forma visual a arquitetura de uma ferramenta de orquestraÃ§Ã£o.
+A Figura \ref{fig:orquestracao}, retirada desse estudo, mostra de forma visual a arquitetura de uma ferramenta de orquestração.
 
  \begin{figure}[!htb]
  	\centering
- 	\caption{RepresentaÃ§Ã£o de uma ferramenta de orquestraÃ§Ã£o \cite{tcc-gabriel}.}\label{fig:orquestracao}
+ 	\caption{Representação de uma ferramenta de orquestração \cite{tcc-gabriel}.}\label{fig:orquestracao}
  	\includegraphics[width=1\textwidth]{figuras/ferramentasOrquestracao.jpg}
  \end{figure}
  
-A ferramenta escolhida por \citeonline{tcc-gabriel} e a qual serÃ¡ utilizada no desenvolvimento deste trabalho Ã© o CloudStack \cite{cloudstack}. A escolha se dÃ¡ aos motivos de que a ferramenta demonstra uma evoluÃ§Ã£o constante num projeto que mantÃ©m uma comunidade participativa, documentaÃ§Ã£o completa e detalhada e o uso de tecnologias conhecidas para armazenamento de dados.
+A ferramenta escolhida por \citeonline{tcc-gabriel} e a qual será utilizada no desenvolvimento deste trabalho é o CloudStack \cite{cloudstack}. A escolha se dá aos motivos de que a ferramenta demonstra uma evolução constante num projeto que mantém uma comunidade participativa, documentação completa e detalhada e o uso de tecnologias conhecidas para armazenamento de dados.

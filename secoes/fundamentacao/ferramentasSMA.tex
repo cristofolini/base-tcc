@@ -2,9 +2,7 @@ Esta seção é designada a apresentar as plataformas de SMA mais usadas, seus pont
 
 \subsubsection{JADE}
 
-% EU 
-
-\textit{Java Agent Development} \abreviatura{JADE}{Java Agent Development}(JADE) é um \textit{framework} para desenvolvimento de aplicações de agentes compatível com as especificações da FIPA para interoperabilidade entre sistemas multiagentes \cite{a-jade}. O objetivo da ferramenta JADE é providenciar ao desenvolvedor uma maneira simples de desenvolver seu programa, facilitando a implementação dos padrões da FIPA. As características do JADE, importantes para o problema apresentado neste trabalho, são:
+\textit{Java Agent DEvelopment} \abreviatura{JADE}{Java Agent Development}(JADE)\cite{jade} é um \textit{framework} para desenvolvimento de aplicações de agentes compatível com as especificações da FIPA para interoperabilidade entre sistemas multiagentes, desenvolvido inicialmente pela Telecom Italia (que ainda é detentora de direitos autorais sobre a ferramenta), é distribuída em formato de código aberto sob as condições da LGPLv2 \cite{lgpl2}. O objetivo da ferramenta JADE é providenciar ao desenvolvedor uma maneira simples de desenvolver seu programa, facilitando a implementação dos padrões da FIPA. As características do JADE, importantes para o problema apresentado neste trabalho, são:
 
 \begin{itemize}
 	\item Plataforma que segue o padrão FIPA, incluindo os três agentes, necessários e descritos, ativados junto com a inicialização da plataforma.
@@ -23,14 +21,14 @@ Uma JVM do JADE irá se portar como um \textit{front-end} da plataforma para o am
 
 \begin{figure}[!htb]
 	\centering
-	\caption{Arquitetura da plataforma JADE \cite{a-jade}.}\label{fig:jadearq}
+	\caption{Arquitetura da plataforma JADE, obtida de \cite{jade}.}\label{fig:jadearq}
 	\includegraphics[width=1\textwidth]{figuras/jadearq.png}
 \end{figure}
 
 Agentes devem ser capazes de se comunicar com outros agentes tanto dentro da mesma plataforma quanto com agentes externos a esta. Os agentes externos são aqueles alocados em outros SMAs, fora do domínio da aplicação. Para que a troca de mensagens seja possível neste caso, ambas as plataformas devem respeitar o mesmo protocolo.\par
 
 Toda a comunicação de agentes feita pelo JADE acontece na forma de troca de mensagens no formato FIPA. Entretanto as tecnologias usadas para alcançar agentes diferem de acordo com a localização do destinatário em relação ao remetente.
-A comunicação intra-plataforma (entre agentes residentes do mesmo container ou de containers diferentes) é implementada usando soluções fornecidas pela técnologia Java. Porém a comunicação onde o destino é externo à plataforma são utilizados protocolos \textit{Internet Inter-ORB Protocol}\abreviatura{IIOP}{Internet Inter-ORB Protocol} (IIOP), sendo este um protocolo para sistemas distribuídos que possibilita a comunicação entre sistemas escritos em linguagens diferentes \cite{a-jade}. Os diferentes cenários de troca de mensagens são descritos da seguinte forma:
+A comunicação intra-plataforma (entre agentes residentes do mesmo container ou de containers diferentes) é implementada usando soluções fornecidas pela técnologia Java. Porém a comunicação onde o destino é externo à plataforma são utilizados protocolos \textit{Internet Inter-ORB Protocol}\abreviatura{IIOP}{Internet Inter-ORB Protocol} (IIOP), sendo este um protocolo para sistemas distribuídos que possibilita a comunicação entre sistemas escritos em linguagens diferentes \cite{jade}. Os diferentes cenários de troca de mensagens são descritos da seguinte forma:
 
 \begin{itemize}
 	\item Mesma plataforma, mesma JVM -- as mensagens são trocadas sem invocação remota, através da chamada do método \textit{clone()} em um objeto Java \textit{ACLMessage};
@@ -44,28 +42,31 @@ A comunicação intra-plataforma (entre agentes residentes do mesmo container ou d
 
 A plataforma JADE usa as facilidades e pacotes do Java para prover as funcionalidades de sistemas multiagentes, sendo uma plataforma de fácil uso e entendimento para programadores já habituados com a linguagem, através do uso de recursos como \textit{Java Annotations} e orientação à objetos. Entretanto o suporte ao desenvolvimento de agentes em outras linguagens de programação dentro da plataforma não é um assunto endereçado no \textit{framework}.
 
-% LUCAS
 
-Dentre as diversas ferramentas existentes para o desenvolvimento de sistemas 
-multiagentes, duas se mostraram mais maduras e interessantes do ponto de vista 
-do trabalho. A primeira destas ferramentas é o \abreviatura{JADE}{Java Agent DEvelopment} \emph{Java Agent DEvelopment 
-	framework} (JADE) \cite{jade}. Desenvolvido inicialmente pela Telecom Italia 
-(que ainda é detentora de direitos autorais sobre a ferramenta), é distribuída 
-em formato de código aberto sob as condições da LGPLv2 \cite{lgpl2}.
+\subsubsection{JADEX}
 
-O JADE peca no quesito de documentação, sendo que apesar de existir uma 
-ferramenta para explorar a API no próprio site do projeto, uma grande parte da 
-documentação apresentada contém apenas vagas descrições de métodos e funções de 
-classes, sendo necessário um maior esforço para de fato compreender suas 
-funções.
+JADEX é um \textit{framework} de software para a criação de agentes que seguem o modelo BDI, usando a linguagem Java \cite{jadex}. O nome JADEX deriva da ferramenta JADE, sendo que o JADEX surgiu como uma expansão para o JADE, adicionando suporte à arquitetura BDI \cite{jadex}. O JADEX teve sua origem na Universidade de Hamburgo e é distribuído atualmente em código aberto sob os termos da licença GPLv3 \cite{gpl3}. A comunidade em torno do JADEX não é tão ativa quanto a comunidade do JADE. Em compensação, a documentação disponível é mais detalhada do que a 
+disponível para o JADE, com descrições do seu funcionamento e modos de uso. Tutoriais explicando as diversas funções da ferramenta e guias para iniciantes são abundantes.\par
 
-Outra ferramenta que desperta atenção é o JADEX \cite{jadex}. O nome JADEX 
-deriva da ferramenta JADE, sendo que o JADEX surgiu como uma expansão para o 
-JADE, adicionando suporte à arquitetura \emph{Believe Desire Intention} (BDI) 
-\cite{jadex}. O JADEX teve sua origem na Universidade de Hamburgo e é 
-distribuído atualmente em código aberto sob os termos da licença GPLv3 
-\cite{gpl3}. A comunidade em torno do JADEX não é tão ativa quanto a comunidade 
-do JADE. Em compensação, a documentação disponível é mais detalhada do que a 
-disponível para o JADE, com descrições do seu funcionamento e modos de uso. 
-Tutoriais explicando as diversas funções da ferramenta e guias para iniciantes 
-são abundantes.
+A motivação da ferramenta é prover a funcionalidade de criar agentes cognitivos orientados a BDI para plataformas de SMA com agentes genéricos. O \textit{framework} usa de técnicas de orientação a objetos para realizar a modelagem de conceitos comuns ao modelo de agentes cognitivos, tais como \cite{pokahr2005jadex}:
+
+\begin{itemize}
+	\item Crenças: modeladas tanto no formato de fatos ou conjunto de fatos.  Mudanças na base de crenças podem ser feitas de forma descritiva, modificando diretamente o conjunto de crenças de um agente.
+	
+	\item Objetivos: são o conceito principal do Jadex. Eles são tratados como desejos momentâneos de um agente e modelados de forma a representar um estado alvo do mundo. Esta modelagem é composta de um conjunto de fatos necessários para a completude do objetivo. Um agente irá sempre, direta ou indiretamente, tomar um plano de ação que visa atingir um conjunto de seus objetivos. Este conceito é modelado de forma a ser acessível pelos planos do agente, facilitando a criação e modificação de objetivos caso haja a necessidade.  
+	
+	\item Planos: representam elementos comportacionais dos agentes Jadex. São compostos por um cabeçalho e um corpo. No cabeçalho de um plano estão descritas as pré-condições que farão com que este plano seja adotado. No corpo é detalhado, de forma procedural, como o agente deve agir caso esse plano seja escolhido para execução.
+	
+	\item Capacidades: são mecanismos para agrupamento de elementos BDI. Este conceito tem como objetivo trazer reusabilidade e organização para elementos relacionados. Capacidades são definidas como um conjunto de crenças, planos, objetivos e eventos. Este conceito é associado aos agentes, resultando em agentes que podem ter acesso a elementos e atributos de suas capacidades.
+	
+\end{itemize}
+
+O Jadex faz uso de \abreviatura{XML}{Extended Markup Language} \textit{extended markup language} (XML) para implementar o \textit{agent definition file}\abreviatura{ADF}{Agent Definition File} (ADF), um arquivo que descreve os elementos BDI, tais como o agente. A implementação destes elementos, no entanto, é feita através da programação de objetos Java, implementando interfaces disponíveis pelo Jadex. A Figura \ref{fig:jadexagent} mostra uma representação resumida de um agente Jadex, explicitando suas partes descritiva e procedural.
+
+\begin{figure}[!htb]
+	\centering
+	\caption{Representação de um agente JADEX \cite{pokahr2005jadex}.}\label{fig:jadexagent}
+	\includegraphics[width=1\textwidth]{figuras/jadex.png}
+\end{figure}
+
+TODO para Alexandre: Terminar JADEX usando Jadex1 e Jadex2

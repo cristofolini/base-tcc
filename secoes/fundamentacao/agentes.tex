@@ -1,5 +1,5 @@
-Agentes são entidades capazes de se comunicar entre si, possuem mobilidade e comportam-se de forma independente e inteligente dentro do ambiente. Um agente é um sistema computacional capaz de atuar autonomamente de maneira a alcançar seus objetivos \cite{wooldridge2009introduction}. Seu conceito pode ser  abstraido para uma entidade auto-contida, capaz de interagir (através de funções atuadoras e sensoras) com o 
-ambiente em que se encontra, consigo mesma e com outros agentes \cite{ia-ferramentas}. Ter vários agentes em um sistema implica que cada agente deve raciocinar e agir levando em consideração os outros agentes no sistema, sendo que dentro de um sistema, diferentes agentes podem ou não ter um propósito em comum \cite{handbook-knowledge}. Este segundo caso é particularmente interessante, já que as diferentes entidades podem ter o mesmo objetivo, mas diferentes critérios, possivelmente conflitantes, a priorizar na satisfação de suas metas. Independente de seu tipo e ambiente, agentes funcionam em um ciclo contínuo de perceber o mundo, decidir sua próxima ação e executá-la. A Figura \ref{fig:agente} representa o ciclo contínuo de execução de um agente. 
+Agentes são entidades capazes de comunicar-se entre si, possuem mobilidade e comportam-se de forma independente e inteligente dentro do ambiente. Um agente é um sistema computacional capaz de atuar autonomamente de maneira a alcançar seus objetivos \cite{wooldridge2009introduction}. Seu conceito pode ser  abstraido para uma entidade auto-contida, capaz de interagir (através de funções atuadoras e sensoras) com o 
+ambiente em que se encontra, consigo mesma e com outros agentes \cite{ia-ferramentas}. Ter vários agentes em um sistema implica que cada um deve raciocinar e agir levando em consideração os outros agentes no sistema, sendo que dentro de um sistema, diferentes agentes podem ou não ter um propósito em comum \cite{handbook-knowledge}. Este segundo caso é particularmente interessante, já que as diferentes entidades podem ter o mesmo objetivo, mas diferentes critérios, possivelmente conflitantes, a priorizar na satisfação de suas metas. Independente de seu tipo e ambiente, agentes funcionam em um ciclo contínuo de perceber o mundo, decidir sua próxima ação e executá-la. A Figura \ref{fig:agente} representa o ciclo contínuo de execução de um agente. 
 
 \begin{figure}[!htb]
 	\centering
@@ -7,13 +7,13 @@ ambiente em que se encontra, consigo mesma e com outros agentes \cite{ia-ferrame
 	\includegraphics[width=1\textwidth]{figuras/imgAgent.png}
 \end{figure}
 
-Agentes possuem módulos que servem como sensores e atuadores, representando sua interface com o mundo. Eles estão diretamente relacionados com as capacidades dos agentes de perceber e agir. Através dos sensores, um agente consegue perceber o ambiente que ele está inserido. Esta entrada, na forma percepções, é avaliada pelo agente, resultando em uma decisão de ação. Por fim, através dos atuadores, o agente é capaz de agir em seu ambiente, modificando o estado do ambiente.
+Agentes possuem módulos que servem como sensores e atuadores, representando sua interface com o mundo. Eles estão diretamente relacionados com as capacidades dos agentes de perceber e agir. Através dos sensores, um agente consegue perceber o ambiente que ele está inserido. Esta entrada, na forma de percepções, é avaliada pelo agente, resultando em uma decisão de ação. Por fim, através dos atuadores, o agente é capaz de agir em seu ambiente, modificando o seu estado.
 
 \subsubsection{Características de Agentes}
 
 Um agente é responsável por representar um ponto de vista e agir de forma coerente para alcançar um objetivo. Assim como uma sociedade de agentes exprime vários pontos de vista e objetivos. No evento em que dois ou mais pontos de vista entram em conflito, os agentes devem ter a capacidade de negociar, para que possam encontrar a melhor ação para o problema em conjunto \cite{wooldridge2009introduction}.\par 
 
-Segundo Silveira em \cite{a-ricardo-intro}, mesmo tendo natureza diversa, os agentes possuem características recorrentes, relacionadas com suas abordagens para resolver problemas e capacidade de comunicação. Encontrado em maior ou menor grau em uma implementação de um agente, estes atributos são:
+Segundo \citeonline{a-ricardo-intro}, mesmo tendo natureza diversa, os agentes possuem características recorrentes, relacionadas com suas abordagens para resolução de problemas e capacidade de comunicação. Encontrado em maior ou menor grau em uma implementação de um agente, estes atributos são:
 
 \begin{itemize}  
 	\item Reatividade: a habilidade de perceber o ambiente de modo seletivo e manifestar um
@@ -32,7 +32,7 @@ Segundo Silveira em \cite{a-ricardo-intro}, mesmo tendo natureza diversa, os age
 	\item Mobilidade: habilidade de migrar de uma plataforma para outra.
 \end{itemize}
 
-As diferenças entre agentes é o fator responsável pela heterogeniedade do SMA. O fato de que diferentes entidades dividem o mesmo ambiente, faz com que um problema possa ser percebido de diferentes formas e lidado de maneiras diferentes e condizentes com um plano de ação conjunto. Em adição à suas características, os agentes possuem estratégias diferentes para a tomada de decisão, fator que gera diferentes classificações para estes, descritas nas próximas sub-seções.
+As diferenças entre agentes formam o fator responsável pela heterogeniedade do SMA. O fato de que diferentes entidades dividem o mesmo ambiente, faz com que um problema possa ser percebido de diferentes pontos de vista e lidado de maneiras diferentes e condizentes com um plano de ação conjunto. Em adição às suas características, os agentes possuem estratégias diferentes para a tomada de decisão, fator que gera distintas classificações para estes, descritas nas próximas sub-seções.
 
 \subsubsection{Agentes Reativos}
 
@@ -42,9 +42,9 @@ agentes apenas através de modificações no ambiente \cite{ia-ferramentas}. Embora
 \subsubsection{Agentes Deliberativos}
 
 Agentes deliberativos são aqueles que tem alguma forma de retenção de conhecimento na forma de experiências passadas, criando um modelo explícito de mundo. Estes agentes também possuem uma explícita representação de outros agentes, memória (que 
-permite que os agentes plenejem suas ações tendo eventos passados como base) e capacidade de se comunicarem diretamente uns com os outros. Esse modelo de agente é mais focado nas atitudes que os caracterizam, sendo que com o tempo, realizando diferentes interações com os sistemas, estes devem desenvolver crenças (no sentido de reconhecer padrões), intenções, entre outras características de uma entidade racional com a finalidade de auxiliar a escolha de seus planos de ação futuros, suplementando sua percepção atual do ambiente \cite{handbook-knowledge}.\par
+permite que plenejem suas ações tendo eventos passados como base) e capacidade de se comunicarem diretamente uns com os outros. Esse modelo de agente é mais focado nas atitudes que os caracterizam, sendo que com o tempo, realizando diferentes interações com os sistemas, estes devem desenvolver crenças (no sentido de reconhecer padrões), intenções, entre outras características de uma entidade racional com a finalidade de auxiliar a escolha de seus planos de ação futuros, suplementando sua percepção atual do ambiente \cite{handbook-knowledge}.\par
 
-No contexto de um agente cognitivo, um conjunto de crenças é chamado de banco de conhecimento. Esse é continuamente atualizado com as percepções do agente, assim como é usado para verificar condições necessárias para a escolha de um próximo plano de ação do agente. Na Figura \ref{fig:agente-BDI} pode-se observar a arquitetura de um agente deliberativo que age no formato de \textit{Beliefs, Desire and Intentions} \abreviatura{BDI}{Beliefs Desire Intentions}(BDI), em português crenças, desejos e intenções.
+No contexto de um agente cognitivo, um conjunto de crenças é chamado de banco de conhecimento. Esse é continuamente atualizado com as percepções do agente, assim como é usado para verificar condições necessárias para a escolha de um próximo plano de ação. Na Figura \ref{fig:agente-BDI} pode-se observar a arquitetura de um agente deliberativo que age no formato de \textit{Beliefs, Desire and Intentions} \abreviatura{BDI}{Beliefs Desire Intentions}(BDI), em português crenças, desejos e intenções.
 
 \begin{figure}[!htb]
 	\centering

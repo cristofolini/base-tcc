@@ -1,9 +1,9 @@
-Agentes são entidades capazes de comunicar-se entre si, possuem mobilidade e comportam-se de forma independente e inteligente dentro do ambiente. Um agente é um sistema computacional capaz de atuar autonomamente de maneira a alcançar seus objetivos \cite{wooldridge2009introduction}. Seu conceito pode ser  abstraido para uma entidade auto-contida, capaz de interagir (através de funções atuadoras e sensoras) com o 
+Agentes são entidades capazes de comunicar-se entre si, possuem mobilidade e comportam-se de forma independente dentro do ambiente. Um agente é um sistema computacional capaz de atuar autonomamente de maneira a alcançar seus objetivos \cite{wooldridge2009introduction}. Seu conceito pode ser  abstraído para uma entidade auto-contida, capaz de interagir (através de funções atuadoras e sensoras) com o 
 ambiente em que se encontra, consigo mesma e com outros agentes \cite{ia-ferramentas}. Ter vários agentes em um sistema implica que cada um deve raciocinar e agir levando em consideração os outros agentes no sistema, sendo que dentro de um sistema, diferentes agentes podem ou não ter um propósito em comum \cite{handbook-knowledge}. Este segundo caso é particularmente interessante, já que as diferentes entidades podem ter o mesmo objetivo, mas diferentes critérios, possivelmente conflitantes, a priorizar na satisfação de suas metas. Independente de seu tipo e ambiente, agentes funcionam em um ciclo contínuo de perceber o mundo, decidir sua próxima ação e executá-la. A Figura \ref{fig:agente} representa o ciclo contínuo de execução de um agente. 
 
 \begin{figure}[!htb]
 	\centering
-	\caption{Representação de um agente em um ambiente, obtido de \cite{RussellLivro}.}\label{fig:agente}
+	\caption{Exemplificação de um agente em um ambiente, obtido de \cite{RussellLivro}.}\label{fig:agente}
 	\includegraphics[width=1\textwidth]{figuras/imgAgent.png}
 \end{figure}
 
@@ -44,7 +44,7 @@ agentes apenas através de modificações no ambiente \cite{ia-ferramentas}. Embora
 Agentes deliberativos são aqueles que tem alguma forma de retenção de conhecimento na forma de experiências passadas, criando um modelo explícito de mundo. Estes agentes também possuem uma explícita representação de outros agentes, memória (que 
 permite que plenejem suas ações tendo eventos passados como base) e capacidade de se comunicarem diretamente uns com os outros. Esse modelo de agente é mais focado nas atitudes que os caracterizam, sendo que com o tempo, realizando diferentes interações com os sistemas, estes devem desenvolver crenças (no sentido de reconhecer padrões), intenções, entre outras características de uma entidade racional com a finalidade de auxiliar a escolha de seus planos de ação futuros, suplementando sua percepção atual do ambiente \cite{handbook-knowledge}.\par
 
-No contexto de um agente cognitivo, um conjunto de crenças é chamado de banco de conhecimento. Esse é continuamente atualizado com as percepções do agente, assim como é usado para verificar condições necessárias para a escolha de um próximo plano de ação. Na Figura \ref{fig:agente-BDI} pode-se observar a arquitetura de um agente deliberativo que age no formato de \textit{Beliefs, Desire and Intentions} \abreviatura{BDI}{Beliefs Desire Intentions}(BDI), em português crenças, desejos e intenções.
+No contexto de um agente cognitivo, um conjunto de crenças é chamado de banco de conhecimento. Esse é continuamente atualizado com as percepções do agente, assim como é usado para verificar condições necessárias para a escolha de um próximo plano de ação. Na Figura \ref{fig:agente-BDI} pode-se observar a arquitetura de um agente deliberativo que age no formato de \textit{Beliefs, Desire and Intentions} \abreviatura{BDI}{\textit{Beliefs Desire Intentions}}(BDI), em português crenças, desejos e intenções.
 
 \begin{figure}[!htb]
 	\centering
@@ -52,7 +52,7 @@ No contexto de um agente cognitivo, um conjunto de crenças é chamado de banco de
 	\includegraphics[width=1\textwidth]{figuras/bdiArch.jpg}
 \end{figure}
 
-Os agentes BDI são aqueles que mantém uma série de objetivos, armazenados na forma de desejos, mantém planos na forma de intenções e possuem crenças, que são informações que guardam de forma simbólica sobre o ambiente. Utilizando lógica de predicados de primeira ordem, um agente BDI pode escolher qual plano melhor se encaixa na sua visão de mundo atual.
+Os agentes BDI são aqueles que mantém uma série de objetivos, armazenados na forma de desejos, mantém planos na forma de intenções e possuem crenças que são informações que guardam de forma simbólica sobre o ambiente. Utilizando lógica de predicados de primeira ordem, um agente BDI pode escolher qual plano melhor se encaixa na sua visão de mundo atual.
 
 \subsubsection{Agentes Híbridos}
 

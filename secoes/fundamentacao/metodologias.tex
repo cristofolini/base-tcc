@@ -1,16 +1,16 @@
-A partir dos conceitos de modelagem de agentes apresentados, foram elaboradas diversas metodologias para a concepÃ§Ã£o e o desenvolvimento destes agentes. Em funÃ§Ã£o da sua utilidade em relaÃ§Ã£o ao desenvolvimento de agentes \emph{BDI}, sem deixar de ser Ãºtil para qualquer outro tipo de sistema multiagente, a metodologia utilizada no decorrer deste trabalho Ã© a chamada \emph{Prometheus} \cite{prometheus}.
+A partir dos conceitos de modelagem de agentes apresentados, foram elaboradas diversas metodologias para a concepção e o desenvolvimento destes agentes. Em função da sua utilidade em relação ao desenvolvimento de agentes \emph{BDI}, sem deixar de ser útil para qualquer outro tipo de sistema multiagente, a metodologia utilizada no decorrer deste trabalho é a chamada \emph{Prometheus} \cite{prometheus}.
 
-A metodologia \emph{Prometheus} consiste de trÃªs fases, descritas por \citeonline{prometheus} da seguinte forma:
+A metodologia \emph{Prometheus} consiste de três fases, descritas por \citeonline{prometheus} da seguinte forma:
 \begin{itemize}
-  \item EspecificaÃ§Ã£o de Sistema: Ã© focada em identificar as funcionalidades bÃ¡sicas do sistema como um todo, tais como suas entradas (percepÃ§Ãµes), saÃ­das (aÃ§Ãµes), e quaisquer fontes importantes de dados compartilhados;
-  \item Modelagem Arquitetural: utiliza as saÃ­das da fase anterior para determinar quais agentes o sistema conterÃ¡ e como eles irÃ£o interagir;
-  \item Modelagem Detalhada: Ã© onde sÃ£o especificados os componentes internos de cada agente e como tal agente realizarÃ¡ suas tarefas dentro do sistema.
+  \item Especificação de Sistema: é focada em identificar as funcionalidades básicas do sistema como um todo, tais como suas entradas (percepções), saídas (ações), e quaisquer fontes importantes de dados compartilhados;
+  \item Modelagem Arquitetural: utiliza as saídas da fase anterior para determinar quais agentes o sistema conterá e como eles irão interagir;
+  \item Modelagem Detalhada: é onde são especificados os componentes internos de cada agente e como tal agente realizará suas tarefas dentro do sistema.
 \end{itemize}
 
 \begin{figure}[!htb]
 	\centering
-	\caption{Diagrama explicitando as fases da metodologia \emph{Prometheus}, obtido de \cite{promeheus}.}\label{fig:promehteus}
-	\includegraphics[width=1\textwidth]{figuras/promehteus.gif}
+	\caption{Diagrama explicitando as fases da metodologia \emph{Prometheus}, obtido de \cite{prometheus}.}\label{fig:promehteus}
+	\includegraphics[width=1\textwidth]{figuras/prometheus.png}
 \end{figure}
 
-Vale notar que estas fases descrevem um processo iterativo de engenharia de software, e nÃ£o um modelo de desenvolvimento do tipo cascata, sendo que estas fases nÃ£o devem ser necessariamente executadas em alguma ordem em particular. \citeonline{prometheus} sugerem repetir o processo inteiro mais de uma vez, com um foco diferente a cada repetiÃ§Ã£o, sendo que a primeira iteraÃ§Ã£o pode consistir inteiramente de atividades associadas a fase de especificaÃ§Ã£o de sistema, iteraÃ§Ãµes subsequentes envolverÃ£o uma mistura de atividades de fases diferentes, eventualmente com uma presenÃ§a maior de atividades das fases seguintes. 
+Vale notar que estas fases descrevem um processo iterativo de engenharia de software, e não um modelo de desenvolvimento do tipo cascata, sendo que estas fases não devem ser necessariamente executadas em alguma ordem em particular. \citeonline{prometheus} sugerem repetir o processo inteiro mais de uma vez, com um foco diferente a cada repetição, sendo que a primeira iteração pode consistir inteiramente de atividades associadas a fase de especificação de sistema, iterações subsequentes envolverão uma mistura de atividades de fases diferentes, eventualmente com uma presença maior de atividades das fases seguintes. 

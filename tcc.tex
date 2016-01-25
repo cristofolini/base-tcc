@@ -1,14 +1,14 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Universidade Federal de Santa Catarina             
-% Biblioteca Universitária                     
+% Universidade Federal de Santa Catarina
+% Biblioteca Universitária
 %----------------------------------------------------------------------
 % Exemplo de utilização da documentclass ufscThesis
-%----------------------------------------------------------------------                                                           
+%----------------------------------------------------------------------
 % (c)2013 Roberto Simoni (roberto.emc@gmail.com)
 %         Carlos R Rocha (cticarlo@gmail.com)
 %         Rafael M Casali (rafaelmcasali@yahoo.com.br)
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\documentclass{ufscThesis} % Definicao do documentclass ufscThesis	
+\documentclass{ufscThesis} % Definicao do documentclass ufscThesis
 
 %----------------------------------------------------------------------
 % Pacotes usados especificamente neste documento
@@ -18,7 +18,7 @@
 %----------------------------------------------------------------------
 % Comandos criados pelo usuário
 \newcommand{\afazer}[1]{{\color{red}{#1}}} % Para destacar uma parte a ser trabalhada
-%\newcommand{\ABNTbibliographyname}{REFERÊNCIAS}
+\newcommand{\ABNTbibliographyname}{REFERÊNCIAS}
 
 %----------------------------------------------------------------------
 
@@ -56,11 +56,11 @@
 \input{secoes/pretexto/resumo.tex}
 
 %----------------------------------------------------------------------
-% Início do documento                                
+% Início do documento
 \begin{document}
 %--------------------------------------------------------
 % Elementos pré-textuais
-%\capa  
+%\capa
 \folhaderosto % Se nao quiser imprimir a ficha, é só não usar o parâmetro
 \folhaaprovacao
 %\paginadedicatoria
@@ -70,10 +70,10 @@
 \paginaabstract
 %\pretextuais % Substitui todos os elementos pre-textuais acima
 \listadefiguras % as listas dependem da necessidade do usuário
-%\listadetabelas 
+%\listadetabelas
 \listadeabreviaturas
 %\listadesimbolos
-\sumario 
+\sumario
 %--------------------------------------------------------
 % Elementos textuais
 
@@ -82,6 +82,9 @@
 
 \chapter{Fundamentação}
 \input{secoes/fundamentacao/fundamentacao.tex}
+
+\chapter{Trabalhos Relacionados}
+\input{secoes/trabalhos/trabalhos.tex}
 
 \bibliographystyle{ufscThesis/ufsc-alf}
 \bibliography{bibliografia}

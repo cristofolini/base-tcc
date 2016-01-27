@@ -15,9 +15,9 @@ Esta seção é designada a apresentar as plataformas de SMA mais usadas, seus pont
 	
 \end{itemize}
 
-As JVMs instanciadas atuam, cada uma, como um container de agentes do JADE. Cada container é responsável por gerenciar localmente o ciclo de vida de seus agentes instanciados, assim como deve manter as informações necessárias para realizar a comunicação dos seus agentes com agentes residentes em outros containers.\par
+As JVMs instanciadas atuam, cada uma, como um container de agentes do JADE. Cada container é responsável por gerenciar localmente o ciclo de vida de seus agentes instanciados, assim como deve manter as informações necessárias para realizar a comunicação dos seus agentes com agentes residentes em outros containers, tais como um /textit{buffer} contendo o endereço de agentes externos cujo foi trocado mensagens recentemente.\par
 
-Uma JVM do JADE irá se portar como um \textit{front-end} da plataforma para o ambiente externo. Este container especial possui os agentes de gerência descritos pela FIPA e é responsável por representar toda a plataforma para com outras plataformas de SMA externas. Assim, esta instância é responsável, dentre outras coisas, por fazer o roteamento das mensagens trocadas entre agentes internos e externos à plataforma. A Figura \ref{fig:jadearq} representa a arquitetura do JADE de forma visual.
+Uma JVM do JADE irá assumir o papel de fachada da plataforma para o ambiente externo. Este container especial possui os agentes de gerência descritos pela FIPA e é responsável por representar toda a plataforma para com plataformas de SMA de terceiros. Assim, esta instância é responsável, dentre outras coisas, por fazer o roteamento das mensagens trocadas entre agentes internos e externos à plataforma, registro de agentes e descoberta de agentes em outras plataformas. A Figura \ref{fig:jadearq} representa a arquitetura do JADE de forma visual.
 
 \begin{figure}[!htb]
 	\centering

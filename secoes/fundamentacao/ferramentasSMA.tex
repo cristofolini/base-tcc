@@ -1,8 +1,8 @@
-Esta seção é designada a apresentar as plataformas de SMA mais usadas, seus pontos fortes, fracos e características.
+Esta seção é designada a apresentar as plataformas de SMA mais utilizadas, seus pontos fortes, fracos e características.
 
 \subsubsection{JADE}
 
-\textit{Java Agent DEvelopment} \abreviatura{JADE}{\textit{Java Agent Development}}(JADE)\cite{jade} é um \textit{framework} para desenvolvimento de aplicações de agentes compatível com as especificações da FIPA para interoperabilidade entre sistemas multiagentes, desenvolvido inicialmente pela Telecom Italia (que ainda é detentora de direitos autorais sobre a ferramenta), é distribuída em formato de código aberto sob as condições da LGPLv2 \cite{lgpl2}. O objetivo da ferramenta JADE é providenciar ao desenvolvedor uma maneira simples de desenvolver seu programa, facilitando a implementação dos padrões da FIPA. As características do JADE, importantes para o problema apresentado neste trabalho, são:
+\textit{Java Agent DEvelopment} \abreviatura{JADE}{\textit{Java Agent Development}}(JADE)\cite{jade} é um \textit{framework} para desenvolvimento de aplicações de agentes compatível com as especificações da FIPA para interoperabilidade entre sistemas multiagentes, desenvolvido inicialmente pela Telecom Italia (que ainda é detentora de direitos autorais sobre a ferramenta), é distribuída em formato de código aberto sob as condições da LGPLv2 \cite{lgpl2}. O objetivo da ferramenta JADE é providenciar ao desenvolvedor uma maneira simples de desenvolver seu programa, facilitando a implementação dos padrões da FIPA. As características do JADE importantes para o problema apresentado neste trabalho são:
 
 \begin{itemize}
 	\item Plataforma que segue o padrão FIPA, incluindo os três agentes, necessários e descritos, ativados junto com a inicialização da plataforma;
@@ -15,7 +15,7 @@ Esta seção é designada a apresentar as plataformas de SMA mais usadas, seus pont
 	
 \end{itemize}
 
-As JVMs instanciadas atuam, cada uma, como um container de agentes do JADE. Cada container é responsável por gerenciar localmente o ciclo de vida de seus agentes instanciados, assim como deve manter as informações necessárias para realizar a comunicação dos seus agentes com agentes residentes em outros containers, tais como um /textit{buffer} contendo o endereço de agentes externos cujo foi trocado mensagens recentemente.\par
+As JVMs instanciadas atuam, cada uma, como um container de agentes do JADE. Cada container é responsável por gerenciar localmente o ciclo de vida de seus agentes instanciados, assim como deve manter as informações necessárias para realizar a comunicação dos seus agentes com agentes residentes em outros containers, tais como um \textit{buffer} contendo o endereço de agentes externos cujo foi trocado mensagens recentemente.\par
 
 Uma JVM do JADE irá assumir o papel de fachada da plataforma para o ambiente externo. Este container especial possui os agentes de gerência descritos pela FIPA e é responsável por representar toda a plataforma para com plataformas de SMA de terceiros. Assim, esta instância é responsável, dentre outras coisas, por fazer o roteamento das mensagens trocadas entre agentes internos e externos à plataforma, registro de agentes e descoberta de agentes em outras plataformas. A Figura \ref{fig:jadearq} representa a arquitetura do JADE de forma visual.
 
@@ -25,7 +25,7 @@ Uma JVM do JADE irá assumir o papel de fachada da plataforma para o ambiente ext
 	\includegraphics[width=1\textwidth]{figuras/jadearq.png}
 \end{figure}
 
-Agentes devem ser capazes de se comunicar com outros agentes tanto dentro da mesma plataforma quanto com agentes externos a esta. Os agentes externos são aqueles alocados em outros SMAs, fora do domínio da aplicação. Para que a troca de mensagens seja possível neste caso, ambas as plataformas devem respeitar o mesmo protocolo.\par
+Agentes devem ser capazes de se comunicar com outros agentes tanto dentro da mesma plataforma quanto com agentes externos a esta. Os agentes externos são aqueles alocados em outros SMAs fora do domínio da aplicação. Para que a troca de mensagens seja possível, ambas as plataformas devem respeitar o mesmo protocolo.\par
 
 Toda a comunicação de agentes feita pelo JADE acontece na forma de troca de mensagens no formato FIPA. Entretanto as tecnologias usadas para alcançar agentes diferem de acordo com a localização do destinatário em relação ao remetente. A comunicação intra-plataforma (entre agentes residentes do mesmo container ou de containers diferentes) é implementada usando soluções fornecidas pela técnologia Java. Porém a comunicação onde o destino é externo à plataforma são utilizados protocolos \textit{Internet Inter-ORB Protocol}\abreviatura{IIOP}{\textit{Internet Inter-ORB Protocol}} (IIOP), sendo este um protocolo para sistemas distribuídos que possibilita a comunicação entre sistemas escritos em linguagens diferentes \cite{jade}. Os diferentes cenários de troca de mensagens são descritos da seguinte forma:
 
@@ -65,7 +65,7 @@ O Jadex faz uso de \abreviatura{XML}{\textit{Extensible Markup Language}} \texti
 \begin{figure}[!htb]
 	\centering
 	\caption{Representação de um agente JADEX \cite{pokahr2005jadex}.}\label{fig:jadexagent}
-	\includegraphics[width=1\textwidth]{figuras/jadex.png}
+	\includegraphics[width=1\textwidth]{figuras/jadex2.png}
 \end{figure}
 
 O JADEX é executado sobre a plataforma do JADE. A integração ocorre através de uma ferramenta de integração desenvolvida para injetar os agentes JADEX dentro do banco de agentes do JADE. Estes agentes são então instanciados através de modelos criados a partir de seus arquivos descritores e seus comportamentos são mapeados como \emph{cyclic behaviours}, uma forma de comportamento disponível provido pela plataforma JADE. Dessa forma, os planos são executados passo a passo e mantém acesso sobre todas as características do agente. O JADEX, dessa forma, acaba servindo como uma extensão para a plataforma JADE, complementando-a com a possibilidade de especificar agentes cognitivos complexos que usam a estratégia de BDI para tomada de decisões.

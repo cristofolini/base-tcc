@@ -24,3 +24,23 @@ O \emph{framework} proposto por \citeonline{venti2012} utiliza OCCI como camada 
 \citeonline{mascloud} propõem uma plataforma de gerência de recursos de um serviço na nuvem no nível de PaaS e SaaS, denominada \emph{+Cloud}. A plataforma é um SMA em um ambiente organizado virtualmente onde uma nuvem usa o sistema afim de obter gerência autônoma de seus recursos. A \emph{+Cloud} é demonstrada através da explicação de todos os agentes que serão usados dentro do escopo do \emph{framework}, suas relações e onde eles estarão instanciados no contexto do ambiente.
 
 A proposta elaborada por \citeonline{mascloud} diferencia-se deste trabalho no fato dos autores terem um escopo voltado a PaaS e SaaS, enquanto este trabalho é integralmente focado em IaaS. Vale citar que enquanto os autores apresentam uma explicação detalhada da sua abordagem do problema e da relação de \emph{cloud} com SMAs, algumas lacunas ficaram evidentes no que diz respeito a implementação dos agentes e como estes interagem com os recursos físicos do ambiente.
+
+Um comparativo entre os trabalhos relacionados é apresentado na tabela 1, analisando características relevantes dos trabalhos tais como o nível de atuação das soluções propostas na nuvem e os tipos de agentes utilizados em cada solução. Também são listados as plataformas multiagente utilizadas,a ferramenta de orquestração para qual a solução foi desenvolvida e, de forma resumida, os objetivos de cada solução ao utilizar um SMA.
+
+Vale notar que apesar de três dos trabalhos relacionados atuarem no nível de IaaS, nenhum destes deixa evidente a intenção ou a possibilidade de serem implementados junto a uma ferramenta de orquestração para CN. Há também o fato de apenas um dos trabalhos relacionados explicitar estar trabalhando com uma plataforma multiagente existente, enquanto outros trabalhos implementam suas próprias soluções ou omitem esta informação por inteiro.
+
+\begin{table}[htb]
+  \caption{Comparativo entre os trabalhos relacionados.}
+  \label{tab:1}
+
+  \begin{center}
+    \begin{tabular}{p{1.8cm}||p{2.7cm}|p{1.1cm}|p{1.5cm}|p{1.7cm}|p{1.7cm}}
+      Trabalhos               & Objetivo do Uso de SMAs & Nível de Atuação & Plataforma Multiagente & Tipos de Agentes Implementados & Ferramenta de Orquestração \\ \hline \hline
+       \citeonline{hou2014}   & Automatizar gerência de serviços                  & SaaS          & -     & Reativos        & N/A \\  \hline
+       \citeonline{sim2009}   & Automatizar configuração de recursos              & IaaS          & -     & Reativos        & - \\ \hline
+       \citeonline{venti2012} & Migrar serviços e aplicações entre nuvens         & IaaS          & JADE  & Reativos        & Compatível com todas  \\  \hline
+       \citeonline{mascloud}  & Gerenciar recursos a nível de PaaS e SaaS         & PaaS + SaaS   & -     & BDI             & N/A \\ \hline
+      Este trabalho           & Automatizar o processo de consolidação            & IaaS          & JADEX & Reativos + BDI  & CloudStack  \\  \hline
+    \end{tabular}
+  \end{center}
+\end{table}

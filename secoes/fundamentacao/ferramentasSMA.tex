@@ -6,13 +6,13 @@ Esta seção é designada a apresentar as plataformas de SMA mais utilizadas, seus 
 
 \begin{itemize}
 	\item Plataforma que segue o padrão FIPA, incluindo os três agentes, necessários e descritos, ativados junto com a inicialização da plataforma;
-	
+
 	\item Plataforma de agentes distribuída. A plataforma pode ser dividida entre vários servidores, contanto que não haja \textit{firewall} entre eles, usando apenas uma aplicação em cada servidor, rodando em uma \textit{Java Virtual Machine}\abreviatura{JVM}{\textit{Java Virtual Machine}} (JVM). Agentes são implementados como uma \textit{thread} Java e suas ações paralelas são tratadas como tarefas, estas escalonadas pela própria plataforma de maneira leve e eficiente. A comunicação entre agentes na mesma JVM se dá pelo uso de \textit{Java Events};
-	
+
 	\item Transporte de mensagens dentro da mesma plataforma é feito através de transferências de objetos Java para evitar conversões de dados. Quando o receptor ou remetente não pertençe a mesma plataforma, a mensagem é automaticamente convertida para o formato FIPA;
-	
+
 	\item Suporte a agentes reativos e a agentes BDI a partir de um modelo de agente genérico.
-	
+
 \end{itemize}
 
 As JVMs instanciadas atuam, cada uma, como um container de agentes do JADE. Cada container é responsável por gerenciar localmente o ciclo de vida de seus agentes instanciados, assim como deve manter as informações necessárias para realizar a comunicação dos seus agentes com agentes residentes em outros containers, tais como um \textit{buffer} contendo o endereço de agentes externos cujo foi trocado mensagens recentemente.\par
@@ -31,11 +31,11 @@ Toda a comunicação de agentes feita pelo JADE acontece na forma de troca de mens
 
 \begin{itemize}
 	\item Mesma plataforma, mesma JVM -- as mensagens são trocadas sem invocação remota, através da chamada do método \textit{clone()} em um objeto Java \textit{ACLMessage};
-	
+
 	\item Mesma Plataforma, JVM diferente -- as mensagens são trocadas através de \textit{Remote Method Invocation}\abreviatura{RMI}{\textit{Remote Method Invocation}} (RMI), uma interface IIOP para objetos Java. O objeto \textit{ACLMessage} é serializado no remetente e des-serializado no destinatário;
-	
+
 	\item Plataformas diferentes, ambas JADE -- uma chamada direta entre ACCs é feito usando o padrão CORBA. Desta forma, um objeto Java é transformado em literal, depois em \textit{stream} de bytes IIOP pelo remetente e o processo inverso acontece no destinatário;
-	
+
 	\item Plataformas diferentes (não-JADE) -- mesmo caso que o anterior, a única mudança está no destinatário, onde o processo de tratamento do \textit{stream} de bytes no padrão FIPA é tratado como uma caixa preta.
 \end{itemize}
 
@@ -44,20 +44,20 @@ A plataforma JADE usa as facilidades e pacotes do Java para prover as funcionali
 
 \subsubsection{JADEX}
 
-JADEX é um \textit{framework} de software para a criação de agentes que seguem o modelo BDI, usando a linguagem Java \cite{jadex}. O nome JADEX deriva da ferramenta JADE, sendo que o JADEX surgiu como uma expansão para o JADE, adicionando suporte à arquitetura BDI \cite{jadex}. O JADEX teve sua origem na Universidade de Hamburgo e é distribuído atualmente em código aberto sob os termos da licença GPLv3 \cite{gpl3}. A comunidade em torno do JADEX não é tão ativa quanto a comunidade do JADE. Em compensação, a documentação disponível é mais detalhada do que a 
+JADEX é um \textit{framework} de software para a criação de agentes que seguem o modelo BDI, usando a linguagem Java \cite{jadex}. O nome JADEX deriva da ferramenta JADE, sendo que o JADEX surgiu como uma expansão para o JADE, adicionando suporte à arquitetura BDI \cite{jadex}. O JADEX teve sua origem na Universidade de Hamburgo e é distribuído atualmente em código aberto sob os termos da licença GPLv3 \cite{gpl3}. A comunidade em torno do JADEX não é tão ativa quanto a comunidade do JADE. Em compensação, a documentação disponível é mais detalhada do que a
 disponível para o JADE, com descrições do seu funcionamento e modos de uso. Tutoriais explicando as diversas funções da ferramenta e guias para iniciantes são abundantes.\par
 
 A motivação da ferramenta é prover a funcionalidade de criar agentes cognitivos orientados a BDI para plataformas de SMA com agentes genéricos. O \textit{framework} usa de técnicas de orientação a objetos para realizar a modelagem de conceitos comuns ao modelo de agentes cognitivos, tais como \cite{pokahr2005jadex}:
 
 \begin{itemize}
 	\item Crenças: modeladas tanto no formato de fatos ou conjunto de fatos.  Mudanças na base de crenças podem ser feitas de forma descritiva, modificando diretamente o conjunto de crenças de um agente;
-	
-	\item Objetivos: são o conceito principal do Jadex. Eles são tratados como desejos momentâneos de um agente e modelados de forma a representar um estado alvo do mundo. Esta modelagem é composta de um conjunto de fatos necessários para a completude do objetivo. Um agente irá sempre, direta ou indiretamente, tomar um plano de ação que visa atingir um conjunto de seus objetivos. Este conceito é modelado de forma a ser acessível pelos planos do agente, facilitando a criação e modificação de objetivos caso haja a necessidade;  
-	
+
+	\item Objetivos: são o conceito principal do Jadex. Eles são tratados como desejos momentâneos de um agente e modelados de forma a representar um estado alvo do mundo. Esta modelagem é composta de um conjunto de fatos necessários para a completude do objetivo. Um agente irá sempre, direta ou indiretamente, tomar um plano de ação que visa atingir um conjunto de seus objetivos. Este conceito é modelado de forma a ser acessível pelos planos do agente, facilitando a criação e modificação de objetivos caso haja a necessidade;
+
 	\item Planos: representam elementos comportamentais dos agentes Jadex. São compostos por um cabeçalho e um corpo. No cabeçalho de um plano estão descritas as pré-condições que farão com que este plano seja adotado. No corpo é detalhado, de forma procedural, como o agente deve agir caso esse plano seja escolhido para execução;
-	
+
 	\item Capacidades: são mecanismos para agrupamento de elementos BDI. Este conceito tem como objetivo trazer reusabilidade e organização para elementos relacionados. Capacidades são definidas como um conjunto de crenças, planos, objetivos e eventos. Este conceito é associado aos agentes, resultando em agentes que podem ter acesso a elementos e atributos de suas capacidades.
-	
+
 \end{itemize}
 
 O Jadex faz uso de \abreviatura{XML}{\textit{Extensible Markup Language}} \textit{extensible markup language} (XML) para implementar o \textit{agent definition file}\abreviatura{ADF}{\textit{Agent Definition File}} (ADF), um arquivo que descreve os elementos BDI, tais como o agente. A implementação destes elementos, no entanto, é feita através da programação de objetos Java, implementando interfaces disponíveis pelo Jadex. A Figura \ref{fig:jadexagent} apresenta um agente Jadex resumido, explicitando suas partes descritiva e procedural.
@@ -69,5 +69,3 @@ O Jadex faz uso de \abreviatura{XML}{\textit{Extensible Markup Language}} \texti
 \end{figure}
 
 O JADEX é executado sobre a plataforma do JADE. A integração ocorre através de uma ferramenta de integração desenvolvida para injetar os agentes JADEX dentro do banco de agentes do JADE. Estes agentes são então instanciados através de modelos criados a partir de seus arquivos descritores e seus comportamentos são mapeados como \emph{cyclic behaviours}, uma forma de comportamento disponível provido pela plataforma JADE. Dessa forma, os planos são executados passo a passo e mantém acesso sobre todas as características do agente. O JADEX, dessa forma, acaba servindo como uma extensão para a plataforma JADE, complementando-a com a possibilidade de especificar agentes cognitivos complexos que usam a estratégia de BDI para tomada de decisões.
-
- 

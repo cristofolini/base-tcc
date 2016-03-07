@@ -23,11 +23,20 @@ O \emph{framework} proposto por \citeonline{venti2012} utiliza OCCI como camada 
 
 \citeonline{mascloud} propõem uma plataforma de gerência de recursos de um serviço na nuvem no nível de PaaS e SaaS, denominada \emph{+Cloud}. A plataforma é um SMA em um ambiente organizado virtualmente onde uma nuvem usa o sistema afim de obter gerência autônoma de seus recursos. A \emph{+Cloud} é demonstrada através da explicação de todos os agentes que serão usados dentro do escopo do \emph{framework}, suas relações e onde eles estarão instanciados no contexto do ambiente.
 
-A proposta elaborada por \citeonline{mascloud} diferencia-se deste trabalho no fato dos autores terem um escopo voltado a PaaS e SaaS, enquanto este trabalho é integralmente focado em IaaS. Vale citar que enquanto os autores apresentam uma explicação detalhada da sua abordagem do problema e da relação de \emph{cloud} com SMAs, algumas lacunas ficaram evidentes no que diz respeito a implementação dos agentes e como estes interagem com os recursos físicos do ambiente.
+A proposta elaborada por \citeonline{mascloud} diferencia-se deste trabalho no fato dos autores terem um escopo voltado a PaaS e SaaS, enquanto este trabalho é integralmente focado em IaaS. Vale citar que enquanto os autores apresentam uma explicação detalhada da sua abordagem do problema e da relação de \emph{cloud} com SMAs, algumas lacunas ficaram evidentes no que diz respeito a implementação dos agentes e como estes interagem com os recursos físicos do ambiente.\par
+
+\citeonline{gabriel} especifica um algoritmo para efetuar a consolidação de VMs em um ambiente em nuvem, implementando este em um \textit{framework} de consolidação dentro da ferramenta \textit{Cloudstack}. Este trabalho usa dois gerentes implementados dentro da plataforma de orquestração. Desta forma, o algoritmo consegue utilizar as funções da plataforma para realizar a migração de VMs e desligamento de servidores. A pesquisa tem como objetivo fazer com que ambientes reais de CN, oferecendo serviço de IaaS, usufruam do processo de consolidação de recursos de maneira autônoma. Para atingir este objetivo, \citeonline{gabriel} analisa separadamente os \textit{clusters} dentro do ambiente usando dois tipos de gerentes:
+
+\begin{itemize}
+	\item Gerente de consolidação: responsável por analisar cada \textit{clusters} dentro do ambiente, verificando se há a possibilidade de realizar migrações afim de desligar uma máquina ociosa;
+	\item Gerente de alocação: responsável por verificar se há necessidade de ligar alguma máquina, assim como tem a responsabilidade de escolher qual servidor será ligado e liga-lo.
+\end{itemize}  
+
+Embora o trabalho não utilize a técnologia de SMA, os gerentes propostos pelo \textit{framework} possuem características de agentes inteligentes. Sendo assim, os gerenciadores responsáveis pela consolidação e alocação de servidores em um ambiente de CN, propostos neste trabalho, podem ser abordados usando técnicas formais de desenvolvimento de agentes.
 
 Um comparativo entre os trabalhos relacionados é apresentado na tabela 1, analisando características relevantes dos trabalhos tais como o nível de atuação das soluções propostas na nuvem e os tipos de agentes utilizados em cada solução. Também são listados as plataformas multiagente utilizadas,a ferramenta de orquestração para qual a solução foi desenvolvida e, de forma resumida, os objetivos de cada solução ao utilizar um SMA.
 
-Vale notar que apesar de três dos trabalhos relacionados atuarem no nível de IaaS, nenhum destes deixa evidente a intenção ou a possibilidade de serem implementados junto a uma ferramenta de orquestração para CN. Há também o fato de apenas um dos trabalhos relacionados explicitar estar trabalhando com uma plataforma multiagente existente, enquanto outros trabalhos implementam suas próprias soluções ou omitem esta informação por inteiro.
+Vale notar que apesar de quatro dos trabalhos relacionados atuarem no nível de IaaS, apenas o proposto por \citeonline{gabriel} deixa evidente a intenção ou a possibilidade de ser implementado junto a uma ferramenta de orquestração para CN. Há também o fato de apenas um dos trabalhos relacionados explicitar estar trabalhando com uma plataforma multiagente existente, enquanto outros trabalhos implementam suas próprias soluções ou omitem esta informação por inteiro.
 
 \begin{table}[htb]
   \caption{Comparativo entre os trabalhos relacionados.}
@@ -40,7 +49,8 @@ Vale notar que apesar de três dos trabalhos relacionados atuarem no nível de Iaa
        \citeonline{sim2009}   & Automatizar configuração de recursos              & IaaS          & -     & Reativos        & - \\ \hline
        \citeonline{venti2012} & Migrar serviços e aplicações entre nuvens         & IaaS          & JADE  & Reativos        & Compatível com todas  \\  \hline
        \citeonline{mascloud}  & Gerenciar recursos a nível de PaaS e SaaS         & PaaS + SaaS   & -     & BDI             & N/A \\ \hline
-      Este trabalho           & Automatizar o processo de consolidação            & IaaS          & JADEX & Reativos + BDI  & CloudStack  \\  \hline
+       \citeonline{gabriel}  & Automatizar o processo de consolidação         & IaaS   & -     & -             & \textit{Cloudstack} \\ \hline
+      Este trabalho           & Possibilitar a gerencia de recursos através de agentes inteligentes            & IaaS          & JADEX & Reativos + BDI  & \textit{Cloudstack}  \\  \hline
     \end{tabular}
   \end{center}
 \end{table}

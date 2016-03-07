@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 Devido ao crescimento da popularidade e da oferta de serviços de computação em nuvem, seja a nível de SaaS, PaaS ou Iaas, a gerência dos ambientes utilizados para fornecer estes serviços tem se tornado um tópico ativo de pesquisa, buscando-se métodos de manter e distribuir recursos computacionais de forma mais eficiente \cite{whitney2014data}.
+=======
+Devido ao crescimento da popularidade e da oferta de serviços de computação em nuvem, seja a nível de SaaS, PaaS ou IaaS, a gerência dos ambientes utilizados para fornecer estes serviços tem se tornado um tópico ativo de pesquisa, buscando-se métodos de manter e distribuir recursos computacionais de forma mais eficiente.
+>>>>>>> ae4c7f630e3ada88cbddc89bbbd33814951c52ff
 
 A proposta descrita em \citeonline{gabriel} apresenta a possibilidade de se utilizar um gerenciador para realizar a consolidação de máquinas virtuais auxiliado de uma ferramenta de orquestração, de forma a reduzir a quantidade de recursos ociosos do ambiente, alocando o maior número possível de máquinas virtuais ao menor número possível de máquinas físicas permitindo o desligamento de recursos ociosos.
 
@@ -6,4 +10,20 @@ Ao analisar os trabalhos relacionados, encontramos alguns exemplos do empregamen
 
 Já \citeonline{mascloud} propõem a utilização de um SMA para automatizar a gerência de recursos de CN a nível de PaaS e SaaS, explicitando a adequação das características de um SMA (na forma de dinamicidade, autonomia, flexibilidade, proatividade, aprendizado, etc.) à problemática de gerenciar os recursos disponíveis em uma nuvem computacional.
 
+<<<<<<< HEAD
 Tendo em vista a forma na qual diferentes autores expressam a aptitude de um SMA para gerenciar recursos de forma autônoma, dados as complicações impostas por um ambiente de CN, este trabalho propõe a expansão da solução implementada por \citeonline{gabriel} com o objetivo de integrar seu agente de consolidação a uma plataforma multiagente, permitindo assim o desenvolvimento de outros agentes que possam atuar na gerência dos recursos do ambiente tanto quanto a cooperação entre diferentes agentes.
+=======
+Tendo em vista a forma na qual diferentes autores expressam a aptitude de um SMA para gerenciar recursos de forma autônoma, dadas as complicações impostas por um ambiente de CN, este trabalho propõe a expansão da solução implementada por \citeonline{gabriel} com o objetivo de integrar seu agente de consolidação a uma plataforma multiagente, permitindo assim o desenvolvimento de outros agentes que possam atuar na gerência dos recursos do ambiente tanto quanto a cooperação entre os agentes.
+
+A plataforma multiagente será implementada através da ferramenta JADE, citada anteriormente. O JADE permite instanciar e gerenciar agentes reativos e age como uma central de comando para os agentes, sendo toda a instanciação, comunicação e gerencia das atividades dos agentes feita pela plataforma. Os agentes serão desenvolvidos utilizando a linguagem Java para descrever suas ações, planos e possíveis intenções.
+
+A plataforma será instanciada em uma máquina virtual dedicada a funções de sistema dentro de um ambiente de nuvem orquestrado pelo CloudStack. A instalação da ferramenta nessa VM deve ocorrer de forma automática, sem ser necessáia a interferência de um administrador. Para isso, serão utilizadas funções implementadas na plataforma previamente para instanciar uma máquina virtual contendo uma \emph{Java Virtual Machine}, necessária para o funcionamento da plataforma. O processo de inicialização dessa VM de sistema é descrito na figura X:
+
+%os \emph{scripts} de inicialização de VMs do CloudStack serão modificados para incluir a instalação do \emph{Java Runtime Environment}, necessário para o funcionamento da ferramenta, e o JADE. Esse processo de inicialização é descrito na Figura X.
+
+Figura X: >>DESENHAR<<
+
+%Uma vez instanciado em uma VM, o JADE tem a capacidade de detectar outras instâncias da plataforma em VMs que estejam na mesma rede através de um mecanismo de \emph{awareness} (TRADUZIR?). O JADE faz um \emph{broadcast} (pode também ser configurado para fazer um \emph{multicast}) de informações de descoberta da própria instância da plataforma e mantém uma escuta em uma porta aberta para receber informações de descobrimento de outras instâncias espalhadas pela rede.
+
+%Assim que uma outra instância do JADE é descoberta na rede, um agente de proxy é criado na plataforma local. Esse agente é uma representação local da plataforma remota e tem o objetivo de facilitar as interações com as outras VMs na rede. Sendo estabelecidas estas relações, agentes instanciados em uma VM podem interagir abertamente com agentes intanciados em outra, sendo a troca de mensagens e informações entre agentes encarregada ao JADE.
+>>>>>>> ae4c7f630e3ada88cbddc89bbbd33814951c52ff

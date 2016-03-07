@@ -1,7 +1,7 @@
 Dadas a complexidade e heterogeneidade de ambientes de computação em nuvem, contendo inúmeros componentes e variáveis dinâmicas interligadas, a gerência destes ambientes torna-se humanamente impossível \cite{forecasting}. Tendo isso em vista, ferramentas foram criadas com o objetivo de orquestrar a infraestrutura do ambiente, realizando a ligação dos diferentes componentes como servidores de armazenamento, virtualização e dispositivos de redes para prover a abstração de uma nuvem computacional.
 
 \citeonline{gabriel} cita cinco componentes que compõem as ferramentas disponíveis para orquestração:
-\begin{enumerate} 
+\begin{enumerate}
  \item Um gerente de identidades que realiza a gerência das credenciais dos usuários (autenticação e autorização), possibilitando segurança na organização da infraestrutura;
  \item Um gerente de alocação que aloca máquinas virtuais quando são instanciadas, ligadas ou migradas;
  \item Um \emph{hypervisor} que é o componente que interage com diferentes virtualizadores, sendo responsável por enviar comandos para cada cluster;
@@ -16,5 +16,5 @@ A Figura \ref{fig:orquestracao}, retirada de \citeonline{gabriel}, apresenta um 
  	\caption{Modelo de uma ferramenta de orquestração \cite{gabriel}.}\label{fig:orquestracao}
  	\includegraphics[width=1\textwidth]{figuras/ferramentasOrquestracao.jpg}
  \end{figure}
- 
+
 A ferramenta escolhida por \citeonline{gabriel}, que também será utilizada nesse trabalho, é o CloudStack \cite{cloudstack}. A escolha é motivada pelos fatos de que a ferramenta demonstra uma evolução constante num projeto que mantém uma comunidade participativa, documentação completa e detalhada e o uso de tecnologias conhecidas para armazenamento de dados.

@@ -1,22 +1,92 @@
-Devido ao crescimento da popularidade e da oferta de serviços de computação em nuvem, seja a nível de SaaS, PaaS ou Iaas, a gerência dos ambientes utilizados para fornecer estes serviços tem se tornado um tópico ativo de pesquisa, buscando-se métodos de manter e distribuir recursos computacionais de forma mais eficiente \cite{whitney2014data}.
+Devido ao crescimento da popularidade e da oferta de serviços de computação em nuvem, seja a nível de SaaS, PaaS ou Iaas, a gerência dos ambientes utilizados para fornecer estes serviços tem se tornado um tópico ativo de pesquisa, buscando-se métodos de manter e distribuir recursos computacionais em ambientes de CN de forma mais eficiente \cite{whitney2014data}. Recentemente pode-se encontrar trabalhos que propõem modelos de sociedades de agentes para realizar tal função de maneira autonoma e distribuida, constatando o interesse de várias pesquisas no casamento dos paradigmas de SMA e CN.
 
+Ao analisar os trabalhos relacionados, encontramos exemplos do empregamento de SMAs na gerência automatizada tanto de recursos quanto serviços e sistemas. \citeonline{hou2014} utilizam características intrínsecas a um SMA para lidar com obstáculos típicos de um ambiente de CN como a heterogeneidade dos equipamentos do ambiente e a dinamicidade da demanda dos clientes. Já \citeonline{mascloud} propõem a utilização de um SMA para automatizar a gerência de recursos de CN a nível de PaaS e SaaS, explicitando a adequação das características de um SMA (na forma de dinamicidade, autonomia, flexibilidade, proatividade, aprendizado, etc.) à problemática de gerenciar os recursos disponíveis em uma nuvem computacional.
 
-A proposta descrita em \citeonline{gabriel} apresenta a possibilidade de se utilizar um gerenciador para realizar a consolidação de máquinas virtuais auxiliado de uma ferramenta de orquestração, de forma a reduzir a quantidade de recursos ociosos do ambiente, alocando o maior número possível de máquinas virtuais ao menor número possível de máquinas físicas permitindo o desligamento de recursos ociosos.
+Algo que pode ser observado nestes trabalhos é o fato de que muitos não mencionam o uso de plataformas multiagentes. A razão da omissão destas plataformas não traz impactos nos modelos propostos pelos autores, no entanto o uso destas trazem vantagens ao modelo de comunidade de agentes, uma vez que as plataformas auxiliam a criar o arcabouço para que o sistema possa operar de forma distribuida e respeitar padrões tais como os que são levantados pela FIPA. Além disso, poucos mencionam o uso de ferramentas de orquestração para atuar nestes ambientes, ou a ferramenta usada para manipular os recursos físicos, necessária para a gerência destes. Mesmo omitindo tais componentes, a escolha destes impacta a implementação final dos modelos e devem ser considerados em um ambiente reais de CN uma vez que estes são complexos, distribuidos e heterogêneos, tornando a gerencia dos recursos um desafio de se fazer sem o auxilio das ferramentas de orquestração. 
 
-Ao analisar os trabalhos relacionados, encontramos alguns exemplos do empregamento de SMAs na gerência automatizada de recursos, serviços e sistemas. \citeonline{hou2014} utilizam características intrínsecas a um SMA para lidar com obstáculos típicos de um ambiente de CN como a heterogeneidade dos equipamentos do ambiente e a dinamicidade da demanda dos clientes. É possível traçar um paralelo destes obstáculos com os quais são enfrentados por \citeonline{gabriel} e serão abordados neste trabalho.
+A proposta descrita em \citeonline{gabriel} apresenta a possibilidade de se utilizar um gerente de consolidação auxiliado de uma ferramenta de orquestração, de forma a reduzir a quantidade de recursos ociosos do ambiente, alocando as máquinas virtuais ao menor número possível de recursos físicos, permitindo o desligamento de recursos ociosos. O trabalho também usa um gerente de alocação para reativar servidores desligados para que o ambiente possa ter mais recursos ociosos para atender uma demanda crescente. Um ponto discrepante sobre \citeonline{gabriel} é o fato do trabalho não apresentar uma abordagem baseada em sistemas multiagentes. Tendo em vista a forma na qual diferentes autores expressam a aptitude de um SMA para gerenciar recursos de forma autônoma, dadas as complicações impostas por um ambiente de CN, este trabalho propõe a expandir a solução implementada por \citeonline{gabriel}.
 
-Já \citeonline{mascloud} propõem a utilização de um SMA para automatizar a gerência de recursos de CN a nível de PaaS e SaaS, explicitando a adequação das características de um SMA (na forma de dinamicidade, autonomia, flexibilidade, proatividade, aprendizado, etc.) à problemática de gerenciar os recursos disponíveis em uma nuvem computacional.
+Analisando o modelo de componentes de uma ferramenta de orquestração proposto pela solução de \citeonline{gabriel} na Figura \ref{fig:arquiteturaExp}, nota-se, em verde, as modificações realizadas pelo trabalho, sendo estas a adição de um novo componente chamado gerente de consolidação e a modificação do já existente gerente de alocação. Tais mudanças são oriundas das adições dos gerentes autonomos cujo objetivos são a consolidação e re-alocação de máquinas dentro do ambiente de CN. Para que tais gerentes possam ser modelados na forma de agentes inteligentes, é necessário que seja providenciado um local onde estes agentes possam residir dentro do ambiente. Tal passo é justificado pela necessidade que os agentes terão de se comunicar com a ferramenta de orquestração e a forma com que essa comunicação se realizará depende de como estes agentes serão colocados dentro do ambiente. Deve-se observar que os gerentes desenvolvidos por \citeonline{gabriel} atuam acoplados ao \textit{Cloudstack}, o que pode se tornar prejudicial a partir do momento em que seja identificada a necessidade de diferentes gerentes. Dessa forma a desacoplação dos gerentes e implementação usando a técnologia de SMA acarretará em um melhor processo de escalabilidade à solução existente. 
 
-Tendo em vista a forma na qual diferentes autores expressam a aptitude de um SMA para gerenciar recursos de forma autônoma, dadas as complicações impostas por um ambiente de CN, este trabalho propõe a expansão da solução implementada por \citeonline{gabriel} com o objetivo de integrar seu agente de consolidação a uma plataforma multiagente, permitindo assim o desenvolvimento de outros agentes que possam atuar na gerência dos recursos do ambiente tanto quanto a cooperação entre os agentes.
+\begin{figure}[!htb]
+	\centering
+	\caption{Componentes de uma ferramenta de orquestração expandida pelo \textit{framework}, retirado de \cite{gabriel}.}\label{fig:arquiteturaExp}
+	\includegraphics[width=1\textwidth]{figuras/neo_orq.png}
+\end{figure}
 
-A plataforma multiagente será implementada através da ferramenta JADE, citada anteriormente. O JADE permite instanciar e gerenciar agentes reativos e age como uma central de comando para os agentes, sendo toda a instanciação, comunicação e gerencia das atividades dos agentes feita pela plataforma. Os agentes serão desenvolvidos utilizando a linguagem Java para descrever suas ações, planos e possíveis intenções.
+Os agentes inteligentes usados por uma ferramenta de consolidação podem ser requisitado em vários segmentos desta. A partir do momento em que todos os agentes residirem em uma plataforma de SMA, pode-se unificar o acesso a eles através de uma interface visível à ferramenta de orquestração, que por sua vez se conecta à plataforma. Uma abordagem desse tipo adicionaria um componente a mais na ferramenta de orquestração, porém manteria a lógica dos agentes desacoplada da aplicação, assim como permitiria que outros segmentos alheios ao processo de consolidação também usem agentes inteligentes futuramente. Para alcançar esse objetivo, este trabalho propõe uma mudança nos componentes da ferramenta de orquestração afim de adicionar uma plataforma de SMA, acessível pelos seus nodos de gerência, assim como uma interface para controla-la. O novo componente a ser adicionado chamaria-se de gerente de agentes.
 
-A plataforma será instanciada em uma máquina virtual dedicada a funções de sistema dentro de um ambiente de nuvem orquestrado pelo CloudStack. A instalação da ferramenta nessa VM deve ocorrer de forma automática, sem ser necessáia a interferência de um administrador. Para isso, serão utilizadas funções implementadas na plataforma previamente para instanciar uma máquina virtual contendo uma \emph{Java Virtual Machine}, necessária para o funcionamento da plataforma. O processo de inicialização dessa VM de sistema é descrito na figura X:
+\section{ARQUITETURA DO GERENTE DE AGENTES}
 
-%os \emph{scripts} de inicialização de VMs do CloudStack serão modificados para incluir a instalação do \emph{Java Runtime Environment}, necessário para o funcionamento da ferramenta, e o JADE. Esse processo de inicialização é descrito na Figura X.
+Segundo a Figura \ref{fig:arquiteturaExp}, o uso do \textit{framework} proposto por \citeonline{gabriel} incrementa o número de elementos básicos de uma ferramenta de orquestração de 5 para 6. Na expansão proposta por este trabalho, os gerentes modificados por \citeonline{gabriel} serão modelados na forma de agentes, indicando que haverá ajustes nos elementos de alocação e consolidação. Além destes ajustes, esta proposta irá adicionar à ferramenta de orquestração a plataforma de agentes JADE. Com o propósito de manter a comunicação da ferramenta de orquestração com a plataforma e os agentes que nela residem, será modelado um novo elemento da ferramenta de orquestração, o gerente de agentes. A imagem \ref{fig:arquiteturaExp2} representa os elementos da ferramenta de orquestração proposto por este trabalho, indicando em verde novas adições e em amarelo segmentos já existentes que serão modificados.
 
-Figura X: >>DESENHAR<<
+\begin{figure}[!htb]
+	\centering
+	\caption{Componentes de uma ferramenta de orquestração incrementados pelo gerente de agente.}\label{fig:arquiteturaExp2}
+	\includegraphics[width=1\textwidth]{figuras/arquitetura_orquestracao_nova.png}
+\end{figure}
 
-%Uma vez instanciado em uma VM, o JADE tem a capacidade de detectar outras instâncias da plataforma em VMs que estejam na mesma rede através de um mecanismo de \emph{awareness} (TRADUZIR?). O JADE faz um \emph{broadcast} (pode também ser configurado para fazer um \emph{multicast}) de informações de descoberta da própria instância da plataforma e mantém uma escuta em uma porta aberta para receber informações de descobrimento de outras instâncias espalhadas pela rede.
+As atribuições do gerente de agentes podem ser ainda divididas em dois grupos de atividades:
 
-%Assim que uma outra instância do JADE é descoberta na rede, um agente de proxy é criado na plataforma local. Esse agente é uma representação local da plataforma remota e tem o objetivo de facilitar as interações com as outras VMs na rede. Sendo estabelecidas estas relações, agentes instanciados em uma VM podem interagir abertamente com agentes intanciados em outra, sendo a troca de mensagens e informações entre agentes encarregada ao JADE.
+\begin{itemize}
+	\item Gerenciar a plataforma de SMA: através da manutenção de ciclo de vida das instancias dos containers de agentes; 
+	\item Servir o acesso aos agentes: facilitando a instância dos agentes que residem na plataforma de SMA e que serão requisitados pelos elementos da ferramenta de orquestração.
+\end{itemize}
+
+Observando os grupos de atribuições, pode-se derivar duas entidades para compor o gerente de agentes. Uma primeira entidade chamada de gerente de plataforma, responsável por conectar a ferramenta de orquestração com a plataforma de SMA, permitindo que a ferramenta gerencie também a plataforma. A segunda entidade é o servidor de agentes, responsável por conectar os agentes residentes da plataforma de SMA à ferramenta de orquestração, permitindo que agentes sejam criados e destruidos seguindo a demanda do ambiente. A própria plataforma de SMA pode ser vista como uma terceira entidade membro da arquitetura do gerente de agentes, porém esta não encontra-se diretamente conectada com a ferramenta de orquestração. O objetivo de não acoplar a plataforma diretamente é uma maneira de garantir a modularidade do gerente de agentes. Desse modo, quando outros segmentos da ferramenta de orquestração necessitarem de um agente eles poderão requisitar a criação deste através do servidor de agentes, independente de qual plataforma está sendo usada pelo módulo do gerente de agentes. A Figura \ref{fig:gerente_agentes} expande a visão deste segmento, mostrando a conexão das entidades que o compõe e suas relações.
+
+\begin{figure}[!htb]
+	\centering
+	\caption{Relações entre componentes do gerente de agentes e elementos de uma ferramenta de orquestração.}\label{fig:gerente_agentes}
+	\includegraphics[width=1\textwidth]{figuras/gerenteAgentes.png}
+\end{figure}
+
+As relações apresentadas na Figura \ref{fig:gerente_agentes} mostram o sentido das trocas de mensagens entre os componentes do gerente de agentes e o restante da ferramenta de orquestração. Pode-se observar que o servidor de agentes não precisa de nenhum recurso externo ao gerente de agentes, necessitando apenas se comunicar com o gerente de plataforma para obter acesso a plataforma de SMA e em seguida com a plataforma para que consiga requisitar a criação ou acesso a um agente. O gerente de plataforma por sua vez precisa de recursos alheios ao gerente de agentes, uma vez que é necessário a existência de uma VM de sistema para que a plataforma de SMA seja instânciada sobre. Mais detalhes sobre o processo de criação de uma plataforma serão explicados na próxima subseção.  
+
+\subsection{GERENTE DE PLATAFORMA}
+
+A plataforma multiagente será implementada através da ferramenta JADE, que permite instanciar e gerenciar agentes reativos e age como uma central de comando para os agentes, sendo toda a instanciação, comunicação e gerencia das atividades dos agentes feita pela própria plataforma. O JADE será instanciada em uma máquina virtual dedicada a funções de sistema dentro do ambiente de CN orquestrado pelo \textit{CloudStack}. A instalação da ferramenta nessa VM deve ocorrer de forma automática, sem ser necessáia a interferência de um administrador. Para isso, serão utilizadas funções implementadas no \textit{Cloudstack} previamente para instanciar uma máquina virtual contendo uma \emph{Java Virtual Machine}, necessária para o funcionamento do JADE. O processo de inicialização dessa VM de sistema é descrito no Algoritmo \ref{initJade}. Este procedimento é inicializado pelo gerente da plataforma acoplado ao \textit{Cloudstack}, que a partir desse ponto tem conciência da presença da instância da plataforma JADE e de seus containers de agentes.
+
+\begin{algorithm}[!htb]
+	\caption{Inicialização de nodo JADE}\label{initJade}
+	\begin{algorithmic}[1]
+		\Procedure{InicializaJADE}{$tipo$}
+			\State $gp \gets obterGerentePlataforma()$
+			\State $vm \gets novaVMSistema()$
+			\State $gp.carregarDependencias(vm)$
+			\State $gp.instanciarJADE(vm, tipo)$  
+		\EndProcedure
+	\end{algorithmic}
+\end{algorithm}
+
+No algoritmo 1 pode-se notar que após a instância de uma VM (\textit{linha 3}) e o carregamento dos pacotes necessários para inicializar o JADE (\textit{linha 4}) é possível instanciar um nodo da plataforma (\textit{linha 5}). Entretanto a plataforma JADE é uma ferramenta de SMA distribuida, sendo assim os agentes podem ser instanciados tanto no nodo principal do JADE, chamado de \textit{main container}, quanto em outros nodos, chamados apenas de \textit{container}, como pode ser visto na Figura \ref{fig:jadearq}. A existência de diferentes tipos de nodos dentro de uma única plataforma distribuida implica que deve-se declarar que tipo de nodo está sendo criado com uma requisição (\textit{parâmetro "tipo" no algoritmo 1}). Dessa forma existem três diferentes objetivos ao inicializar uma VM com o objetivo de comportar o JADE:
+
+\begin{itemize}
+	\item Criação da plataforma JADE: desta forma é criado o primeiro \textit{main container} cujo contém os agentes necessários para garantir as especificações da FIPA. Após a existência deste \textit{main container} é possivel que outros \textit{containers} venham a ser criados e registrados a esta plataforma;
+	\item Criação de um \textit{container} de agentes: com o objetivo de distribuir os agentes da plataforma ao longo do ambiente;
+	\item Criação de um \textit{main container} de agentes: pode ser realizado para obter redundância do \textit{main container} principal, fazendo com que a plataforma torne-se um pouco mais tolerante a faltas em caso do desligamento da VM em que o primeiro nodo da plataforma foi instanciado. 
+\end{itemize}
+
+Uma vez instanciado em uma VM, o JADE tem a capacidade de detectar outras instâncias da plataforma em VMs que estejam na mesma rede através de um mecanismo de percepção. O JADE faz um \textit{broadcast} (pode também ser configurado para fazer um \textit{multicast}) de informações de descoberta da própria instância da plataforma e mantém uma escuta em uma porta aberta para receber informações de descobrimento de outras instâncias espalhadas pela rede. Assim que uma outra instância do JADE é descoberta na rede, um agente de proxy é criado na plataforma local. Esse agente é uma representação local da plataforma remota e tem o objetivo de facilitar as interações com as outras VMs na rede. Sendo estabelecidas estas relações, agentes instanciados em uma VM podem interagir abertamente com agentes intanciados em outra, sendo a troca de mensagens e informações entre agentes encarregada ao JADE. Sendo assim, após a criação de um \textit{main container} o gerente de plataforma está pronto para receber requisições da ferramenta de orquestração para criar novos agentes.
+
+\subsection{SERVIDOR DE AGENTES}
+
+Com uma plataforma de SMA operante, resta apenas criar agentes que possam agir dentro desta. O papel de identificar quais agentes criar, destruir e acessar cabe ao servidor de agentes. Este elemento recebe requisições do restante da ferramenta de orquestração e também de arquivos de configuração para perceber quando deve criar novos agentes de um determinado tipo. O processo de criação de um agente é descrito pelo Algoritmo \ref{criaagente}.
+
+\begin{algorithm}[!htb]
+	\caption{Criação de Agentes}\label{criaagente}
+	\begin{algorithmic}[1]
+		\Procedure{CriarAgente}{$tipo, nodo$}
+		\State $gp \gets obterGerentePlataforma()$
+		\State $sa \gets obterServidorAgente()$
+		\State $nodoJade \gets gp.obterNodoJade(nodo)$
+		\State $novoAgente \gets sa.interpretarTipo(tipo)$
+		\State $nodoJade.criarAgente(novoAgente)$  
+		\EndProcedure
+	\end{algorithmic}
+\end{algorithm}
+
+A criação de um novo agente exige que seja escolhido um \textit{container} da plataforma JADE para conte-lo (\textit{parâmetro nodo}) assim como um tipo, que identifica o agente (\textit{parâmetro tipo}). Ao gerente da plataforma, cabe obter acesso ao \textit{container} especificado da plataforma (\textit{linha 4}). Após isso, o servidor de agentes deve interpretar a requisição de tipo de agente, ligando a requisição à uma classe de agentes disponíveis na plataforma para criação (\textit{linha 5}). Assim que o tipo do agente for especificado e o nodo o qual ele residirá for decidido o controle passa para a ferramenta JADE, que se encarrega de instânciar o agente e registra-lo na plataforma (\textit{linha 6}). Após este passos, o agente criado poderá ser acessado por todos os agentes da plataforma e por plataformas que tenham visão desta a qual ele está inserido. Assim como após sua instância, o agente já começa seu ciclo de percepção e atuação no ambiente de forma autônoma.
+
+TODO: Destruição de um agente.
+TODO: Brief de agentes acessando artefatos (?)

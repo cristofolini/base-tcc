@@ -17,7 +17,7 @@
 *.thm
 *.toc
 *.vrb
-
+*.tex~
 *.gz
 
 *.dvi

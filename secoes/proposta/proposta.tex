@@ -2,11 +2,11 @@ Devido ao crescimento da popularidade e da oferta de serviços de computação em n
 
 Ao analisar os trabalhos relacionados, encontramos exemplos do empregamento de SMAs na gerência automatizada tanto de recursos quanto serviços e sistemas. \citeonline{hou2014} utilizam características intrínsecas a um SMA para lidar com obstáculos típicos de um ambiente de CN como a heterogeneidade dos equipamentos do ambiente e a dinamicidade da demanda dos clientes. Já \citeonline{mascloud} propõem a utilização de um SMA para automatizar a gerência de recursos de CN a nível de PaaS e SaaS, explicitando a adequação das características de um SMA (na forma de dinamicidade, autonomia, flexibilidade, proatividade, aprendizado, etc.) à problemática de gerenciar os recursos disponíveis em uma nuvem computacional.
 
-Algo que pode ser observado nestes trabalhos é o fato de que muitos não mencionam o uso de plataformas multiagentes. A razão da omissão destas plataformas não traz impactos nos modelos propostos pelos autores, no entanto o uso destas trazem vantagens ao modelo de comunidade de agentes, uma vez que as plataformas auxiliam a criar o arcabouço para que o sistema possa operar de forma distribuida e respeitar padrões tais como os que são levantados pela FIPA. Além disso, poucos mencionam o uso de ferramentas de orquestração para atuar nestes ambientes, ou a ferramenta usada para manipular os recursos físicos, necessária para a gerência destes. Mesmo omitindo tais componentes, a escolha destes impacta a implementação final dos modelos e devem ser considerados em um ambiente reais de CN uma vez que estes são complexos, distribuidos e heterogêneos, tornando a gerencia dos recursos um desafio de se fazer sem o auxilio das ferramentas de orquestração. 
+Algo que pode ser observado nestes trabalhos é o fato de que muitos não mencionam o uso de plataformas multiagentes. A razão da omissão destas plataformas não traz impactos nos modelos propostos pelos autores, no entanto o uso destas trazem vantagens ao modelo de comunidade de agentes, uma vez que as plataformas auxiliam a criar o arcabouço para que o sistema possa operar de forma distribuida e respeitar padrões tais como os que são levantados pela FIPA. Além disso, poucos mencionam o uso de ferramentas de orquestração para atuar nestes ambientes, ou a ferramenta usada para manipular os recursos físicos, necessária para a gerência destes. Mesmo omitindo tais componentes, a escolha destes impacta a implementação final dos modelos e devem ser considerados em um ambiente reais de CN uma vez que estes são complexos, distribuidos e heterogêneos, tornando a gerencia dos recursos um desafio de se fazer sem o auxilio das ferramentas de orquestração.
 
 A proposta descrita em \citeonline{gabriel} apresenta a possibilidade de se utilizar um gerente de consolidação auxiliado de uma ferramenta de orquestração, de forma a reduzir a quantidade de recursos ociosos do ambiente, alocando as máquinas virtuais ao menor número possível de recursos físicos, permitindo o desligamento de recursos ociosos. O trabalho também usa um gerente de alocação para reativar servidores desligados para que o ambiente possa ter mais recursos ociosos para atender uma demanda crescente. Um ponto discrepante sobre \citeonline{gabriel} é o fato do trabalho não apresentar uma abordagem baseada em sistemas multiagentes. Tendo em vista a forma na qual diferentes autores expressam a aptitude de um SMA para gerenciar recursos de forma autônoma, dadas as complicações impostas por um ambiente de CN, este trabalho propõe a expandir a solução implementada por \citeonline{gabriel}.
 
-Analisando o modelo de componentes de uma ferramenta de orquestração proposto pela solução de \citeonline{gabriel} na Figura \ref{fig:arquiteturaExp}, nota-se, em verde, as modificações realizadas pelo trabalho, sendo estas a adição de um novo componente chamado gerente de consolidação e a modificação do já existente gerente de alocação. Tais mudanças são oriundas das adições dos gerentes autonomos cujo objetivos são a consolidação e re-alocação de máquinas dentro do ambiente de CN. Para que tais gerentes possam ser modelados na forma de agentes inteligentes, é necessário que seja providenciado um local onde estes agentes possam residir dentro do ambiente. Tal passo é justificado pela necessidade que os agentes terão de se comunicar com a ferramenta de orquestração e a forma com que essa comunicação se realizará depende de como estes agentes serão colocados dentro do ambiente. Deve-se observar que os gerentes desenvolvidos por \citeonline{gabriel} atuam acoplados ao \textit{Cloudstack}, o que pode se tornar prejudicial a partir do momento em que seja identificada a necessidade de diferentes gerentes. Dessa forma a desacoplação dos gerentes e implementação usando a técnologia de SMA acarretará em um melhor processo de escalabilidade à solução existente. 
+Analisando o modelo de componentes de uma ferramenta de orquestração proposto pela solução de \citeonline{gabriel} na Figura \ref{fig:arquiteturaExp}, nota-se, em verde, as modificações realizadas pelo trabalho, sendo estas a adição de um novo componente chamado gerente de consolidação e a modificação do já existente gerente de alocação. Tais mudanças são oriundas das adições dos gerentes autonomos cujo objetivos são a consolidação e re-alocação de máquinas dentro do ambiente de CN. Para que tais gerentes possam ser modelados na forma de agentes inteligentes, é necessário que seja providenciado um local onde estes agentes possam residir dentro do ambiente. Tal passo é justificado pela necessidade que os agentes terão de se comunicar com a ferramenta de orquestração e a forma com que essa comunicação se realizará depende de como estes agentes serão colocados dentro do ambiente. Deve-se observar que os gerentes desenvolvidos por \citeonline{gabriel} atuam acoplados ao \textit{Cloudstack}, o que pode se tornar prejudicial a partir do momento em que seja identificada a necessidade de diferentes gerentes. Dessa forma a desacoplação dos gerentes e implementação usando a técnologia de SMA acarretará em um melhor processo de escalabilidade à solução existente.
 
 \begin{figure}[!htb]
 	\centering
@@ -29,7 +29,7 @@ Segundo a Figura \ref{fig:arquiteturaExp}, o uso do \textit{framework} proposto 
 As atribuições do gerente de agentes podem ser ainda divididas em dois grupos de atividades:
 
 \begin{itemize}
-	\item Gerenciar a plataforma de SMA: através da manutenção de ciclo de vida das instancias dos containers de agentes; 
+	\item Gerenciar a plataforma de SMA: através da manutenção de ciclo de vida das instancias dos containers de agentes;
 	\item Servir o acesso aos agentes: facilitando a instância dos agentes que residem na plataforma de SMA e que serão requisitados pelos elementos da ferramenta de orquestração.
 \end{itemize}
 
@@ -41,7 +41,7 @@ Observando os grupos de atribuições, pode-se derivar duas entidades para compor 
 	\includegraphics[width=1\textwidth]{figuras/gerenteAgentes.png}
 \end{figure}
 
-As relações apresentadas na Figura \ref{fig:gerente_agentes} mostram o sentido das trocas de mensagens entre os componentes do gerente de agentes e o restante da ferramenta de orquestração. Pode-se observar que o servidor de agentes não precisa de nenhum recurso externo ao gerente de agentes, necessitando apenas se comunicar com o gerente de plataforma para obter acesso a plataforma de SMA e em seguida com a plataforma para que consiga requisitar a criação ou acesso a um agente. O gerente de plataforma por sua vez precisa de recursos alheios ao gerente de agentes, uma vez que é necessário a existência de uma VM de sistema para que a plataforma de SMA seja instânciada sobre. Mais detalhes sobre o processo de criação de uma plataforma serão explicados na próxima subseção.  
+As relações apresentadas na Figura \ref{fig:gerente_agentes} mostram o sentido das trocas de mensagens entre os componentes do gerente de agentes e o restante da ferramenta de orquestração. Pode-se observar que o servidor de agentes não precisa de nenhum recurso externo ao gerente de agentes, necessitando apenas se comunicar com o gerente de plataforma para obter acesso a plataforma de SMA e em seguida com a plataforma para que consiga requisitar a criação ou acesso a um agente. O gerente de plataforma por sua vez precisa de recursos alheios ao gerente de agentes, uma vez que é necessário a existência de uma VM de sistema para que a plataforma de SMA seja instânciada sobre. Mais detalhes sobre o processo de criação de uma plataforma serão explicados na próxima subseção.
 
 \subsection{GERENTE DE PLATAFORMA}
 
@@ -54,7 +54,7 @@ A plataforma multiagente será implementada através da ferramenta JADE, que permi
 			\State $gp \gets obterGerentePlataforma()$
 			\State $vm \gets novaVMSistema()$
 			\State $gp.carregarDependencias(vm)$
-			\State $gp.instanciarJADE(vm, tipo)$  
+			\State $gp.instanciarJADE(vm, tipo)$
 		\EndProcedure
 	\end{algorithmic}
 \end{algorithm}
@@ -64,7 +64,7 @@ No algoritmo 1 pode-se notar que após a instância de uma VM (\textit{linha 3}) e
 \begin{itemize}
 	\item Criação da plataforma JADE: desta forma é criado o primeiro \textit{main container} cujo contém os agentes necessários para garantir as especificações da FIPA. Após a existência deste \textit{main container} é possivel que outros \textit{containers} venham a ser criados e registrados a esta plataforma;
 	\item Criação de um \textit{container} de agentes: com o objetivo de distribuir os agentes da plataforma ao longo do ambiente;
-	\item Criação de um \textit{main container} de agentes: pode ser realizado para obter redundância do \textit{main container} principal, fazendo com que a plataforma torne-se um pouco mais tolerante a faltas em caso do desligamento da VM em que o primeiro nodo da plataforma foi instanciado. 
+	\item Criação de um \textit{main container} de agentes: pode ser realizado para obter redundância do \textit{main container} principal, fazendo com que a plataforma torne-se um pouco mais tolerante a faltas em caso do desligamento da VM em que o primeiro nodo da plataforma foi instanciado.
 \end{itemize}
 
 Uma vez instanciado em uma VM, o JADE tem a capacidade de detectar outras instâncias da plataforma em VMs que estejam na mesma rede através de um mecanismo de percepção. O JADE faz um \textit{broadcast} (pode também ser configurado para fazer um \textit{multicast}) de informações de descoberta da própria instância da plataforma e mantém uma escuta em uma porta aberta para receber informações de descobrimento de outras instâncias espalhadas pela rede. Assim que uma outra instância do JADE é descoberta na rede, um agente de proxy é criado na plataforma local. Esse agente é uma representação local da plataforma remota e tem o objetivo de facilitar as interações com as outras VMs na rede. Sendo estabelecidas estas relações, agentes instanciados em uma VM podem interagir abertamente com agentes intanciados em outra, sendo a troca de mensagens e informações entre agentes encarregada ao JADE. Sendo assim, após a criação de um \textit{main container} o gerente de plataforma está pronto para receber requisições da ferramenta de orquestração para criar novos agentes.
@@ -81,7 +81,7 @@ Com uma plataforma de SMA operante, resta apenas criar agentes que possam agir d
 		\State $sa \gets obterServidorAgente()$
 		\State $nodoJade \gets gp.obterNodoJade(nodo)$
 		\State $novoAgente \gets sa.interpretarTipo(tipo)$
-		\State $nodoJade.criarAgente(novoAgente)$  
+		\State $nodoJade.criarAgente(novoAgente)$
 		\EndProcedure
 	\end{algorithmic}
 \end{algorithm}
@@ -90,3 +90,65 @@ A criação de um novo agente exige que seja escolhido um \textit{container} da pl
 
 TODO: Destruição de um agente.
 TODO: Brief de agentes acessando artefatos (?)
+
+\subsection{GERENTE DE CONSOLIDAÇÃO}
+
+Para efetuar a consolidação, o agente proposto por \citeonline{gabriel} será adaptado para funcionar com a plataforma multiagente. Para tal, as tarefas efetuadas pelo agente proposto serão divididas entre quatro agentes:
+\begin{itemize}
+  \item Um gerente de consolidação encarregado de tomar decisões relativas a quais \emph{clusters} serão consolidados, mandar consolidá-los e marcá-los como consolidados;
+	\item Um agente de consolidação encarregado de mapear VMs a servidores específicos e efetuar a migração de VMs para outros servidores para viabilizar a consolidação;
+	\item Um gerente de alocação encarregado de tomar decisões realativas a alocação de novas VMs como onde alocá-las e a necessidade ou não de ativar recursos desligados;
+	\item Um agente de alocação encarregado de concretizar as decisões do gerente de alocação, alocando VMs e ligando recursos desativados.
+\end{itemize}
+
+O gerente de consolidação, como mostrado na figura, irá escolher um \emph{cluster} para avaliar e determinar a possibilidade de sua consolidação baseado em um algoritmo de consolidação que deve ser especificado pelo usuário do sistema. Ao determinar qual \emph{cluster} será avaliado, uma mensagem é encaminhada ao agente de alocação solicitando a consolidação deste \emph{cluster} para que o agente posso avaliar e se possível efetuar a consolidação.
+
+A figura contém uma legenda válida para todos os diagramas de agentes que serão apresentados a seguir, explicitando o significado dos elementos dos diagramas.
+
+\begin{figure}[!htb]
+	\centering
+	\caption{Legenda relativa aos diagramas dos modelos de agentes.}\label{fig:legenda-agentes}
+	\includegraphics[width=1\textwidth]{figuras/legenda-agentes.png}
+\end{figure}
+
+\begin{figure}[!htb]
+	\centering
+	\caption{Modelo do Gerente de Consolidação.}\label{fig:gerente-consolidacao}
+	\includegraphics[width=1\textwidth]{figuras/gerente-consolidacao.png}
+\end{figure}
+
+\subsection{AGENTE DE CONSOLIDAÇÃO}
+
+O agente de consolidação é o responsável por realizar todas as operações relacionadas a consolidação de um \emph{cluster}. Como explicitado na figura, ao receber a mensagem do gerente de consolidação solicitando a consolidação de um \emph{cluster}, o agente verifica os outros \emph{clusters} com servidores ativos e mapeia as VMs contidas no \emph{cluster} a ser consolidado para estes outros \emph{clusters} ativos, de acordo com a capacidade de cada um, visando mapear o maior número possível de VMs em um mesmo cluster de forma a não prejudicar o funcionamento das VMs submetendo-as a \emph{clusters} com recursos insuficientes disponíveis, comparando os recursos sendo utilizados no \emph{cluster} a ser consolidado aos recursos disponíveis no resto do ambiente. Assim que o maior número possível de VMs foi mapeado e migrado para servidores de outros \emph{clusters}, os servidores que então não possuem nenhuma VM mapeada a eles são desativados.
+
+\begin{figure}[!htb]
+	\centering
+	\caption{Modelo do Agente de Consolidação.}\label{fig:agente-consolidacao}
+	\includegraphics[width=1\textwidth]{figuras/agente-consolidacao.png}
+\end{figure}
+
+\subsection{GERENTE DE ALOCAÇÃO}
+
+O gerente de alocação é o responsável por determinar onde novas VMs deverão ser alocadas. Quando uma nova VM é instanciada por um usuário, os \emph{clusters} disponíveis são ranquedos em uma ordem de acordo com um algoritmo de alocação que deve ser especificado pelo usuário da plataforma. Uma vez ordenados os \emph{clusters} o gerente de alocação envia uma mensagem ao agente de alocação para que tente realizar a alocação da nova VM. Porém, pode ser que não seja possível realizar a alocação em um dos \emph{clusters} especificados, possivelmente por falta de recursos disponíveis, ou mesmo pelo motivo de recursos ociosos terem sido consolidados previamente. Nesse caso, o agente de alocação retornará uma mensagem para o gerente informando a impossibilidade de alocar a VM, e o gerente tentará encontrar recursos extras que tenham sido consolidados. Existindo estes recursos, eles são ordenados de acordo com os interesses do usuário, e uma solicitação é encaminhada ao agente de alocação para que ele tente reativar recursos suficientes para alocar a VM. As figuras mostram o modelo das funcionalidades do gerente de alocação.
+
+\begin{figure}[!htb]
+	\centering
+	\caption{Modelo do Gerente de Alocação.}\label{fig:gerente-alocacao1}
+	\includegraphics[width=1\textwidth]{figuras/gerente-alocacao1.png}
+\end{figure}
+
+\begin{figure}[!htb]
+	\centering
+	\caption{Modelo do Gerente de Alocação.}\label{fig:gerente-alocacao2}
+	\includegraphics[width=1\textwidth]{figuras/gerente-alocacao2.png}
+\end{figure}
+
+\subsection{AGENTE DE ALOCAÇÃO}
+
+O agente de alocação é o responsável por realizar as operações relacionadas à alocação de novas VMs. Ao receber a mensagem do gerente de alocação solicitando a alocação de uma VM, a agente procura recursos disponíveis para alocá-la nos \emph{clusters} na ordem especificada e ao encontrar um servidor capaz de suportá-la, realiza o mapeamento da VM a esse servidor. O agente pode também constatar a falta de recursos suficientes para alocar a VM solicitada. Quando isso acontecer, ele deve notificar o gerente de alocação para que sejam especificados os servidores desativados que o agente deve tentar reativar. Uma vez recebida a resposta do gerente, o agente tenta realizar a ativação dos recursos solicitados e, obtendo sucesso, avisa o gerente para que a alocação possa prosseguir normalmente. O modelo do agente de alocação é explicitado na figura.
+
+\begin{figure}[!htb]
+	\centering
+	\caption{Modelo do Agente de Alocação.}\label{fig:agente-alocacao}
+	\includegraphics[width=1\textwidth]{figuras/agente-alocacao.png}
+\end{figure}

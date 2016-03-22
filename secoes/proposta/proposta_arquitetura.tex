@@ -1,0 +1,244 @@
+Devido ao crescimento da popularidade e da oferta de serviços de computação em nuvem, seja a nível de SaaS, PaaS ou Iaas, a gerência dos ambientes utilizados para fornecer estes serviços tem se tornado um tópico ativo de pesquisa, buscando-se métodos de manter e distribuir recursos computacionais em ambientes de CN de forma mais eficiente \cite{whitney2014data}. Recentemente pode-se encontrar trabalhos que propõem modelos de sociedades de agentes para realizar tal função de maneira autônoma e distribuida, constatando assim o interesse de várias pesquisas no casamento dos paradigmas de SMA e CN.
+
+Ao analisar trabalhos relacionados, encontramos exemplos do empregamento de SMAs na gerência automatizada tanto de recursos quanto serviços e sistemas. \citeonline{hou2014} utilizam características intrínsecas a um SMA para lidar com obstáculos típicos de um ambiente de CN como a heterogeneidade dos equipamentos do ambiente e a dinamicidade da demanda dos clientes. Já \citeonline{mascloud} propõem a utilização de um SMA para automatizar a gerência de recursos de CN a nível de PaaS e SaaS, explicitando a adequação das características de um SMA (na forma de dinamicidade, autonomia, flexibilidade, proatividade, aprendizado, etc.) à problemática de gerenciar os recursos disponíveis em uma nuvem computacional.
+
+Algo que pode ser observado nestes trabalhos é o fato de que muitos não mencionam o uso de plataformas multiagentes. A razão da omissão destas plataformas não traz impactos nos modelos propostos pelos autores, no entanto o uso destas trazem vantagens ao modelo de comunidade de agentes, uma vez que as plataformas auxiliam a criar o arcabouço para que o sistema possa operar de forma distribuida e respeitar padrões tais como os que são levantados pela FIPA. Além disso, poucos mencionam o uso de ferramentas de orquestração para atuar nos ambientes de CN, ou a ferramenta usada para manipular os recursos físicos, necessária para a gerência destes. Mesmo omitindo tais componentes, a escolha destes impacta a implementação final dos modelos e devem ser considerados em ambientes reais, uma vez que esses são complexos, distribuidos e heterogêneos, tornando a gerencia de seus recursos um desafio de se fazer sem o auxílio das ferramentas de orquestração. 
+
+A proposta descrita em \citeonline{gabriel} apresenta a possibilidade de se utilizar um gerente de consolidação auxiliado de uma ferramenta de orquestração, de forma a reduzir a quantidade de recursos ociosos do ambiente, alocando as máquinas virtuais ao menor número possível de recursos físicos, permitindo o desligamento de recursos ociosos. O trabalho também usa um gerente de alocação para reativar servidores desligados para que o ambiente possa ter recursos ociosos suficientes para atender uma demanda crescente. Um ponto discrepante sobre \citeonline{gabriel}, em relação a outros trabalhos, é o fato desse não apresentar uma abordagem baseada em sistemas multiagentes. A modelagem no trabalho mostra um vínculo destes agentes com a ferramenta de orquestração, uma vez que os gerentes desenvolvidos por \citeonline{gabriel} atuam acoplados ao \textit{Cloudstack} o que pode se tornar prejudicial a partir do momento em que seja identificada a necessidade de diferentes agentes. Tendo em vista a forma na qual diferentes autores expressam a aptitude de um SMA para gerenciar recursos de forma autônoma, dadas as complicações impostas por um ambiente de CN, este trabalho propõe a expandir a solução implementada por \citeonline{gabriel}, adaptando seus agentes para agirem inseridos em uma plataforma de SMA, que por sua vez estará ligada a ferramenta de orquestração. Assim como também abre a possibilidade para que a ferramenta de orquestração faça uso de agentes alheios ao processo de consolidação.
+
+Analisando o modelo de componentes de uma ferramenta de orquestração proposto pela solução de \citeonline{gabriel} na Figura \ref{fig:arquiteturaExp}, nota-se, em verde, as modificações realizadas por seu trabalho, sendo estas a adição de um novo componente chamado gerente de consolidação e a modificação do já existente gerente de alocação. Tais mudanças são oriundas das adições dos gerentes autônomos cujo objetivos são a consolidação e re-alocação de máquinas dentro do ambiente de CN. Para que tais gerentes possam ser modelados na forma de agentes inteligentes, é necessário que seja providenciado um local onde esses possam residir dentro do ambiente. Através do uso de uma plataforma de SMA para alocar os agentes, consegue-se realizar a desacoplação dos gerentes da ferramenta de orquestração, implicando em um melhor processo de escalabilidade à solução existente. 
+
+\begin{figure}[!htb]
+	\centering
+	\caption{Componentes de uma ferramenta de orquestração expandida pelo \textit{framework}, retirado de \cite{gabriel}.}\label{fig:arquiteturaExp}
+	\includegraphics[width=1\textwidth]{figuras/neo_orq.png}
+\end{figure}
+
+Os agentes inteligentes usados por uma ferramenta de consolidação podem ser requisitado em vários segmentos desta. A partir da inclusão da plataforma de SMA, pode-se unificar o acesso a eles através da criação de uma interface visível à ferramenta de orquestração, que por sua vez se conecta à plataforma e seus agentes. Uma abordagem desse tipo adiciona um componente a mais na arquitetura da ferramenta de orquestração, porém mantem a lógica dos agentes desacoplada. Para alcançar esse objetivo, este trabalho propõe uma mudança nos componentes da ferramenta de orquestração afim de adicionar um gerente de agentes. Este serve de fachada para a plataforma de SMA, garantindo acesso para os nodos de controle da ferramenta de orquestração.
+
+\section{ARQUITETURA DO GERENTE DE AGENTES}
+
+Segundo a Figura \ref{fig:arquiteturaExp}, o uso do \textit{framework} proposto por \citeonline{gabriel} incrementa o número de elementos básicos de uma ferramenta de orquestração de 5 para 6. Na expansão proposta por este trabalho, os gerentes modificados por \citeonline{gabriel} serão modelados na forma de agentes, indicando ajustes nos elementos de alocação e consolidação (delineados em amarelo na Figura \ref{fig:arquiteturaExp2}). Com o propósito de manter a comunicação da ferramenta de orquestração com a plataforma de SMA, é necessário um novo componente na ferramenta de orquestração, o gerente de agentes. A imagem \ref{fig:arquiteturaExp2} representa os elementos da ferramenta de orquestração proposto por este trabalho, destacando em verde novas adições e em amarelo segmentos já existentes que sofrem ajustes.
+
+\begin{figure}[!htb]
+	\centering
+	\caption{Componentes de uma ferramenta de orquestração incrementados pelo gerente de agente.}\label{fig:arquiteturaExp2}
+	\includegraphics[width=1\textwidth]{figuras/arquitetura_orquestracao_nova.png}
+\end{figure}
+
+As atribuições do novo componente são segmentadas em dois grupos de atividades:
+
+\begin{itemize}
+	\item Gerenciar a plataforma de SMA: através da manutenção de ciclo de vida dos componentes distribuidos da plataforma de SMA; 
+	\item Servir o acesso aos agentes: adicionando uma camada na comunicação entre a ferramenta de orquestração e a plataforma de SMA, evitando a comunicação direta entre ambas.
+\end{itemize}
+
+Observando os grupos de atribuições, pode-se derivar duas entidades para compor o gerente de agentes. Uma primeira entidade chamada de gerente de plataforma, responsável por manter a plataforma de SMA, garantindo que ela mantenha-se ativa, acessível e tolerante a faltas. A segunda entidade é o servidor de agentes, responsável por conectar a ferramenta de orquestraçãoos aos agentes da plataforma de SMA, permitindo que agentes sejam criados e destruidos seguindo a demanda do ambiente. A própria plataforma de SMA pode ser vista como uma terceira entidade membro da arquitetura do gerente de agentes, porém esta não encontra-se diretamente conectada com a ferramenta de orquestração. O objetivo de não acoplar a plataforma diretamente é uma maneira de garantir a modularidade do gerente de agentes. Sendo assim, quando outros segmentos da ferramenta de orquestração necessitarem de um agente, esses poderão requisitar sua criação através do servidor de agentes, independente de qual técnologia de SMA está sendo usada. A Figura \ref{fig:gerente_agentes} expande a visão deste componente, mostrando a conexão de suas entidades com o restante da ferramenta de orquestração.
+
+\begin{figure}[!htb]
+	\centering
+	\caption{Relações entre componentes do gerente de agentes e elementos de uma ferramenta de orquestração.}\label{fig:gerente_agentes}
+	\includegraphics[width=1\textwidth]{figuras/gerenteAgentes.png}
+\end{figure}
+
+As relações apresentadas na Figura \ref{fig:gerente_agentes} mostram o sentido das trocas de mensagens entre os componentes do gerente de agentes e o restante da ferramenta de orquestração. Pode-se observar que o servidor de agentes não precisa de nenhum recurso externo ao seu módulo, comunicando-se apenas com o gerente de plataforma para obter acesso a plataforma de SMA e em seguida com essa para que consiga requisitar a criação ou acesso a um agente. O gerente de plataforma por sua vez precisa de recursos alheios ao gerente de agentes, uma vez que são necessários recursos do ambiente para instanciar a plataforma de SMA. Mais detalhes sobre o processo de criação de uma plataforma serão explicados na subseção do gerente de plataforma.  
+
+\subsection{GERENTE DE PLATAFORMA}
+
+A plataforma multiagente deste trabalho é implementada usando a ferramenta JADE, escolhida por implementar o padrão FIPA, permitir que a plataforma seja distribuida e capacidade de oferecer tolerância a faltas através de redundância de seus nodos principais. O JADE permite instanciar e gerenciar agentes reativos e BDI. A plataforma JADE funciona como uma central de comando para os agentes, sendo toda a instanciação, comunicação e gerencia das atividades desses feita pela própria plataforma. O JADE é composto por \textit{containers} que precisam ser instanciados em uma JVM. Para facilitar a integração com a ferramenta de orquestração, os \textit{containers} JADE são instanciados em uma VM dedicada a funções de sistema dentro do ambiente de CN orquestrado pelo \textit{CloudStack}. A instalação do JADE, assim como de todas suas dependências nessa VM deve ocorrer de forma automática, sem ser necessáio a interferência de um administrador. Para isso, são utilizadas funções implementadas no \textit{Cloudstack} previamente para instanciar uma máquina virtual contendo uma \emph{Java Virtual Machine}, necessária para o funcionamento do JADE. O processo de preparação dessa VM de sistema é descrito no Algoritmo \ref{initJade}.
+
+Para que a criação de um \textit{container} seja justificado o gerente de plataforma deve autonomamente perceber o estado atual da plataforma JADE no ambiente afim de decidir sua próxima ação. Para que isto seja possível, esse deve comunicar-se com os \textit{containers} JADE periodicamente. Dependendo de quais \textit{containers} estão ativos, pode ser percebebido a necessidade da criação de novos containers. Este processo periodico é descrito no algoritmo \ref{perceptJADE}.
+
+Durante o processo de percepção do ambiente, o gerente de plataforma pode encontrar \textit{containers} que não estão funcionando adequadamente. Cabe a esse módulo detectar estas inconsistências na plataforma e corrigi-las. Através da destruição de \textit{containers}, as máquinas virtuais associadas a estes ficam sem propósito. Caso o gerente de plataforma tenha como objetivo re-instanciar o \textit{container} ou seja detectada, na mesma iteração de percepção, a necessidade de instanciar um novo \textit{container}, estas máquinas virtuais poderão ser usadas, sem requisitar ao \textit{Cloudstack} a criação de novos recursos para o módulo de agentes. Dessa forma o funcionamento continuo do gerente de plataforma pode ser visualizado na Figura \ref{fig:cicloGerentePlat}.
+
+\begin{figure}[!htb]
+	\centering
+	\caption{Ciclo de funcionamento do gerente de plataforma.}\label{fig:cicloGerentePlat}
+	\includegraphics[width=1\textwidth]{figuras/gerentePlataforma.png}
+\end{figure}
+
+\subsubsection{ALGORITMO DE PERCEPÇÃO DA PLATAFORMA}
+
+O Algoritmo \ref{perceptJADE} modela a percepção que o módulo de agentes tem sobre a plataforma de SMA, seu objetivo é decidir o estado em que a plataforma se encontra. Através do retorno desse método, o módulo de agentes infere a necessidade de criação de um novo \textit{container} JADE. Sendo assim, um retorno positivo deve criar um novo \textit{container} e possivelmente uma nova VM. Assim como um retorno negativo avalia que o estado da plataforma não precisa ser modificado.
+
+O estado do ambiente é dependente da quantidade de \textit{mainContainers} presentes na plataforma. Se não for encontrado nenhum \textit{main container} registrado no gerente de plataforma, pode-se inferir diretamente que a plataforma não está instanciada (\textit{linhas 7 até 9}). Se houverem \textit{main containers} ativos no JADE, deve-se verificar se esses estão operando corretamente (\textit{linhas 10 até 12}). No caso em que os \textit{main containers} estejam demonstrando alguma falha, deve-se marca-los como \textit{containers} em estado de erro e exclui-los logicamente da lista de \textit{main containers} ativos (\textit{linhas 12 até 13}). Após essa verificação é necessário observar o número de \textit{main containers} funcionais e ativos, afim de detectar o estado da plataforma, baseado na necessidade de instanciar mais \textit{main containers} (\textit{linhas 14 até 17}).
+
+Após a verificação dos nodos principais do JADE, os nodos comuns devem ser verificados também afim de detectar erros na operação destes \textit{containers}, realizando nestes o mesmo processo realizado anteriormente (\textit{linhas 18-21}). Após a verificação de todos os nodos da plataforma, deve-se remover todos os \textit{containers} que demonstraram falha no seu comportamento (\textit{linhas 22 até 23}). Se foi constatado algum estado relativo a quantidade de \textit{main containers} até este ponto do algoritmo, este estado deve ser registrado e o algoritmo deve sinalizar que uma nova instância de \textit{container} é necessária (\textit{linhas 24 até 26}). Caso contrário, o ambiente só precisará de \textit adicionais caso esteja sobrecarregado de agentes. Essa verificação deve realizar-se através da verificação de heurísticas configuradas para o ambiente em particular (\textit{linha 27}). Durante este processo de percepção, são implementados alguns métodos, descritos a seguir:
+
+\begin{itemize}
+	\item \textit{obterHeuristicas()}: obtém heurísticas especificas da plataforma. Tais informações definem características da plataforma JADE, tais como a quantidade de \textit{main containers} desejados para o ambiente.
+	
+	\item \textit{obterGerentePlataforma()}: obtém a instância do gerente de plataforma, esse objeto é responsável por encapsular os parâmetros e informações sobre o JADE, assim como toda lógica associada a ele;
+	
+	\item \textit{obterMainContainers()}: obtém todos os \textit{main containers} instanciados da plataforma JADE. Este método retornara nulo apenas se a plataforma não foi instanciada, uma vez que ao menos um \textit{main container} é necessário para seu funcionamento;
+	
+	\item \textit{obterContainers()}: obtém todos os \textit{containers} que não fazem parte do grupo de \textit{main containers} da plataforma JADE. Este método pode retornar nulo ao passo que uma plataforma ativa pode ter seus agentes armazenados apenas em seus \textit{main containers};
+	
+	\item \textit{setEstadoAmbiente(EstadoAmbiente ea)}: atribui valor a variavel que descreve o estado atual do ambiente da plataforma. Essa variável pode assumir os seguintes valores:
+	\begin{itemize}
+		\item \textit{Ambiente não inicializado}: ocorre apenas quando a plataforma JADE  não tem nenhum \textit{main container} ativo;
+		\item \textit{Ambiente inicializado sem redundância}: é caracterizado pela plataforma JADE operacional, porém contendo apenas um \textit{main container}. Trata-se de um estado frágil, uma vez que o ambiente todo pode falhar caso esse único \textit{main container} sofra alguma falha;
+		\item \textit{Ambiente sobrecarregado}: ocorre quando todos os \textit{containers} do ambiente estão trabalhando no limite de seus recursos. Isto pode acontecer se uma VM estiver usando todo seu poder computacional para manter os agentes e o \textit{container} operantes;
+		\item \textit{Ambiente estável}: é o estado alvo do gerente de plataforma. Esse estado é caracterizado pelo ambiente ativo, com redundância e sem \textit{containers} sobrecarregados.
+	\end{itemize}
+	
+	\item \textit{verificarContainer(ContainerJADE c)}: é um método destinado a verificar se o \textit{container} JADE está ativo e funcionando corretamente. Para realizar esta tarefa, o gerenciador de plataforma deve comunicar-se com o \textit{container} e realizar um \textit{ping} através do agente \textit{ping} implementado por padrão na plataforma JADE. Dessa forma, pode-se testar se a plataforma está ativa e seus agentes conseguem ser acessados;
+	
+	\item \textit{redundanciaMinima()}: obtém a quantidade mínima de \textit{main containers} configurado para este ambiente;
+	
+	\item \textit{removerContainers(List<ContainerJADE> listC)}: remove todos os containers listados, deixando as VMs alocadas a esses sem carga. Esse passo, quando ocorrer, irá se concretizar sempre antes da alocação de novos \textit{containers}. Sendo assim, a instância destes novos \textit{containers} pode ocorrer sem a necessidade de uma nova VM ser criada. Alternativamente, se nenhum \textit{container} for necessário na iteração atual, deve-se desalocar as VMs afim de evitar recursos ociosos;
+	
+	\item \textit{verificarNecessidadeNovoContainer(HeuristicasJADE hj)}: tem como objetivo verificar se os \textit{containers} ativos conseguem continuar recebendo mais agentes sem que fiquem sobrecarregados ou se a lógica deve criar um novo \textit{container} para ser agregado a plataforma. Analisar heuristicas de eficiência para a plataforma JADE e estratégias para melhor alocar os agentes não é o foco deste trabalho, no entanto cria-se através desse método um arcabouço para que tais heurísticas possam ser avaliadas e implementadas. Uma implementação simples deste método envolve criar um limite de agentes por plataforma e verificar se há plataformas operando neste limite.
+\end{itemize}
+
+As variaveis envolvidas no algoritmo de percepção da plataforma são:
+
+\begin{itemize}
+	\item \textit{heur}: as heurísticas de configuração do ambiente JADE.
+	\item \textit{gp}: a instancia do gerente de plataformas;
+	\item \textit{mainContainers}: os \textit{main containers} ativos do JADE;
+	\item \textit{containers}: os \textit{containers} ativos da plataforma;
+	\item \textit{containersErro}: os \textit{containers} e \textit{main containers} que não estão funcionando corretamente, porém estão marcados como ativos.
+	\item \textit{estadoPercebido}: indica o estado percebido até o momento, dentro da execução do método.
+\end{itemize}
+
+\let\oldReturn\Return
+\renewcommand{\Return}{\State\oldReturn}
+\begin{algorithm}[!htb]
+	\caption{Percepção da plataforma JADE}\label{perceptJADE}
+	\begin{algorithmic}[1]
+		\Procedure{PerceberAmbiente}{}
+		\State $gp \gets obterGerentePlataforma()$
+		\State $heur \gets gp.obterHeuristicas()$
+		\State $mainContainers \gets gp.obterMainContainers()$
+		\State $containers \gets gp.obterContainers()$
+		\State $containersErro \gets \textbf{new}  List()$
+		\State $estadoPercebido = null$
+	
+		\If{$mainContainers = null$}
+			\State $gp.setEstadoAmbiente("PlataformaVazia")$
+			\Return \textbf{true}
+		\EndIf
+		
+		\ForAll{$mainContainers$}
+			\If {$gp.veririficarContainer(mainContainer) = \textbf{false}$}
+				\State $containersErro.add(mainContainer)$
+			\EndIf
+		\EndFor
+		
+		\State $mainContainers.removeAll(containersErro)$
+		
+		\If{$mainContainers.size() = 0$}
+			\State $estadoPercebido \gets "PlataformaVazia"$
+		\ElsIf{$mainContainers.size() <= heur.redundanciaMinima()$}
+			\State $estadoPercebido \gets "PlataformaSemRedundancia"$
+		\EndIf
+		
+		\ForAll{$containers$}
+			\If {$gp.veririficarContainer(container) == \textbf{false}$}
+				\State $containersErro.add(container)$
+			\EndIf
+		\EndFor
+		
+		\State $containers.removeAll(containersErro)$
+		\If {$containersErro.size() > 0$}
+			\State $gp.removerContainers(containersErro)$
+		\EndIf
+		
+		\If{$estadoPercebido != null$}
+			\State $gp.setEstadoAmbiente(estadoPercebido)$
+			\Return $\textbf{true}$
+		\EndIf
+		
+		\Return $gp.verificarNecessidadeNovoContainer(heur)$
+		\EndProcedure
+	\end{algorithmic}
+\end{algorithm}
+
+\subsubsection{ALGORITMO CRIAÇÃO PLATAFORMA JADE}
+
+Como apresentado, a instancia de um novo \textit{container} JADE pode se fazer necessário para o ambiente. Diretamente da percepção do estado atual da plataforma, pode-se derivar qual o tipo de \textit{container} que deve ser alocado. Este procedimento é inicializado pelo gerente da plataforma em conjunto com o \textit{Cloudstack}. Para que este algoritmo tenha sucesso em criar o nodo necessário para a plataforma, o gerenciador de plataforma deve previamente calcular o estado atual do ambiente e perceber a necessidade da nova instância. O Algoritmo \ref{initJade} foi desenvolvido para ser executado em resposta a necessidade de criação de um nodo JADE e será executado após o passo de percepção do ambiente.
+
+Para que o JADE possa ser instanciado deve-se obter uma VM de sistema (\textit{linha 3}) e instalar as dependências do JADE nesta \textit{linha 4}. Após interpretar o estado da plataforma (\textit{linha 5}) o gerenciador deve escolher o tipo correto de \textit{container} a ser inicializado (\textit{linhas 6 até 10}). Por fim o gerenciador de plataforma deve instanciar o novo nodo na VM obtida de acordo com a necessidade atual do ambiente (\textit{linha 11}). Os diferentes tipos de instância que o gerente de plataformas pode invocar são:
+
+\begin{itemize}
+	\item Criação da plataforma JADE: desta forma é criado o primeiro \textit{main container} cujo contém os agentes necessários para garantir as especificações da FIPA. Após a existência deste \textit{main container} é possivel que outros \textit{containers} venham a ser criados e registrados a esta plataforma;
+	\item Criação de um \textit{container} de agentes: com o objetivo de distribuir os agentes da plataforma ao longo do ambiente;
+	\item Criação de um \textit{main container} de agentes: pode ser realizado para obter redundância do \textit{main container} principal, fazendo com que a plataforma torne-se um pouco mais tolerante a faltas em caso do desligamento da VM em que o primeiro nodo da plataforma foi instanciado. 
+\end{itemize}
+
+Para auxiliar a criação do \textit{container}, um método foi implementado:
+
+\begin{itemize}
+	\item \textit{instanciarContainer(VirtualMachine vm, TipoContainer tipo)}: instancia na VM um container JADE através de um script pre-configurado para cada tipo diferente de nodo que possa ser necessário.
+\end{itemize}
+
+As variáveis utilizadas nesse algoritmo são:
+
+\begin{itemize}
+	\item \textit{gp}: instância do gerenciador de plataforma;
+	\item \textit{vm}: máquina virtual onde o \textit{container} irá residir;
+	\item \textit{per}: o estado da plataforma percebido previamente;
+	\item \textit{tipo}: o tipo de nodo JADE que será instanciado.
+\end{itemize}
+
+\begin{algorithm}[!htb]
+	\caption{Criação de \textit{container} JADE}\label{initJade}
+	\begin{algorithmic}[1]
+		\Procedure{CriaContainer}{}
+			\State $gp \gets obterGerentePlataforma()$
+			\State $vm \gets gp.novaVMSistema()$
+			\State $gp.carregarDependenciasJADE(vm)$
+			\State $per \gets gp.obterEstadoAmbiente()$
+			\State $tipo \gets "Container"$
+			\If{$per = "PlataformaVazia"$}
+				\State $tipo \gets "PrimeiroMainContainer"$
+			\ElsIf{$per = "PlataformaSemRedundancia"$}
+				\State $tipo \gets "MainContainer"$
+			\EndIf
+			\State $gp.instanciarContainer(vm, tipo)$  
+		\EndProcedure
+	\end{algorithmic}
+\end{algorithm}
+
+Deve-se notar que a VM oriunda do método \textit{novaVMSistema()} pode ser uma VM previamente alocada que teve seu \textit{container} JADE destruido pois este mostrou alguma falha. Apenas na falta de VMs ociosas que o gerente de plataforma requisitará a ferramenta de orquestração para que seja criada uma nova VM de sistema.
+
+Uma vez instanciado em uma VM, o JADE tem a capacidade de detectar outras instâncias da plataforma em VMs que estejam na mesma rede através de um mecanismo de percepção. O JADE faz um \textit{broadcast} (pode também ser configurado para fazer um \textit{multicast}) de informações de descoberta da própria instância da plataforma e mantém uma escuta em uma porta aberta para receber informações de descobrimento de outras instâncias espalhadas pela rede. Assim que uma outra instância do JADE é descoberta na rede, um agente de proxy é criado na plataforma local. Esse agente é uma representação local da plataforma remota e tem o objetivo de facilitar as interações com as outras VMs na rede. Sendo estabelecidas estas relações, agentes instanciados em uma VM podem interagir abertamente com agentes intanciados em outra, sendo a troca de mensagens e informações entre agentes encarregada ao JADE. Sendo assim, após a criação de um \textit{main container} o gerente de plataforma está pronto para receber requisições da ferramenta de orquestração para criar novos agentes.
+
+\subsection{SERVIDOR DE AGENTES}
+
+Com uma plataforma de SMA operante, resta apenas criar agentes que possam agir dentro desta. O papel de identificar quais agentes criar, destruir e acessar cabe ao servidor de agentes. Este elemento recebe requisições do restante da ferramenta de orquestração e também de arquivos de configuração para perceber quando devem ser criados novos agentes de um determinado tipo. O processo de criação de um agente é descrito pelo Algoritmo \ref{criaagente}.
+
+Para que um agente seja criado, o algoritmo deve receber uma identificação do tipo do agente que será instanciado. O nodo em que o novo agente residirá depende do agente de plataforma (\textit{linha 4}), que escolherá o \textit{container} mais apto a receber um novo agente. Após a escolha do nodo, cabe ao servidor de agentes interpretar o pedido (\textit{linha 5}) e passar o controle para a plataforma JADE, que cria os agentes através de uma chamada a sua API (\textit{linha 6}).
+
+Os métodos implementados para a criação de agentes são:
+
+\begin{itemize}
+	\item \textit{obterNodoNovoAgente()}: implementado no gerente de plataformas para que possa ser escolhido o nodo mais apropriado para receber um novo agente;
+	\item \textit{interpretarTipo()}: tem como objetivo criar uma camada de abstração entre os nomes reais dos agentes JADE e um tipo visivel pela ferramenta de orquestração;
+	\item \textit{criarAgente(TipoAgenteJADE tipo)}: acessa a API do JADE para que ele possa instanciar e iniciar o agente correto.
+\end{itemize}
+
+As variaveis do algoritmo são:
+
+\begin{itemize}
+	\item \textit{gp}: a instância do gerente de plataforma;
+	\item \textit{sa}: o servidor de agentes;
+	\item \textit{nodoJade}: o \textit{container} do JADE o qual será instanciado o agente;
+	\item \textit{novoAgente}: o tipo do novo agente.
+\end{itemize}
+
+\begin{algorithm}[!htb]
+	\caption{Criação de Agentes}\label{criaagente}
+	\begin{algorithmic}[1]
+		\Procedure{CriarAgente}{$tipo$}
+		\State $gp \gets obterGerentePlataforma()$
+		\State $sa \gets obterServidorAgente()$
+		\State $nodoJade \gets gp.obterNodoNovoAgente()$
+		\State $novoAgente \gets sa.interpretarTipo(tipo)$
+		\State $nodoJade.criarAgente(novoAgente)$  
+		\EndProcedure
+	\end{algorithmic}
+\end{algorithm}
+
+Após este passos, o agente criado poderá ser acessado por todos os agentes da plataforma e por plataformas que tenham visão desta a qual ele está inserido. Assim como após sua instância, o agente já começa seu ciclo de percepção e atuação no ambiente de forma autônoma.

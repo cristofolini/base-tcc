@@ -1,16 +1,16 @@
-\subsection{GERENTE DE CONSOLIDA√á√ÉO}
+\subsection{GERENTE DE CONSOLIDA«√O}
 
-Para efetuar a consolida√ß√£o, o agente proposto por \citeonline{gabriel} ser√° adaptado para funcionar com a plataforma multiagente. Para tal, as tarefas efetuadas pelo agente proposto ser√£o divididas entre quatro agentes:
+Para efetuar a consolidaÁ„o, o agente proposto por \citeonline{gabriel} ser· adaptado para funcionar com a plataforma multiagente. Para tal, as tarefas efetuadas pelo agente proposto ser„o divididas entre quatro agentes:
 \begin{itemize}
-  \item Um gerente de consolida√ß√£o encarregado de tomar decis√µes relativas a quais \emph{clusters} ser√£o consolidados, mandar consolid√°-los e marc√°-los como consolidados;
-	\item Um agente de consolida√ß√£o encarregado de mapear VMs a servidores espec√≠ficos e efetuar a migra√ß√£o de VMs para outros servidores para viabilizar a consolida√ß√£o;
-	\item Um gerente de aloca√ß√£o encarregado de tomar decis√µes realativas a aloca√ß√£o de novas VMs como onde aloc√°-las e a necessidade ou n√£o de ativar recursos desligados;
-	\item Um agente de aloca√ß√£o encarregado de concretizar as decis√µes do gerente de aloca√ß√£o, alocando VMs e ligando recursos desativados.
+  \item Um gerente de consolidaÁ„o encarregado de tomar decisıes relativas a quais \emph{clusters} ser„o consolidados, mandar consolid·-los e marc·-los como consolidados;
+	\item Um agente de consolidaÁ„o encarregado de mapear VMs a servidores especÌficos e efetuar a migraÁ„o de VMs para outros servidores para viabilizar a consolidaÁ„o;
+	\item Um gerente de alocaÁ„o encarregado de tomar decisıes realativas a alocaÁ„o de novas VMs como onde aloc·-las e a necessidade ou n„o de ativar recursos desligados;
+	\item Um agente de alocaÁ„o encarregado de concretizar as decisıes do gerente de alocaÁ„o, alocando VMs e ligando recursos desativados.
 \end{itemize}
 
-O gerente de consolida√ß√£o, como mostrado na figura, ir√° escolher um \emph{cluster} para avaliar e determinar a possibilidade de sua consolida√ß√£o baseado em um algoritmo de consolida√ß√£o que deve ser especificado pelo usu√°rio do sistema. Ao determinar qual \emph{cluster} ser√° avaliado, uma mensagem √© encaminhada ao agente de aloca√ß√£o solicitando a consolida√ß√£o deste \emph{cluster} para que o agente posso avaliar e se poss√≠vel efetuar a consolida√ß√£o.
+O gerente de consolidaÁ„o, como mostrado na figura, ir· escolher um \emph{cluster} para avaliar e determinar a possibilidade de sua consolidaÁ„o baseado em um algoritmo de consolidaÁ„o que deve ser especificado pelo usu·rio do sistema. Ao determinar qual \emph{cluster} ser· avaliado, uma mensagem È encaminhada ao agente de alocaÁ„o solicitando a consolidaÁ„o deste \emph{cluster} para que o agente posso avaliar e se possÌvel efetuar a consolidaÁ„o.
 
-A figura cont√©m uma legenda v√°lida para todos os diagramas de agentes que ser√£o apresentados a seguir, explicitando o significado dos elementos dos diagramas.
+A figura contÈm uma legenda v·lida para todos os diagramas de agentes que ser„o apresentados a seguir, explicitando o significado dos elementos dos diagramas.
 
 \begin{figure}[!htb]
 	\centering
@@ -20,42 +20,42 @@ A figura cont√©m uma legenda v√°lida para todos os diagramas de agentes que ser√
 
 \begin{figure}[!htb]
 	\centering
-	\caption{Modelo do Gerente de Consolida√ß√£o.}\label{fig:gerente-consolidacao}
+	\caption{Modelo do Gerente de ConsolidaÁ„o.}\label{fig:gerente-consolidacao}
 	\includegraphics[width=1\textwidth]{figuras/gerente-consolidacao.png}
 \end{figure}
 
-\subsection{AGENTE DE CONSOLIDA√á√ÉO}
+\subsection{AGENTE DE CONSOLIDA«√O}
 
-O agente de consolida√ß√£o √© o respons√°vel por realizar todas as opera√ß√µes relacionadas a consolida√ß√£o de um \emph{cluster}. Como explicitado na figura, ao receber a mensagem do gerente de consolida√ß√£o solicitando a consolida√ß√£o de um \emph{cluster}, o agente verifica os outros \emph{clusters} com servidores ativos e mapeia as VMs contidas no \emph{cluster} a ser consolidado para estes outros \emph{clusters} ativos, de acordo com a capacidade de cada um, visando mapear o maior n√∫mero poss√≠vel de VMs em um mesmo cluster de forma a n√£o prejudicar o funcionamento das VMs submetendo-as a \emph{clusters} com recursos insuficientes dispon√≠veis, comparando os recursos sendo utilizados no \emph{cluster} a ser consolidado aos recursos dispon√≠veis no resto do ambiente. Assim que o maior n√∫mero poss√≠vel de VMs foi mapeado e migrado para servidores de outros \emph{clusters}, os servidores que ent√£o n√£o possuem nenhuma VM mapeada a eles s√£o desativados.
+O agente de consolidaÁ„o È o respons·vel por realizar todas as operaÁıes relacionadas a consolidaÁ„o de um \emph{cluster}. Como explicitado na figura, ao receber a mensagem do gerente de consolidaÁ„o solicitando a consolidaÁ„o de um \emph{cluster}, o agente verifica os outros \emph{clusters} com servidores ativos e mapeia as VMs contidas no \emph{cluster} a ser consolidado para estes outros \emph{clusters} ativos, de acordo com a capacidade de cada um, visando mapear o maior n˙mero possÌvel de VMs em um mesmo cluster de forma a n„o prejudicar o funcionamento das VMs submetendo-as a \emph{clusters} com recursos insuficientes disponÌveis, comparando os recursos sendo utilizados no \emph{cluster} a ser consolidado aos recursos disponÌveis no resto do ambiente. Assim que o maior n˙mero possÌvel de VMs foi mapeado e migrado para servidores de outros \emph{clusters}, os servidores que ent„o n„o possuem nenhuma VM mapeada a eles s„o desativados.
 
 \begin{figure}[!htb]
 	\centering
-	\caption{Modelo do Agente de Consolida√ß√£o.}\label{fig:agente-consolidacao}
+	\caption{Modelo do Agente de ConsolidaÁ„o.}\label{fig:agente-consolidacao}
 	\includegraphics[width=1\textwidth]{figuras/agente-consolidacao.png}
 \end{figure}
 
-\subsection{GERENTE DE ALOCA√á√ÉO}
+\subsection{GERENTE DE ALOCA«√O}
 
-O gerente de aloca√ß√£o √© o respons√°vel por determinar onde novas VMs dever√£o ser alocadas. Quando uma nova VM √© instanciada por um usu√°rio, os \emph{clusters} dispon√≠veis s√£o ranquedos em uma ordem de acordo com um algoritmo de aloca√ß√£o que deve ser especificado pelo usu√°rio da plataforma. Uma vez ordenados os \emph{clusters} o gerente de aloca√ß√£o envia uma mensagem ao agente de aloca√ß√£o para que tente realizar a aloca√ß√£o da nova VM. Por√©m, pode ser que n√£o seja poss√≠vel realizar a aloca√ß√£o em um dos \emph{clusters} especificados, possivelmente por falta de recursos dispon√≠veis, ou mesmo pelo motivo de recursos ociosos terem sido consolidados previamente. Nesse caso, o agente de aloca√ß√£o retornar√° uma mensagem para o gerente informando a impossibilidade de alocar a VM, e o gerente tentar√° encontrar recursos extras que tenham sido consolidados. Existindo estes recursos, eles s√£o ordenados de acordo com os interesses do usu√°rio, e uma solicita√ß√£o √© encaminhada ao agente de aloca√ß√£o para que ele tente reativar recursos suficientes para alocar a VM. As figuras mostram o modelo das funcionalidades do gerente de aloca√ß√£o.
+O gerente de alocaÁ„o È o respons·vel por determinar onde novas VMs dever„o ser alocadas. Quando uma nova VM È instanciada por um usu·rio, os \emph{clusters} disponÌveis s„o ranquedos em uma ordem de acordo com um algoritmo de alocaÁ„o que deve ser especificado pelo usu·rio da plataforma. Uma vez ordenados os \emph{clusters} o gerente de alocaÁ„o envia uma mensagem ao agente de alocaÁ„o para que tente realizar a alocaÁ„o da nova VM. PorÈm, pode ser que n„o seja possÌvel realizar a alocaÁ„o em um dos \emph{clusters} especificados, possivelmente por falta de recursos disponÌveis, ou mesmo pelo motivo de recursos ociosos terem sido consolidados previamente. Nesse caso, o agente de alocaÁ„o retornar· uma mensagem para o gerente informando a impossibilidade de alocar a VM, e o gerente tentar· encontrar recursos extras que tenham sido consolidados. Existindo estes recursos, eles s„o ordenados de acordo com os interesses do usu·rio, e uma solicitaÁ„o È encaminhada ao agente de alocaÁ„o para que ele tente reativar recursos suficientes para alocar a VM. As figuras mostram o modelo das funcionalidades do gerente de alocaÁ„o.
 
 \begin{figure}[!htb]
 	\centering
-	\caption{Modelo do Gerente de Aloca√ß√£o.}\label{fig:gerente-alocacao1}
+	\caption{Modelo do Gerente de AlocaÁ„o.}\label{fig:gerente-alocacao1}
 	\includegraphics[width=1\textwidth]{figuras/gerente-alocacao1.png}
 \end{figure}
 
 \begin{figure}[!htb]
 	\centering
-	\caption{Modelo do Gerente de Aloca√ß√£o.}\label{fig:gerente-alocacao2}
+	\caption{Modelo do Gerente de AlocaÁ„o.}\label{fig:gerente-alocacao2}
 	\includegraphics[width=1\textwidth]{figuras/gerente-alocacao2.png}
 \end{figure}
 
-\subsection{AGENTE DE ALOCA√á√ÉO}
+\subsection{AGENTE DE ALOCA«√O}
 
-O agente de aloca√ß√£o √© o respons√°vel por realizar as opera√ß√µes relacionadas √† aloca√ß√£o de novas VMs. Ao receber a mensagem do gerente de aloca√ß√£o solicitando a aloca√ß√£o de uma VM, a agente procura recursos dispon√≠veis para aloc√°-la nos \emph{clusters} na ordem especificada e ao encontrar um servidor capaz de suport√°-la, realiza o mapeamento da VM a esse servidor. O agente pode tamb√©m constatar a falta de recursos suficientes para alocar a VM solicitada. Quando isso acontecer, ele deve notificar o gerente de aloca√ß√£o para que sejam especificados os servidores desativados que o agente deve tentar reativar. Uma vez recebida a resposta do gerente, o agente tenta realizar a ativa√ß√£o dos recursos solicitados e, obtendo sucesso, avisa o gerente para que a aloca√ß√£o possa prosseguir normalmente. O modelo do agente de aloca√ß√£o √© explicitado na figura.
+O agente de alocaÁ„o È o respons·vel por realizar as operaÁıes relacionadas ‡ alocaÁ„o de novas VMs. Ao receber a mensagem do gerente de alocaÁ„o solicitando a alocaÁ„o de uma VM, a agente procura recursos disponÌveis para aloc·-la nos \emph{clusters} na ordem especificada e ao encontrar um servidor capaz de suport·-la, realiza o mapeamento da VM a esse servidor. O agente pode tambÈm constatar a falta de recursos suficientes para alocar a VM solicitada. Quando isso acontecer, ele deve notificar o gerente de alocaÁ„o para que sejam especificados os servidores desativados que o agente deve tentar reativar. Uma vez recebida a resposta do gerente, o agente tenta realizar a ativaÁ„o dos recursos solicitados e, obtendo sucesso, avisa o gerente para que a alocaÁ„o possa prosseguir normalmente. O modelo do agente de alocaÁ„o È explicitado na figura.
 
 \begin{figure}[!htb]
 	\centering
-	\caption{Modelo do Agente de Aloca√ß√£o.}\label{fig:agente-alocacao}
+	\caption{Modelo do Agente de AlocaÁ„o.}\label{fig:agente-alocacao}
 	\includegraphics[width=1\textwidth]{figuras/agente-alocacao.png}
 \end{figure}

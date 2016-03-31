@@ -1,8 +1,8 @@
 Devido ao crescimento da popularidade e da oferta de serviços de computação em nuvem, seja a nível de SaaS, PaaS ou Iaas, a gerência dos ambientes utilizados para fornecer estes serviços tem se tornado um tópico ativo de pesquisa, buscando-se métodos de manter e distribuir recursos computacionais em ambientes de CN de forma mais eficiente \cite{whitney2014data}. Recentemente pode-se encontrar trabalhos que propõem modelos de sociedades de agentes para realizar tal função de maneira autônoma e distribuida, constatando assim o interesse de várias pesquisas no casamento dos paradigmas de SMA e CN.
 
-Este trabalho propõe expandir a solução implementada por \citeonline{gabriel}, adaptando seus agentes para agirem inseridos em uma plataforma de SMA, que por sua vez estará ligada a ferramenta de orquestração. Assim como também abre a possibilidade para que a ferramenta de orquestração faça uso de agentes alheios aos processos propostos no trabalho de \citeonline{gabriel}.
+Este trabalho propõe expandir a solução implementada por \citeonline{gabriel}, adaptando seu agente para agir inserido em uma plataforma de SMA, que por sua vez estará ligada a ferramenta de orquestração. Assim como também abre a possibilidade para que a ferramenta de orquestração faça uso de agentes alheios aos processos propostos no trabalho de \citeonline{gabriel}.
 
-Analisando o modelo de componentes de uma ferramenta de orquestração proposto em \cite{gabriel} na Figura \ref{fig:arquiteturaExp}, nota-se, em verde, as modificações realizadas por seu trabalho. Estas mudanças são a adição de um novo componente chamado gerente de consolidação e a modificação do já existente gerente de alocação. Tais ajustes são oriundos das adições dos gerentes autônomos cujo objetivos são a consolidação e re-alocação de máquinas dentro do ambiente de CN. Para que tais gerentes possam ser modelados na forma de agentes inteligentes é necessário que seja providenciado um local onde esses possam residir dentro do ambiente. Através do uso de uma plataforma de SMA para alocar os agentes, consegue-se realizar a desacoplação dos gerentes da ferramenta de orquestração, implicando em um melhor processo de escalabilidade à solução existente. 
+Analisando o modelo de componentes de uma ferramenta de orquestração proposto em \cite{gabriel} na Figura \ref{fig:arquiteturaExp}, nota-se, em verde, as modificações realizadas por seu trabalho. Estas mudanças são a adição de um novo componente chamado gerente de consolidação e a modificação do já existente gerente de alocação. Tais ajustes são oriundos das adições dos gerentes autônomos cujo objetivos são a consolidação e re-alocação de máquinas dentro do ambiente de CN. Para que tais gerentes possam ser modelados na forma de agentes inteligentes é necessário que seja providenciado um local onde esses possam residir dentro do ambiente. Através do uso de uma plataforma de SMA para alocar os agentes, consegue-se realizar a desacoplação dos gerentes da ferramenta de orquestração, implicando em um melhor processo de escalabilidade à solução existente.
 
 \begin{figure}[!htb]
 	\centering
@@ -14,6 +14,24 @@ Os agentes inteligentes usados por uma ferramenta de consolidação podem ser requ
 
 \input{secoes/proposta/proposta_arquitetura.tex}
 
-% TODO: LUCAS escrever intro da parte dos agentes aqui !!
+\subsection{MODELO DOS AGENTES}
+Visando a adaptação do agente proposto por \citeonline{gabriel} para a plataforma multiagente proposta neste trabalho, foram levantados os passsos envolvidos no processo de gerenciamento, sendo eles:
+\begin{itemize}
+	\item Selecionar um \textit{cluster} para ser gerenciado;
+	\item Marcar o \textit{cluster} selecionado como sendo trabalhado;
+	\item Realizar as operações de gerenciamento sobre o \textit{cluster};
+	\item Marcar o \textit{cluster} como gerenciado;
+	\item Verificar a disponibilidade de resursos suficientes;
+	\item Disponibilizar novos recursos quando necessário.
+\end{itemize}
+
+Tendo em vista as etapas do processo, elas foram divididas entre três agentes, sendo eles:
+
+\begin{itemize}
+	\item Um agente de gerenciamento encarregado de trabalhar sobre os \textit{clusters}, mapeando VMs a servidores específicos e realizando a migração de VMs para viabilizar o gerenciamento, marcando os \textit{clusters} como trabalhados ao terminar as operações sobre eles;
+	\item Um agente de registro encarregado de buscar os \textit{clusters} que serão gerenciados e marcá-los como sendo trabalhados;
+	%\item Um gerente de alocação encarregado de tomar decisões realativas a alocação de novas VMs como onde alocá-las e a necessidade ou não de ativar recursos desligados;
+	\item Um agente de alocação encarregado de verificar a necessidade de disponibilizar novos recursos.
+\end{itemize}
 
 \input{secoes/proposta/proposta_agentes.tex}

@@ -13,7 +13,7 @@ Uma adição no modelo também se faz necessária. Com o propósito de manter a comun
 As atribuições do novo componente são segmentadas em dois grupos de atividades:
 
 \begin{itemize}
-	\item Gerenciar a plataforma de SMA: através da manutenção de ciclo de vida dos componentes distribuidos da plataforma de SMA; 
+	\item Gerenciar a plataforma de SMA: através da manutenção de ciclo de vida dos componentes distribuidos da plataforma de SMA;
 	\item Servir o acesso aos agentes: adicionando uma camada na comunicação entre a ferramenta de orquestração e a plataforma de SMA, evitando a comunicação direta entre ambas.
 \end{itemize}
 
@@ -25,7 +25,7 @@ Observando os grupos de atribuições, pode-se derivar duas entidades para compor 
 	\includegraphics[width=1\textwidth]{figuras/gerenteAgentes.png}
 \end{figure}
 
-As relações apresentadas na Figura \ref{fig:gerente_agentes} demonstram as trocas de mensagens entre os componentes do gerente de agentes e o restante da ferramenta de orquestração. Pode-se observar que o servidor de agentes não precisa de nenhum recurso externo ao seu módulo, comunicando-se apenas com o gerente de plataforma para obter acesso a ferramenta de SMA e em seguida com essa para que consiga requisitar a criação ou acesso a um agente. O gerente de plataforma por sua vez precisa de recursos alheios ao gerente de agentes, uma vez que são necessários recursos do ambiente para instanciar a plataforma de SMA. Mais detalhes sobre o processo de criação de uma plataforma serão explicados na subseção do gerente de plataforma.  
+As relações apresentadas na Figura \ref{fig:gerente_agentes} demonstram as trocas de mensagens entre os componentes do gerente de agentes e o restante da ferramenta de orquestração. Pode-se observar que o servidor de agentes não precisa de nenhum recurso externo ao seu módulo, comunicando-se apenas com o gerente de plataforma para obter acesso a ferramenta de SMA e em seguida com essa para que consiga requisitar a criação ou acesso a um agente. O gerente de plataforma por sua vez precisa de recursos alheios ao gerente de agentes, uma vez que são necessários recursos do ambiente para instanciar a plataforma de SMA. Mais detalhes sobre o processo de criação de uma plataforma serão explicados na subseção do gerente de plataforma.
 
 \subsection{GERENTE DE PLATAFORMA}
 
@@ -51,13 +51,13 @@ Após a verificação dos nodos principais do JADE, os nodos comuns devem ser verif
 
 \begin{itemize}
 	\item \textit{obterHeuristicas()}: obtém heurísticas especificas da plataforma. Tais informações definem características da plataforma JADE, como a quantidade de \textit{main containers} desejados para o ambiente.
-	
+
 	\item \textit{obterGerentePlataforma()}: obtém a instância do gerente de plataforma, esse objeto é responsável por encapsular os parâmetros e informações sobre o JADE, assim como toda lógica associada a ele;
-	
+
 	\item \textit{obterMainContainers()}: obtém todos os \textit{main containers} instanciados da plataforma JADE. Este método retorna nulo apenas se a plataforma não foi instanciada, uma vez que ao menos um \textit{main container} é necessário para seu funcionamento;
-	
+
 	\item \textit{obterContainers()}: obtém todos os \textit{containers} que não fazem parte do grupo de \textit{main containers} da plataforma JADE. Este método pode retornar nulo dado que uma plataforma ativa pode ter seus agentes armazenados apenas em seus \textit{main containers};
-	
+
 	\item \textit{setEstadoAmbiente(EstadoAmbiente ea)}: atribui valor a variavel que descreve o estado atual do ambiente da plataforma. Essa variável pode assumir os seguintes valores:
 	\begin{itemize}
 		\item \textit{Ambiente não inicializado}: ocorre apenas quando a plataforma JADE  não tem nenhum \textit{main container} ativo;
@@ -65,13 +65,13 @@ Após a verificação dos nodos principais do JADE, os nodos comuns devem ser verif
 		\item \textit{Ambiente sobrecarregado}: ocorre quando todos os \textit{containers} da plataforma estão trabalhando no limite de seus recursos. Isto pode acontecer se uma VM estiver usando todo seu poder computacional para manter os agentes e o \textit{container} operantes;
 		\item \textit{Ambiente estável}: é o estado alvo do gerente de plataforma. Esse estado é caracterizado pelo ambiente ativo, com redundância e sem \textit{containers} sobrecarregados.
 	\end{itemize}
-	
+
 	\item \textit{containerFuncionando(ContainerJADE c)}: é um método destinado a verificar se o \textit{container} JADE está ativo e funcionando corretamente. Para realizar esta tarefa, o gerenciador de plataforma deve comunicar-se com o \textit{container} e realizar um \textit{ping} através do agente \textit{ping} implementado por padrão na plataforma JADE. Dessa forma, pode-se testar se a plataforma está ativa e verificar se os agentes conseguem ser acessados;
-	
+
 	\item \textit{redundanciaMinima()}: obtém a quantidade mínima de \textit{main containers} configurado para este ambiente;
-	
+
 	\item \textit{removerContainers(List\textless ContainerJADE \textgreater listC)}: remove todos os containers listados, deixando as VMs alocadas a esses sem carga. Uma vez que estas VMs tem apenas a função de servir de hospedeiro para os \textit{containers}, elas são removidas do ambiente por estarem ociosas. Reutilizar tais VMs pode não ser saudável para a plataforma de SMA, dado que a causa de um problema à plataforma pode ser oriundos da própria VM hospedeira. Após a remoção dos \textit{containers} o servidor de agentes é notificado acerca do desligamento dos nodos. Este comportamento deve-se pela perda dos agentes alocados nos \textit{containers} que apresentaram defeito. O comportamento do servidor de agentes é apresentado futuramente nesta seção;
-	
+
 	\item \textit{verificarNecessidadeNovoContainer(HeuristicasJADE hj)}: tem \\como objetivo verificar se os \textit{containers} ativos conseguem continuar recebendo mais agentes sem que fiquem sobrecarregados ou se a lógica deve criar um novo \textit{container} para ser agregado a plataforma. Analisar heurísticas de eficiência para a plataforma JADE e estratégias para melhor alocar os agentes não é o foco deste trabalho, no entanto cria-se através desse método um arcabouço para que tais heurísticas possam ser avaliadas e implementadas. Uma implementação simples deste método envolve criar um limite de agentes por plataforma e verificar se há plataformas operando neste limite.
 \end{itemize}
 
@@ -98,42 +98,42 @@ As variáveis envolvidas no algoritmo de percepção da plataforma são:
 		\State $containers \gets gp.obterContainers()$
 		\State $containersErro \gets \textbf{new}  List()$
 		\State $estadoPercebido = null$
-	
+
 		\If{$mainContainers = null$}
 			\State $gp.setEstadoAmbiente("PlataformaVazia")$
 			\Return \textbf{true}
 		\EndIf
-		
+
 		\ForAll{$mainContainers$}
 			\If {$gp.containerFuncionando(mainContainer) = \textbf{false}$}
 				\State $containersErro.add(mainContainer)$
 			\EndIf
 		\EndFor
-		
+
 		\State $mainContainers.removeAll(containersErro)$
-		
+
 		\If{$mainContainers.size() = 0$}
 			\State $estadoPercebido \gets "PlataformaVazia"$
 		\ElsIf{$mainContainers.size() <= heur.redundanciaMinima()$}
 			\State $estadoPercebido \gets "PlataformaSemRedundancia"$
 		\EndIf
-		
+
 		\ForAll{$containers$}
 			\If {$gp.containerFuncionando(container) == \textbf{false}$}
 				\State $containersErro.add(container)$
 			\EndIf
 		\EndFor
-		
+
 		\State $containers.removeAll(containersErro)$
 		\If {$containersErro.size() > 0$}
 			\State $gp.removerContainers(containersErro)$
 		\EndIf
-		
+
 		\If{$estadoPercebido != null$}
 			\State $gp.setEstadoAmbiente(estadoPercebido)$
 			\Return $\textbf{true}$
 		\EndIf
-		
+
 		\Return $gp.verificarNecessidadeNovoContainer(heur)$
 		\EndProcedure
 	\end{algorithmic}
@@ -148,7 +148,7 @@ Para que o JADE possa ser instanciado deve-se obter uma VM (\textit{linha 3}) e 
 \begin{itemize}
 	\item Criação da plataforma JADE: desta forma é criado o primeiro \textit{main container} que contém os agentes necessários para garantir as especificações da FIPA. Após a existência deste \textit{main container} é possivel que outros \textit{containers} venham a ser criados e registrados a esta plataforma;
 	\item Criação de um \textit{container} de agentes: com o objetivo de distribuir os agentes da plataforma ao longo do ambiente;
-	\item Criação de um \textit{main container} de agentes: pode ser realizado para obter redundância do \textit{main container} principal, fazendo com que a plataforma torne-se um pouco mais tolerante a faltas em caso do desligamento da VM em que o primeiro nodo da plataforma foi instanciado. 
+	\item Criação de um \textit{main container} de agentes: pode ser realizado para obter redundância do \textit{main container} principal, fazendo com que a plataforma torne-se um pouco mais tolerante a faltas em caso do desligamento da VM em que o primeiro nodo da plataforma foi instanciado.
 \end{itemize}
 
 Para auxiliar a criação do \textit{container}, um método foi implementado:
@@ -180,7 +180,7 @@ As variáveis utilizadas nesse algoritmo são:
 			\ElsIf{$per = "PlataformaSemRedundancia"$}
 				\State $tipo \gets "MainContainer"$
 			\EndIf
-			\State $gp.instanciarContainer(vm, tipo)$  
+			\State $gp.instanciarContainer(vm, tipo)$
 		\EndProcedure
 	\end{algorithmic}
 \end{algorithm}
@@ -222,7 +222,7 @@ As variáveis do algoritmo são:
 		\State $sa \gets obterServidorAgente()$
 		\State $nodoJade \gets gp.obterNodoNovoAgente()$
 		\State $novoAgente \gets sa.interpretarTipo(tipo)$
-		\State $nodoJade.criarAgente(novoAgente)$  
+		\State $nodoJade.criarAgente(novoAgente)$
 		\EndProcedure
 	\end{algorithmic}
 \end{algorithm}

@@ -1,6 +1,6 @@
 \subsection{AGENTE DE GERENCIAMENTO}
 
-O agente de gerenciamento tem o objetivo de ter todos os \textit{clusters} do ambiente marcados como trabalhados, isto é, realizar as operações de gerenciamento (balanceamento de carga, consolidação e reativação de recursos, quando cabível). Como mostrado na figura, irá solicitar um \textit{cluster} ao agente de registro para avaliar e determinar as possibilidades relativas ao seu gerenciamento baseado em heurísticas que devem ser especificadas pelo usuário do sistema. O agente de gerenciamento então opera sobre o \textit{cluster}, marcando-o como trabalhado por um tempo determinado pelo usuário, asssim que todas as possibilidades de gerenciamento forem efetuadas. Uma vez que todos os \textit{clusters} estão marcados como trabalhados, o agente de gerenciamento entra em estado de espera, e será notificado pelo agente de registro quando ocorrer a expiração do tempo de validade de alguma marcação.
+O agente de gerenciamento tem o objetivo de operar sobre os \textit{clusters} do ambiente após eles serem registrados pelo agente de registro, isto é, realizar as operações de gerenciamento quando forem cabíveis. Como mostrado na figura, irá solicitar um \textit{cluster} ao agente de registro para avaliar e determinar as possibilidades relativas ao seu gerenciamento baseado em heurísticas que devem ser especificadas pelo usuário do sistema. O agente de gerenciamento então opera sobre o \textit{cluster}, marcando-o como trabalhado por um tempo determinado pelo usuário, asssim que todas as possibilidades de gerenciamento forem efetuadas. Uma vez que todos os \textit{clusters} estão marcados como trabalhados, o agente de gerenciamento entra em estado de espera, e será notificado pelo agente de registro quando ocorrer a expiração do tempo de validade de alguma marcação.
 
 A figura contém uma legenda válida para todos os diagramas de agentes que serão apresentados a seguir, explicitando o significado dos elementos dos diagramas.
 
@@ -10,28 +10,34 @@ A figura contém uma legenda válida para todos os diagramas de agentes que serão 
 	\includegraphics[width=1\textwidth]{figuras/legenda-agentes.png}
 \end{figure}
 
-%\begin{figure}[!htb]
-%	\centering
-%	\caption{Modelo do Gerente de Consolidação.}\label{fig:gerente-consolidacao}
-%	\includegraphics[width=1\textwidth]{figuras/gerente-consolidacao.png}
-%\end{figure}
+\begin{figure}[!htb]
+	\centering
+	\caption{Modelo do Agente de Gerenciamento.}\label{fig:gerente-consolidacao}
+	\includegraphics[width=1\textwidth]{figuras/gerente-consolidacao.png}
+\end{figure}
 
 \subsection{AGENTE DE REGISTRO}
 
 O agente de registro é o responsável por buscar os \textit{clusters} requisitados pelo agente de gerenciamento. Como explicitado na figura, ao receber a mensagem do agente de gerenciamento solicitando um \emph{cluster} para ser trabalhado, o agente de registro determina qual \textit{cluster} deve ser avaliado, novamente baseado em heurísticas especificadas pelo usuário, encaminha uma mensagem ao agente de gerenciamento solicitando a operação sobre esse \textit{cluster} e registra o mesmo como sendo trabalhado. O agente de registro tem também a função de monitorar o \textit{timeout} das marcações realizadas pelo agente de gerenciamento. Uma vez que uma das marcações expira, uma nova mensagem é encaminhada ao agente de gerenciamento da mesma forma como foi encaminhada a primeira, solicitando uma nova operação sobre o \textit{cluster} que havia sido marcado.
 
-%\begin{figure}[!htb]
-%	\centering
-%	\caption{Modelo do Agente de Consolidação.}\label{fig:agente-consolidacao}
-%	\includegraphics[width=1\textwidth]{figuras/agente-consolidacao.png}
-%\end{figure}
+\begin{figure}[!htb]
+	\centering
+	\caption{Modelo do Agente de Consolidação - Registro de Clusters.}\label{fig:agente-registro1}
+	\includegraphics[width=1\textwidth]{figuras/agente-registro1.png}
+\end{figure}
+
+\begin{figure}[!htb]
+	\centering
+	\caption{Modelo do Agente de Consolidação - Delegação de Trabalho.}\label{fig:agente-registro2}
+	\includegraphics[width=1\textwidth]{figuras/agente-registro2.png}
+\end{figure}
 
 \subsection{AGENTE DE ALOCAÇÃO}
 
 O agente de alocação tem como objetivo manter a disponibilidade de recursos suficientes para o bom funcionamento do ambiente e é o responsável por verificar periodicamente a necessidade de disponibilizar recursos e realizar as operações relacionadas à alocação de novas VMs. Ao ser instanciado, é estabelecido um intervalo de tempo entre verificações, ao final do qual o agente compara a quantidade de recursos sendo utilizados com a quantidade de recursos ativos e, baseado nas heurísticas do usuário, decide se devem ser alocados novos recursos e, sendo necessário, a quantidade a ser alocada.
 
-%\begin{figure}[!htb]
-%	\centering
-%	\caption{Modelo do Agente de Alocação.}\label{fig:agente-alocacao}
-%	\includegraphics[width=1\textwidth]{figuras/agente-alocacao.png}
-%\end{figure}
+\begin{figure}[!htb]
+	\centering
+	\caption{Modelo do Agente de Alocação.}\label{fig:agente-alocacao}
+	\includegraphics[width=1\textwidth]{figuras/agente-alocacao.png}
+\end{figure}

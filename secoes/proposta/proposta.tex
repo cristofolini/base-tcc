@@ -13,25 +13,4 @@ Analisando o modelo de componentes de uma ferramenta de orquestração proposto em
 Os agentes inteligentes usados por uma ferramenta de consolidação podem ser requisitados em vários segmentos desta. A partir da inclusão da plataforma de SMA, pode-se unificar o acesso a eles através da criação de uma interface visível à ferramenta de orquestração, que por sua vez se conecta à plataforma e seus agentes. Uma abordagem desse tipo adiciona um componente a mais na arquitetura da ferramenta de orquestração, porém mantem a lógica dos agentes desacoplada. Para alcançar esse objetivo, este trabalho propõe uma mudança nos componentes da ferramenta de orquestração afim de adicionar um gerente de agentes. Este serve de fachada para a plataforma de SMA, garantindo acesso para os nodos de controle da ferramenta de orquestração.
 
 \input{secoes/proposta/proposta_arquitetura.tex}
-
-\subsection{MODELO DOS AGENTES}
-Visando a adaptação do agente proposto por \citeonline{gabriel} para a plataforma multiagente proposta neste trabalho, foram levantados os passsos envolvidos no processo de gerenciamento, sendo eles:
-\begin{itemize}
-	\item Selecionar um \textit{cluster} para ser gerenciado;
-	\item Marcar o \textit{cluster} selecionado como sendo trabalhado;
-	\item Realizar as operações de gerenciamento sobre o \textit{cluster};
-	\item Marcar o \textit{cluster} como gerenciado;
-	\item Verificar a disponibilidade de resursos suficientes;
-	\item Disponibilizar novos recursos quando necessário.
-\end{itemize}
-
-Tendo em vista as etapas do processo, elas foram divididas entre três agentes, sendo eles:
-
-\begin{itemize}
-	\item Um agente de gerenciamento encarregado de trabalhar sobre os \textit{clusters}, mapeando VMs a servidores específicos e realizando a migração de VMs para viabilizar o gerenciamento, marcando os \textit{clusters} como trabalhados ao terminar as operações sobre eles;
-	\item Um agente de registro encarregado de buscar os \textit{clusters} que serão gerenciados e marcá-los como sendo trabalhados;
-	%\item Um gerente de alocação encarregado de tomar decisões realativas a alocação de novas VMs como onde alocá-las e a necessidade ou não de ativar recursos desligados;
-	\item Um agente de alocação encarregado de verificar a necessidade de disponibilizar novos recursos.
-\end{itemize}
-
 \input{secoes/proposta/proposta_agentes.tex}

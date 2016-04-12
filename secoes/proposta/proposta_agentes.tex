@@ -34,13 +34,8 @@ Para fins deste trabalho, o agente inspetor é responsável apenas por instânciar 
 	\item Agente diligente do cluster: tem a função de aplicar uma heurística sobre os \textit{clusters} que são marcados para serem trabalhados;
 	\item Agente de alocação de cluster: é o componente responsável por ligar \textit{clusters} desligados previamente para que possa atender a demandas crescentes.
 \end{enumerate}
-LUCAS, VEJA ESTES NOMES E TROQUE SUA MODELAGEM PARA ELES, OU TROQUE AQUI PARA O NOME QUE VOCÊ PREFERIR %TODO: LUCAS!!! <---- LEIA
 
-<<<<<<< HEAD
-Estes três agentes compõem a sociedade que o agente inspetor conhece. De forma a mapear as necessidades da ferramenta de orquestração, é disponibilizado um artefato no qual o agente inspetor pode usar para conhecer as necessidades do ambiente e seu tamanho. Sendo assim, esse pode derivar desse conhecimento o momento que são necessários e a quantidade de cada agente dessa sociedade.
-=======
-Estes três agentes compõem a sociedade que o agente inspetor conhece. De forma a derivar os requisitos da ferramenta de orquestração, é disponibilizado um artefato o qual a própria ferramenta disponibiliza suas necessidades em alto nível. Sendo assim, o inspetor pode derivar que agentes serão necessários para alcançar estes objetivos e a quantidade deles através de seus conhecimentos sobre os agentes. 
->>>>>>> origin/master
+Estes três agentes compõem a sociedade que o agente inspetor conhece. De forma a derivar os requisitos da ferramenta de orquestração, é disponibilizado um artefato o qual a própria ferramenta disponibiliza suas necessidades em alto nível. Sendo assim, o inspetor pode derivar que agentes serão necessários para alcançar estes objetivos e a quantidade deles através de seus conhecimentos sobre os agentes.
 
 \subsubsection{AGENTE INSPETOR DA PLATAFORMA}
 
@@ -67,7 +62,7 @@ A destruição de uma plataforma o informa diretamente quantos e quais agentes dei
 As ações do inspetor são listadas a seguir:
 
 \begin{enumerate}
-	\item Destruir um agente: terminar a execução de um agente de algum dado tipo; 
+	\item Destruir um agente: terminar a execução de um agente de algum dado tipo;
 	\item Criar um agente: inicializar um agente dentro da plataforma de SMA;
 	\item Interpretar necessidades da ferramenta de orquestração: deriva um modelo de requisitos para ser implementado pelo inspetor sobre a vontade da ferramenta de orquestração;
 	\item Verificar espaço para novos agentes: confere se há local para criar novos agentes no ambiente ou se a plataforma está lotada;
@@ -77,7 +72,7 @@ As ações do inspetor são listadas a seguir:
 As ações do inspetor de destruição e criação de agentes ainda podem ser granularizadas para cada tipo específico de agente, gerando um total de 8 ações possíveis. Estas em conjunto com as percepções e eventos relativos a este agente, são mescladas para formar a sua única funcionalidades (papél): implementar as necessidades da ferramenta de orquestração. Essa funcionalidade engloba todas as ações e percepções citadas previamente e implementa os requisitos registrados pela ferramenta de orquestração.
 
 Para que possa obter informações sobre os agentes que compõe a sociedade, o inspetor precisa conhecer os agentes e ter acesso a eles. Para que ele consiga deliberar sobre o estado em que a sociedade de agentes se encontra em um dado momento, o inspetor pode usar do agente FIPA AMS (\textit{Agent Management System}) para que possa descobrir os agentes registrados e ativos na plataforma. Caracteriza-se assim o único ato social deste agente, que se faz necessário para que possa perceber o ambiente em que os agentes estão inseridos. Por consequência disso, uma nova ação com o objetivo de descobrir os agentes ativos deve ser criada e delegada ao AMS. A Figura \ref{fig:agente-inspetor} demonstra a modelagem chamada de \textit{system overview} da metodologia \textit{prometheus} para este agente.
- 
+
 \begin{figure}[!htb]
 	\centering
 	\caption{\textit{system overview diagram} referente ao agente inspetor da plataforma.}\label{fig:agente-inspetor}
@@ -90,16 +85,7 @@ Ao perceber a destruição de um container o inspetor verifica se este possuia age
 
 Nesta seção serão descritos os modelos dos três agentes responsáveis por implementar as funções propostas por \citeonline{gabriel}.
 
-<<<<<<< HEAD
 \subsubsection{AGENTE DE ALISTAMENTO DE CLUSTER}
-=======
-\begin{itemize}
-	\item Um agente de gerenciamento encarregado de trabalhar sobre os \textit{clusters}, mapeando VMs a servidores específicos e realizando a migração de VMs para viabilizar o gerenciamento, marcando os \textit{clusters} como trabalhados ao terminar as operações sobre eles;
-	\item Um agente de registro encarregado de buscar os \textit{clusters} que serão gerenciados e marcá-los como sendo trabalhados;
-	\item Um gerente de alocação encarregado de tomar decisões realativas a alocação de novas VMs como onde alocá-las e a de ou não de ativar recursos desligados;
-	\item Um agente de alocação encarregado de verificar a necessidade de disponibilizar novos recursos.
-\end{itemize}
->>>>>>> origin/master
 
 O agente de alistamento de \textit{cluster} é um agente reativo que tem o objetivo de monitorar o ambiente em busca de \textit{clusters} que necessitam ser trabalhados, para então listá-los de forma que o agente diligente possa deliberar sobre os \textit{clusters}. Essa listagem é feita através de um \textit{blackboard}, providenciado e gerenciado pela plataforma JADE. Como mostrado na figura \ref{fig:agente-alistamento}, o agente de alistamento terá conhecimento dos \textit{clusters} ativos do ambiente e, uma vez que um novo \textit{cluster} for descoberto ou algum \textit{cluster} existente tiver sido trabalhado pela última vez a muito tempo, ele deve escrever no \textit{blackboard} a necessidade de trabalho sobre aquele \textit{cluster}.
 

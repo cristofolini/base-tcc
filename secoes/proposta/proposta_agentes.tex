@@ -2,7 +2,7 @@
 
 Uma vez que o funcionamento da plataforma de SMA está garantido pelo componente, os agentes modelados na arquitetura correspondente já podem ser instanciados e começar a atuar no ambiente. A ferramenta de orquestração permite o sensoriamento do seu ambiente interno para seus nodos de gerência, fato este que garante aos agentes a capacidade de observar os recursos do ambiente, uma vez que a plataforma encontra-se instanciada nestes nodos.
 
-Embora seja garantido aos agentes um ambiente para atuarem e uma arquitetura para estarem contidos, estes ainda precisam ser instanciados. Esse processo, na técnologia JADE usada neste trabalho, deve ser feito em tempo de execução ou através de parâmetros na inicialização de um dado \texit{container}. No âmbito desta proposta ambos são usados para garantir que tanto o componente de gerência de agentes quanto o restante da ferramenta de orquestração não precisem ativamente preocuparem-se com a inicialização dos agentes. Este tópico é discutido em detalhes na subseção de inicialização dos agentes.
+Embora seja garantido aos agentes um ambiente para atuarem e uma arquitetura para estarem contidos, estes ainda precisam ser instanciados. Esse processo, na técnologia JADE usada neste trabalho, deve ser feito em tempo de execução ou através de parâmetros na inicialização de um dado \textit{container}. No âmbito desta proposta ambos são usados para garantir que tanto o componente de gerência de agentes quanto o restante da ferramenta de orquestração não precisem ativamente preocuparem-se com a inicialização dos agentes. Este tópico é discutido em detalhes na subseção de inicialização dos agentes.
 
 A modelagem dos agentes elaborados neste trabalho foi realizada utilizando a \textit{Prometheus Modeling Tool} que utiliza a notação mostrada na Figura \ref{fig:legenda-agentes}:
 \begin{figure}[!htb]
@@ -34,8 +34,13 @@ Para fins deste trabalho, o agente inspetor é responsável apenas por instânciar 
 	\item Agente diligente do cluster: tem a função de aplicar uma heurística sobre os \textit{clusters} que são marcados para serem trabalhados;
 	\item Agente de alocação de cluster: é o componente responsável por ligar \textit{clusters} desligados previamente para que possa atender a demandas crescentes.
 \end{enumerate}
+LUCAS, VEJA ESTES NOMES E TROQUE SUA MODELAGEM PARA ELES, OU TROQUE AQUI PARA O NOME QUE VOCÊ PREFERIR %TODO: LUCAS!!! <---- LEIA
 
+<<<<<<< HEAD
 Estes três agentes compõem a sociedade que o agente inspetor conhece. De forma a mapear as necessidades da ferramenta de orquestração, é disponibilizado um artefato no qual o agente inspetor pode usar para conhecer as necessidades do ambiente e seu tamanho. Sendo assim, esse pode derivar desse conhecimento o momento que são necessários e a quantidade de cada agente dessa sociedade.
+=======
+Estes três agentes compõem a sociedade que o agente inspetor conhece. De forma a derivar os requisitos da ferramenta de orquestração, é disponibilizado um artefato o qual a própria ferramenta disponibiliza suas necessidades em alto nível. Sendo assim, o inspetor pode derivar que agentes serão necessários para alcançar estes objetivos e a quantidade deles através de seus conhecimentos sobre os agentes. 
+>>>>>>> origin/master
 
 \subsubsection{AGENTE INSPETOR DA PLATAFORMA}
 
@@ -45,13 +50,56 @@ Deve-se notar que um agente responsável por analisar as necessidades de uma ferr
 
 A intenção do agente inspetor da plataforma é fazer com que a ferramenta de orquestração tenha todo os agentes que deseja ativos até que a necessidade desta mude. É cargo deste agente sensoriar tanto ambiente da plataforma de SMA quanto obter informações sobre os requisitos da ferramenta de orquestração. O cruzamento desses dados é responsável por gerar as principais crenças deste agente, que motivado por elas deve adotar um plano para concretizar sua intenção. Este agente é bem definido dentro de um modelo cognitivo e intencional, onde precisa tomar decisões e manter um estado interno composto de crenças referentes a como seu ambiente encontra-se em um dado momento, deliberando não só sobre suas percepções, mas também sobre suas vontades.
 
-Sendo esse um agente de meta gerência, seus objetivos diferem do restante da sociedade em relação ao domínio de sua atuação. Para simplificar a visualização do restante da sociedade de agentes, este agente é modelado de forma separada, de modo que todas as atribuições, percepções e funcionalidades desse sub-sistema competem a ele apenas. Seguindo a metodologia \texit{Prometheus}, baseada em teoria de agentes, podemos decompor este sistema em funcionalidades, percepções, objetivos e ações. %TODO WIP
+Sendo esse o único agente de meta gerência, seus objetivos diferem do restante da sociedade em relação ao domínio de sua atuação (único agente que tem como ambiente a plataforma de SMA). Para simplificar a visualização do restante da sociedade de agentes, este agente é modelado de forma separada, de modo que todas as atribuições, percepções e funcionalidades desse sub-sistema competem a ele apenas. Seguindo a metodologia \textit{Prometheus}, baseada em teoria de agentes, podemos decompor este sistema em funcionalidades, percepções, objetivos, ações e protocolos de comunicação \cite{prometheus}.
+
+Os eventos trazem informações diretas e completas para o agente, o qual consegue deliberar sobre as implicações diretas de seus acontecimentos. As percepções, no entanto, precisam ser analisadas e ponderadas \cite{prometheus}. Sendo assim os eventos e percepções relacionados com esse agente são os que seguem:
+
+\begin{enumerate}
+	\item Evento da destruição de \textit{container}: ocorre quando um nodo da plataforma é destruido, terminando ações de agentes que lá residiam;
+	\item Evento de criação de \textit{container}: ocorre quando um novo nodo da plataforma é criado, podendo conter novos agentes;
+	\item Percepção de mudança nas necessidades do sistema: ocorre ao ser percebido que a ferramenta de orquestração mudou suas heurísticas;
+	\item Percepção de ócio: percebido quando a tarefa executada por um grupo de agentes está usando mais recursos do que precisa para sua completude;
+	\item Percepção de subdesempenho: percebido quando uma tarefa executada por um grupo de agentes não está tendo sucesso de se concluir em uma taxa desejada.
+\end{enumerate}
+
+A destruição de uma plataforma o informa diretamente quantos e quais agentes deixaram a sociedade através de um simples acesso aos dados sobre ela. A criação de uma plataforma deve ser percebida também, pois pode haver o caso em que os nodos correntes estão lotados de agentes (sobrecarregando uma VM) e deve-se esperar até que haja algum local disponível para cria-los. As percepções de ócio e subdesempenho devem ser processadas para analisar se constitui-se mesmo de ócio ou subesempenho de agentes, ou trata-se apenas de discrepâncias ou casos especiais. Por fim, as mudanças nas necessidades do sistema devem ser interpretadas afim de decidir se alguma estratégia deve mudar para conseguir atingir seus requisitos.
+
+As ações do inspetor são listadas a seguir:
+
+\begin{enumerate}
+	\item Destruir um agente: terminar a execução de um agente de algum dado tipo; 
+	\item Criar um agente: inicializar um agente dentro da plataforma de SMA;
+	\item Interpretar necessidades da ferramenta de orquestração: deriva um modelo de requisitos para ser implementado pelo inspetor sobre a vontade da ferramenta de orquestração;
+	\item Verificar espaço para novos agentes: confere se há local para criar novos agentes no ambiente ou se a plataforma está lotada;
+	\item Analisar tempo de execução de tarefa: mede o tempo que uma atividade está demorando para ser realizada;
+\end{enumerate}
+
+As ações do inspetor de destruição e criação de agentes ainda podem ser granularizadas para cada tipo específico de agente, gerando um total de 8 ações possíveis. Estas em conjunto com as percepções e eventos relativos a este agente, são mescladas para formar a sua única funcionalidades (papél): implementar as necessidades da ferramenta de orquestração. Essa funcionalidade engloba todas as ações e percepções citadas previamente e implementa os requisitos registrados pela ferramenta de orquestração.
+
+Para que possa obter informações sobre os agentes que compõe a sociedade, o inspetor precisa conhecer os agentes e ter acesso a eles. Para que ele consiga deliberar sobre o estado em que a sociedade de agentes se encontra em um dado momento, o inspetor pode usar do agente FIPA AMS (\textit{Agent Management System}) para que possa descobrir os agentes registrados e ativos na plataforma. Caracteriza-se assim o único ato social deste agente, que se faz necessário para que possa perceber o ambiente em que os agentes estão inseridos. Por consequência disso, uma nova ação com o objetivo de descobrir os agentes ativos deve ser criada e delegada ao AMS. A Figura \ref{fig:agente-inspetor} demonstra a modelagem chamada de \textit{system overview} da metodologia \textit{prometheus} para este agente.
+ 
+\begin{figure}[!htb]
+	\centering
+	\caption{\textit{system overview diagram} referente ao agente inspetor da plataforma.}\label{fig:agente-inspetor}
+	\includegraphics[width=1\textwidth]{figuras/agente_inspetor.png}
+\end{figure}
+
+Ao perceber a destruição de um container o inspetor verifica se este possuia agentes os quais podem se fazer necessários na condição atual de desempenho do sistema. Caso seja confirmada a necessidade dos agentes ele irá recria-los se houver espaço na plataforma de SMA. Se nenhum nodo puder receber mais um agente, o inspetor espera pela criação de um novo \textit{container}, que ocorrerá no próximo ciclo de execução do gerente de plataforma. Dessa forma, o agente será criado quando o inspetor perceber este evento. Caso seja notado ócio ou subdesempenho de agentes da sociedade, o inspetor deve verificar o tempo de execução das tarefas e procurar por discrepâncias antes de decidir criar ou destruir novos agentes. Assim se for notado que o tempo apresenta poucas variações, porém mantém-se o ócio ou subdesempenho, pode-se inferir que faltam ou sobram agentes na sociedade para realizar a tarefa inspecionada e medidas cabíveis devem ser tomadas (criação ou destruição de agentes). Se for detectado que as necessidades da ferramenta de orquestração mudaram, elas devem ser interpretadas pelo inspetor, que deve verificar e ajustar a sociedade de agentes para suprir a nova demanda, se necessário. Caracteriza-se assim o agente inspetor, garantindo que o restante dos agentes possam trabalhar no ambiente de CN sem se preocuparem com a garantia de seu ciclo de vida ou heurísticas de desempenho.
 
 \subsection{MODELO DOS AGENTES}
 
 Nesta seção serão descritos os modelos dos três agentes responsáveis por implementar as funções propostas por \citeonline{gabriel}.
 
+<<<<<<< HEAD
 \subsubsection{AGENTE DE ALISTAMENTO DE CLUSTER}
+=======
+\begin{itemize}
+	\item Um agente de gerenciamento encarregado de trabalhar sobre os \textit{clusters}, mapeando VMs a servidores específicos e realizando a migração de VMs para viabilizar o gerenciamento, marcando os \textit{clusters} como trabalhados ao terminar as operações sobre eles;
+	\item Um agente de registro encarregado de buscar os \textit{clusters} que serão gerenciados e marcá-los como sendo trabalhados;
+	\item Um gerente de alocação encarregado de tomar decisões realativas a alocação de novas VMs como onde alocá-las e a de ou não de ativar recursos desligados;
+	\item Um agente de alocação encarregado de verificar a necessidade de disponibilizar novos recursos.
+\end{itemize}
+>>>>>>> origin/master
 
 O agente de alistamento de \textit{cluster} é um agente reativo que tem o objetivo de monitorar o ambiente em busca de \textit{clusters} que necessitam ser trabalhados, para então listá-los de forma que o agente diligente possa deliberar sobre os \textit{clusters}. Essa listagem é feita através de um \textit{blackboard}, providenciado e gerenciado pela plataforma JADE. Como mostrado na figura \ref{fig:agente-alistamento}, o agente de alistamento terá conhecimento dos \textit{clusters} ativos do ambiente e, uma vez que um novo \textit{cluster} for descoberto ou algum \textit{cluster} existente tiver sido trabalhado pela última vez a muito tempo, ele deve escrever no \textit{blackboard} a necessidade de trabalho sobre aquele \textit{cluster}.
 

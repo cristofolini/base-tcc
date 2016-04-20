@@ -81,23 +81,23 @@ Para que possa obter informações sobre os agentes que compõe a sociedade, o insp
 
 Ao perceber a destruição de um container o inspetor verifica se este possuia agentes os quais podem se fazer necessários na condição atual de desempenho do sistema. Caso seja confirmada a necessidade dos agentes ele irá recria-los se houver espaço na plataforma de SMA. Se nenhum nodo puder receber mais um agente, o inspetor espera pela criação de um novo \textit{container}, que ocorrerá no próximo ciclo de execução do gerente de plataforma. Dessa forma, o agente será criado quando o inspetor perceber este evento. Caso seja notado ócio ou subdesempenho de agentes da sociedade, o inspetor deve verificar o tempo de execução das tarefas e procurar por discrepâncias antes de decidir criar ou destruir novos agentes. Assim se for notado que o tempo apresenta poucas variações, porém mantém-se o ócio ou subdesempenho, pode-se inferir que faltam ou sobram agentes na sociedade para realizar a tarefa inspecionada e medidas cabíveis devem ser tomadas (criação ou destruição de agentes). Se for detectado que as necessidades da ferramenta de orquestração mudaram, elas devem ser interpretadas pelo inspetor, que deve verificar e ajustar a sociedade de agentes para suprir a nova demanda, se necessário. Caracteriza-se assim o agente inspetor, garantindo que o restante dos agentes possam trabalhar no ambiente de CN sem se preocuparem com a garantia de seu ciclo de vida ou heurísticas de desempenho.
 
-\subsection{MODELO DOS AGENTES}
+\subsection{MODELO DOS AGENTES DE GERÊNCIA}
 
 Nesta seção serão descritos os modelos dos três agentes responsáveis por implementar as funções propostas por \citeonline{gabriel}.
 
-\subsubsection{AGENTE DE ALISTAMENTO DE CLUSTER}
+\subsubsection{AGENTE DE BUSCA DE CLUSTER}
 
-O agente de alistamento de \textit{cluster} é um agente reativo que tem o objetivo de monitorar o ambiente em busca de \textit{clusters} que necessitam ser trabalhados, para então listá-los de forma que o agente diligente possa deliberar sobre os \textit{clusters}. Essa listagem é feita através de um \textit{blackboard}, providenciado e gerenciado pela plataforma JADE. Como mostrado na figura \ref{fig:agente-alistamento}, o agente de alistamento terá conhecimento dos \textit{clusters} ativos do ambiente e, uma vez que um novo \textit{cluster} for descoberto ou algum \textit{cluster} existente tiver sido trabalhado pela última vez a muito tempo, ele deve escrever no \textit{blackboard} a necessidade de trabalho sobre aquele \textit{cluster}.
+O agente de busca de \textit{cluster} é um agente reativo, segundo a definição proposta em \citeonline{wooldridge1995intelligent}, que classifica uma arquitetura de agente como reativa quando este não possui um modelo simbólico do mundo a sua volta e não faz uso de nenhum tipo de raciocínio simbólico. O agente tem o objetivo de monitorar o ambiente a procura de \textit{clusters} que necessitam ser trabalhados, para então apresentá-los de forma que o agente diligente possa deliberar sobre os \textit{clusters}. Essa listagem é feita através de um \textit{blackboard}, providenciado e gerenciado pela plataforma JADE. Como ilustrado na Figura \ref{fig:agente-alistamento}, o agente de busca terá conhecimento apenas dos \textit{clusters} ativos do ambiente e, uma vez que um novo \textit{cluster} for descoberto ou algum \textit{cluster} existente tiver sido trabalhado pela última vez a muito tempo, ele deve escrever no \textit{blackboard} a necessidade de trabalhar novamente sobre aquele \textit{cluster}.
 
 \begin{figure}[!htb]
 	\centering
-	\caption{Modelo do Agente de Alistamento de Cluster.}\label{fig:agente-alistamento}
-	\includegraphics[scale=0.45]{figuras/agente-alistamento.png}
+	\caption{Modelo do Agente de Busca de Cluster.}\label{fig:agente-alistamento}
+	\includegraphics[scale=0.40]{figuras/agente-alistamento.png}
 \end{figure}
 
 \subsubsection{AGENTE DILIGENTE DO CLUSTER}
 
-O agente diligente do \textit{cluster} é o agente deliberativo \cite{wooldridge1995intelligent} responsável por dar ordem ao trabalho que deve ser realizado sobre os \textit{clusters} que necessitam ser trabalhados. O agente diligente verifica o \textit{blackboard} a procura de novos \textit{clusters} para trabalhar e, ao encontrar \textit{clusters} listados, deve deliberar sobre a prioridade para a realização do trabalho sobre eles aplicando uma heurística, que deve ser definida pelo administrador do ambiente de acordo com suas necessidades. Uma vez definida a prioridade dos trabalhos, o agente diligente solicita, em ordem, que o ambiente trabalhe sobre os \textit{clusters}. Como explicitado na Figura \ref{fig:agente-diligente}, ao solicitar o trabalho sobre um cluster, o agente registra o mesmo como sendo trabalhado e espera o término do trabalho para poder marcar o \textit{cluster} como trabalhado por um tempo determinado pelo administrador e solicitar o trabalho sobre o próximo \textit{cluster}.
+O agente diligente do \textit{cluster} é um agente deliberativo segundo \citeonline{wooldridge1995intelligent}, que define como deliberativo um agente que possui um modelo simbólico do seu mundo explicitamente representado e cujas decisões são tomadas baseadas através de raciocínio lógico ou, como no caso deste agente, pseudo-lógico. O agente é responsável por realizar os processos de gerência nos \textit{clusters} que foram identificados como aptos para receber tais processos. Ao verificar o \textit{blackboard} a procura de novos \textit{clusters} para trabalhar, o agente passa a ter um modelo do mundo onde atua. Ao encontrar \textit{clusters} listados, deve deliberar sobre a prioridade para a realização do trabalho sobre os seus \textit{hosts} aplicando uma heurística, que representa seu raciocínio pseudo-lógico e deve ser definida pelo administrador do ambiente de acordo com suas necessidades. Uma vez definida a prioridade dos \textit{hosts} a serem trabalhados, o agente diligente solicita, em ordem, que as \textit{VMs} dos \textit{hosts} de menor prioridade sejam mapeados aos \textit{hosts} de maior prioridade, na medida em que estes possuírem recursos suficientes disponíveis. Uma vez que um \textit{host} não possui mais \textit{VMs} mapeadas a ele, este \textit{host} pode ser desativado. Como explicitado na Figura \ref{fig:agente-diligente}, o agente espera o término do trabalho para poder marcar o \textit{cluster} como trabalhado por um tempo determinado pelo administrador e trabalhar sobre o próximo \textit{cluster}.
 
 \begin{figure}[!htb]
 	\centering
@@ -105,12 +105,14 @@ O agente diligente do \textit{cluster} é o agente deliberativo \cite{wooldridge1
 	\includegraphics[width=1\textwidth]{figuras/agente-diligente.png}
 \end{figure}
 
-\subsubsection{AGENTE DE ALOCAÇÃO DE CLUSTER}
+\subsubsection{AGENTE DE ATIVAÇÃO DE RECURSOS}
 
-O agente de alocação de \textit{cluster} é um agente reativo que tem como objetivo manter a disponibilidade de recursos suficientes para o bom funcionamento do ambiente e é o responsável por verificar periodicamente a necessidade de disponibilizar recursos e realizar as operações relacionadas à alocação de novas VMs. Ao ser instanciado, é estabelecido um intervalo de tempo entre verificações, ao final do qual o agente compara a quantidade de recursos sendo utilizados com a quantidade de recursos ativos e, baseado nas heurísticas do usuário, decide se devem ser alocados novos recursos e, sendo necessário, a quantidade a ser alocada. A Figura \ref{fig:agente-alocacao} explicita o modelo do agente.
+O agente de ativação de recursos é um agente reativo, seguindo a mesma definição de reatividade apresentada na definição do agente de busca, que tem como objetivo manter a disponibilidade de recursos suficientes para o bom funcionamento do ambiente, sendo o responsável por verificar periodicamente a necessidade de disponibilizar mais recursos físicos para o ambiente. Ele é o responsável pela ativação de \textit{hosts} que podem vir a serem desativados. Ao ser instanciado, é estabelecido um intervalo de tempo entre verificações, ao final do qual o agente compara a quantidade de recursos sendo utilizados com a quantidade de recursos ativos e, baseado nas heurísticas, decide se devem ser ativados novos recursos e, sendo necessário, a quantidade a ser ativada. A Figura \ref{fig:agente-alocacao} explicita o modelo do agente.
 
 \begin{figure}[!htb]
 	\centering
 	\caption{Modelo do Agente de Alocação.}\label{fig:agente-alocacao}
 	\includegraphics[scale=0.45]{figuras/agente-alocacao.png}
 \end{figure}
+
+Vale notar que o agente de ativação, por conta própria, não consegue garantir integralmente a disponibilidade de recursos físicos, já que podem haver casos de uma demanda inesperada por recursos enquanto o intervalo de verificação ainda estiver correndo. Para remediar estas situações, um gerente de recursos será injetado na plataforma de orquestração do ambiente, e atuará sob demanda para disponibilizar recursos físicos, quando for tentada a alocação de uma \textit{VM} e não forem encontrados recursos suficientes.

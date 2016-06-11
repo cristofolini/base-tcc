@@ -1,0 +1,28 @@
+Neste capítulo, será discutido o desenvolvimento do novo módulo proposto por esse trabalho para o \textit{framework} de consolidação desenvolvido por \citeonline{gabriel} sobre a ferramenta de orquestração Cloudstack, assim como a mudança de alguns módulos já existentes. Estão contemplados nas seções deste capítulo os passos seguidos para o desenvolvimento da proposta assim como uma avaliação breve sobre as tecnologias envolvidas no processo.
+
+Este trabalho foi executado sobre a versão 4.6.0 do Cloudstack. Todo o processo de desenvolvimento ocorre dentro do escopo criado pelo \textit{framework} de \citeonline{gabriel} na versão 1.0.2. O arcabouço criado pelo \textit{framework} é composto por um grupo de \textit{plugins} que formam um módulo adicional no Cloudstack, chamado de \textit{autonomic plataform}. Para poder desenvolver no ambiente do Cloudstack foi necessária a coomprensão das seguintes tecnologias e ferramentas:
+
+\begin{enumerate}
+	\item Maven: \textit{software} utilizado pelo Cloudstack para realizar gerenciamento e dependências do projeto \cite{maven};
+	\item MySQL: ferramenta utilizada para prover o serviço de banco de dados do Cloudstack \cite{mysql};
+	\item Spring: é o \textit{framework} empregado para resolver e gerenciar dependências de objetos java no Cloudstack \cite{spring}.
+\end{enumerate}
+
+Para manter a hierarquia criada pela adição do \textit{framework} de \cite{gabriel} e a sua comunicação com a ferramenta de orquestração, este trabalho tem como objetivos tanto a criação de um módulo para instânciar e gerenciar a plataforma de sistema multiagentes quanto modificar os \textit{plugins} do \textit{framework} de forma a dissociar os serviços criados que são inerentes ao Cloudstack da lógica de tomada de decisões, afim de transforma-las nos agentes definidos na proposta. O novo módulo, nomeado de \textit{autonomic MAS management}, implementa as propostas expostas préviamente na seção \ref{sec:gerente_agentes}. As declarações e definições dos agentes que habitam a plataforma JADE situam-se em um módulo nomeado de \textit{jade plataform agents}. Sendo assim, a Figura \ref{fig:mod_autonomiccs} apresenta uma representação visual da ligação entre estes componentes, o Cloudstack e os outros módulos do \textit{framework} de \cite{gabriel}.
+
+\begin{figure}[!htb]
+	\centering
+	\caption{Relações entre módulos do \textit{framework} de \citeonline{gabriel} e aqueles adicionados por este trabalho.}\label{fig:mod_autonomiccs}
+	\includegraphics[scale=0.325]{figuras/modAutonomiccs.png}
+\end{figure}
+
+Na Figura \ref{fig:mod_autonomiccs} pode-se observar dois tipos de relação entre os módulos:
+
+\begin{enumerate}
+	\item Dependedência: os módulos que apresentam uma seta anotada por "depende" são aqueles que usam diretamente classes dentro de outro módulo;
+	\item Referência indireta: os módulos que contém uma seta anotada por "referência indireta" usam os métodos daquele módulo por chamadas de API REST. %TODO parei aqui
+\end{enumerate}
+
+\input{secoes/desenvolvimento/gerente_sma.tex}
+
+\input{secoes/desenvolvimento/agentes_plataforma.tex}

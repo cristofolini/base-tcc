@@ -2,7 +2,25 @@ Esta seção é designada a apresentar as plataformas de SMA mais utilizadas, seus 
 
 \subsubsection{JACAMO}
 
+Jacamo combina três técnologias distintas, modulares e consolidadas para formar um \textit{framework} de programação de SMA com o objetivo de cobrir todos os níveis de abstração \cite{jacamo}. As técnologias que o compõe são:
 
+\begin{enumerate}
+	\item \textit{Jason}: usada para programar os agentes autônomos \cite{jasonsite}.
+	\item \textit{Cartago}: incluído para implementar os artefatos que compõe o ambiente \cite{cartago}.
+	\item \textit{Moise}: usado para programar as organizações entre os agentes \cite{moise}.
+\end{enumerate}
+
+O desenvolvimento envolvendo o \textit{framework} parte do princípio que o ambiente é algo endógeno, ou seja este faz parte do sistema a ser desenvolvido. Dessa forma, através do uso do Cartago, pode-se desenvolver o ambiente enquanto o Jason serve de \textit{framework} para o desenvolvimento de agentes. Dessa forma o ambiente é exposto para os agentes como uma coleção de artefatos \cite{jacamo}, como é visto na Figura \ref{fig:jacamo}.
+
+\begin{figure}[!htb]
+	\centering
+	\caption{Conexão entre Cartago e Jason no ciclo de desenvolvimento do Jacamo, retirado de \cite{jacamo}.}\label{fig:jacamo}
+	\includegraphics[width=1\textwidth]{figuras/jacamo.png}
+\end{figure}
+
+Após o desenvolvimento do ambiente e dos agentes, o componente Moise é responsável por criar um meta-modelo organizacional de forma a definir estruturas de grupos de agentes, papéis e entidades. Este componente também deve criar especificações funcionais através da definição dos objetivos atribuídos aos agentes, esquemas sociais baseados na agregação dos objetivos de organizações na forma de missões e especificações normativas que ligam papéis a objetivos, delimitando o comportamento do agente quando este assume um papél dentro de um grupo.
+
+Embora o jacamo encaixe bem no ambiente proposto por este trabalho, não há menção sobre sua adaptabilidade a infraestruturas distríbuidas. Este fator deixa a dúvida sobre a capacidade de implementação do \textit{framework} sobre infraestruturas não centralizadas e tolerante a falhas. Entretanto, o conceito de artefatos e ambientes endógneos pode ser aproveitado para esta aplicação, uma vez que os agentes encontram-se exteriorizados à ferramenta de orquestração e sua comunicação é limitada a funções específicas, comparadas diretamente aos conceitos de artefatos proposto pelo Cartago.
 
 \subsubsection{JADE}
 

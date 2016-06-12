@@ -1,1 +1,10 @@
 \section{Gerente da plataforma de SMA}\label{sec:gerente_plat_sma}
+
+Essa subseção explica o fluxo do desenvolvimento para confecção do módulo responsável por instânciar e gerenciar a plataforma de sistemas multiagentes. Este módulo funciona como um \textit{plugin} dentro do Cloudstack, garantindo seu acesso a métodos internos da ferramenta. Sendo assim, ajustes para instanciar máquinas virtuais adequadas aos nodos da plataforma e métodos de controle e instância dessas VMs devem ser implementados neste componente.
+
+\subsection{Ajustes prévios}
+
+Para que os agentes possam ter acesso Máquinas de sistema, são VMs criadas automaticamente pelo Cloudstack, com configurações específicas para funções básicas, como gerência do armazenamento de imagens de discos e serviços DHCP (Dy-
+namic Host Configuration Protocol \cite{gabriel}. 
+
+{fig:mod_autonomiccs}

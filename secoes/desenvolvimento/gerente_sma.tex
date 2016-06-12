@@ -1,10 +1,93 @@
 \section{Gerente da plataforma de SMA}\label{sec:gerente_plat_sma}
 
-Essa subseÃ§Ã£o explica o fluxo do desenvolvimento para confecÃ§Ã£o do mÃ³dulo responsÃ¡vel por instÃ¢nciar e gerenciar a plataforma de sistemas multiagentes. Este mÃ³dulo funciona como um \textit{plugin} dentro do Cloudstack, garantindo seu acesso a mÃ©todos internos da ferramenta. Sendo assim, ajustes para instanciar mÃ¡quinas virtuais adequadas aos nodos da plataforma e mÃ©todos de controle e instÃ¢ncia dessas VMs devem ser implementados neste componente.
+Essa seção explica o fluxo do desenvolvimento para confecção do módulo responsável por instânciar e gerenciar a plataforma de sistemas multiagentes. Este módulo funciona como um \textit{plugin} dentro do Cloudstack, garantindo seu acesso a métodos internos da ferramenta. Sendo assim, ajustes para instanciar máquinas virtuais adequadas aos nodos da plataforma e métodos de controle e instância dessas VMs devem ser implementados neste componente.
 
-\subsection{Ajustes prÃ©vios}
+Uma visão simplificada das dependências do módulo do gerente de plataforma de SMA pode ser visto na Figura \ref{fig:autonomic_mas_management_dependencies}.
 
-Para que os agentes possam ter acesso MÃ¡quinas de sistema, sÃ£o VMs criadas automaticamente pelo Cloudstack, com configuraÃ§Ãµes especÃ­ficas para funÃ§Ãµes bÃ¡sicas, como gerÃªncia do armazenamento de imagens de discos e serviÃ§os DHCP (Dy-
-namic Host Configuration Protocol \cite{gabriel}. 
+\begin{figure}[!htb]
+	\centering
+	\caption{Dependências do módulo do gerente de plataforma de SMA.}\label{fig:autonomic_mas_management_dependencies}
+	\includegraphics[scale=0.35]{figuras/autonomic_mas_management_dependencies.png}
+\end{figure}
 
-{fig:mod_autonomiccs}
+A relação de uso entre as classes java visíveis na Figura \ref{fig:autonomic_mas_management_dependencies} são explicadas e justificadas ao longo desta seção.
+
+\subsection{Criação das VMs de sistema}
+
+Para que os nodos da plataforma JADE possam interoperar e manter-se segmentados do restante das máquinas virtuais dos usuários da nuvem, a instância dos \textit{containers} da plataforma ocorre dentro de VMs de sistema. Essas são criadas automaticamente pelo Cloudstack, com configurações específicas para funções básicas, como gerência do armazenamento de imagens de discos e serviços \abreviatura{DHCP}{\textit{Dynamic Host Configuration Protocol}}DHCP (\textit{Dynamic Host Configuration Protocol}) \cite{gabriel}. O \textit{framework autonomic plataform} faz uso de máquinas virtuais de sistema para funções próprias, anotando-as com um tipo específico, inerente a função que elas executam no ambiente. Aproveitando esse fluxo do \textit{framework}, foram criado três novos tipos de máquinas virtuais de sistema:
+
+\begin{enumerate}
+	\item VM de container principal JADE: usada para servir de hospedeira à um \textit{main container} do JADE;
+	\item VM de container de replicação JADE: instanciadas para que possam tornar o JADE tolerante a falhas, cada uma contendo um nodo de replicação do \textit{main container} do JADE;
+	\item VM de container JADE: é o tipo de máquina virtual que contém um nodo comum do JADE, responsável por receber as instâncias dos agentes da plataforma.
+\end{enumerate}
+
+Uma vez que os tipos específicos de máquinas virtuais de sistema existem para cada um dos nodos do JADE, o gerente de plataforma SMA, descrito na Seção \ref{sec:gerente_plat_sma} pode tomar forma para instância-las. Esse gerente, modelado na forma de um objeto java, é conectado ao Cloudstack através do spring, o que garante sua instanciação dentro do contexto referente ao \textit{framework autonomic plataform}. Uma vez instanciado, o gerente observa a coleção de máquinas virtuais de sistema do Cloudstack, procurando por VMs anotadas com as funções da plataforma JADE. Caso encontre estas VMs, ele as associa logicamente como uma plataforma JADE operante sobre sua supervisão. No cenário em que não houver nenhuma VM de sistema desse tipo, o próprio gerente as instancia e inicializa o \textit{container} JADE remotamente usando métodos e classes contidos no módulo \textit{autonomic plugin common} do \textit{framework} de \citeonline{gabriel}.
+
+Após a inicialização ou associação lógica das VMs existentes, o gerente passa a observar as VMs em intervalos fixos de tempo, definido arbitráriamente para 5 minutos, executando o Algoritmo \ref{perceptJADE}. Com a finalidade de descobrir se os \textit{containers} JADE estão ativos, o gerente tenta acessar a porta 1099, a qual os nodos JADE escutam afim de perceber novos \textit{container} entrando na plataforma. Caso não seja possível estabelecer uma conexão com esta porta ou alcançar a VM anfitriã, assume-se que o container não está operante.
+
+A heurística que define a quantidade de nodos de replicação no ambiente foi definida arbitrariamente para 1 único nodo. Sendo assim o processo de inicialização da plataforma JADE consiste em inicializar o main container e seu nodo de replicação. O processo de inicialização das VMs de sistema relacionada aos \textit{containers} JADE é explicado na Subseção \ref{sec:init_vm_jade}.
+
+\subsection{Inicialização das VMs de sistema do JADE}\label{sec:init_vm_jade}
+
+Uma vez que as VMs estão operantes dentro do ambiente da nuvem, os \textit{containers} JADE devem ser alocados dentro dessas para que a plataforma possa operar. Para realizar essa ação, o gerente de plataforma comunica-se com a VM através do protocolo SSH\abreviatura{SSH}{\textit{Secure Shell}} (\textit{Secure Shell}) e instancia o nodo JADE através da execução de uma linha de comando especializada para cada tipo de \textit{container}. O uso do SSH faz-se através do módulo \textit{autonomic plugin common}, que possúi funções específicas para realizar uma conexão deste tipo. Um objeto java chamado de \textit{JadeScriptBuilder} é responsável por gerar o comando de inicialização da plataforma, recebendo como parâmetros apenas o tipo desejado de \textit{container}. O comando para instanciar os nodos JADE são demonstrados na Figura \ref{fig:container_start} e seus parâmetros são:
+
+\begin{figure}[!htb]
+	\centering
+	\caption{\textit{Scripts} para inicialização de \textit{containers} JADE.}\label{fig:container_start}
+	\includegraphics[width=1\textwidth]{figuras/cmd_container.png}
+\end{figure}
+
+\begin{enumerate}
+	\item \textit{cp}: indica quais \textit{classpaths} serão carregados na aplicação JADE. Para que o java possa visualizar os objetos referentes aos serviços JADE e os agentes da plataforma, os \textit{classpaths} carregados precisam conter tanto o arquivo jar do JADE quanto o arquivo jar referente aos agentes, chamado de \textit{jade-plataform-agents.jar};
+	\item \textit{plataform-id}: parâmetro opcional que nomeia a plataforma JADE. O nome escolhido foi \textit{AutonomicPlataform}. Este parâmetro é usado apenas para o \textit{main container}, uma vez que é este que inicia a plataforma;
+	\item \textit{local-port}: este parâmetro indica a porta a qual o nodo JADE irá escutar localmente. Outros nodos que desejam entrar na plataforma, devem notificar-se para os nodos principais através dessa porta. A escolhida pela aplicação é a 1099 por ser o padrão do JADE;
+	\item \textit{backupmain}: quando este parâmetro é utilizado no comando, o nodo resultante torna-se um \textit{container} de replicação do nodo principal o qual referencia. Sendo assim, este novo \textit{container} deve informar os parâmetros \textit{port} e \textit{host} do nodo principal cujo servirá de replica, juntando-se assim a uma plataforma já existente;
+	\item \textit{container}: semelhante ao parâmetro \textit{backupmain}, o comando que contém esta marcação torna-se um nodo comum na plataforma. Este deve ligar-se a outro \textit{container} pertencente a uma plataforma. Este nodo é contactado através dos parâmetros \textit{port} e \textit{host} que devem ser informados. Um comando de inicialização JADE não pode conter os parâmetros \textit{backupman} e \textit{container} ao mesmo tempo;
+	\item \textit{port}: indica a porta externa a qual este nodo deve conectar-se para conversar com um nodo existente em uma plataforma, afim de registrar-se nesta;
+	\item \textit{host}: referência o IP\abreviatura{IP}{\textit{Internet Protocol Address}} (\textit{Internet Protocol Address}) de nodo pertencente a um plataforma cujo este novo \textit{container} tentará se comunicar afim de registrar-se. Este parâmetro é resolvido em tempo de execução pelo gerente de plataforma, que mantém uma referência lógica a todas as VMs que contém nodos do JADE ativos. Sendo assim, o gerente de plataforma consegue conectar corretamente os nodos de replicação com o \textit{main container} e os nodos comuns de maneira a seguir suas heurísticas;
+	\item \textit{services}: Os serviços que serão usados pelo nodo JADE afim de utilizar as funcionalidades encapsuladas por ele. Os serviços que a plataforma deste trabalho usa são necessários para garantir tolerância a falhas, caso o \textit{container} principal venha a deixar de operar. Os serviços utilizados serão explicados na seção \ref{sec:servicos_jade};
+	\item \textit{agents}: Indica os agentes que serão inicializados assim que o \textit{container} for inicializado. Este parâmetro é usado para que o agente inspetor possa ser criado no nodo principal assim que a plataforma é inicializada.
+\end{enumerate}
+
+Através do uso dos scripts, é possível instânciar os diferentes tipos de \textit{containers} JADE nas VMs de sistema adequadas. Entretanto para que os scripts possam ser executados com sucesso, as VMs tem de possuir previamente tanto o java instalado quanto os arquivos jars do JADE e dos agentes da plataforma. A dependência do java é resolvida pelo \textit{framework} implementado por \citeonline{gabriel}, que contém o método \textit{deploySystemVMWithJava} no módulo \textit{autonomic plugin common}, responsável por instanciar uma VM de sistema e instalar o java via SSH.
+
+De forma a enviar as dependências necessárias para executar o \textit{script} JADE remotamente, arquivos devem ser enviados para a VM recém criada. Para realizar essa tarefa, outro comando disponibilizado pelo módulo \textit{autonomic plugin common} é utilizado, responsável por executar comandos SCP\abreviatura{SCP}{\textit{Secure Copy}} (\textit{Secure Copy}) para transferir arquivos locais ao destino remoto. Usando deste método, o gerente de plataforma consegue enviar à VM que contém o nodo JADE os arquivos jars necessários para operação do \textit{container}. A necessidade do módulo \textit{autonomic mas management}, que encapsula o gerente de plataforma, de ter uma referência ao arquivo jar dos agentes da plataforma justifica a dependência relatada na Figura \ref{fig:mod_autonomiccs} entre esse módulo e o \textit{jade plataform agents}.
+
+\subsection{Serviços JADE}\label{sec:servicos_jade}
+
+Para que a plataforma JADE seja capaz de demonstrar tolerância a falhas, ela deve ser capaz de se recuperar caso o \textit{container} principal torne-se inoperante. Para isso os nodos de replicação são adicionados a plataforma, ligados ao \textit{main container}. Segundo \citeonline{bellifemine2007developing}, em ambientes JADE onde não há tolerância a falhas, a topologia dos nodos constitui-se no formato estrela, onde o \textit{container} principal está no centro e outros nodos comuns se comunicam a ele e entre si. Nas aplicações onde o JADE demonstra tolerância a falhas, os \textit{containers} organizam-se em uma topologia de anel, onde vários \textit{main containers} organizam-se de forma encadeada. A Figura \ref{fig:topology_jade} demonstra visualmente o conceito de replicação implementado pelo JADE.
+
+\begin{figure}[!htb]
+	\centering
+	\caption{Topologia de uma plataforma JADE sem (esquerda) e com a replicação do nodo principal (direita), retirado de \cite{bellifemine2007developing}.}\label{fig:topology_jade}
+	\includegraphics[width=1\textwidth]{figuras/topologia_jade.png}
+\end{figure}
+
+Dentro de uma plataforma, sempre há em operação apenas um \textit{main container}, enquanto os outros nodos servem de replicação. Quando um dos nodos do anél de \textit{main containers} torna-se inoperante, o anél se reajusta, refazendo a ligação destruída com algum nodo que mantém-se ativo, se este existir. Os \textit{containers} que estavam ligados ao nodo que deixou de funcionar são distribuídos entre os \textit{containers} restantes no anél. No caso do nodo que apresentar problemas ser o \textit{main container} atual, o nodo de replicação que o referenciava assume como novo nodo principal. Essa funcionalidade é garantida pelo JADE através do serviço nativo \textit{MainReplicationService}, que deve ser carregado no \textit{main container} e nos \textit{replication containers} da plataforma. Cabendo à aplicação apenas conectar os nodos de forma a gerar a topologia corretamente \cite{bellifemine2007developing}.
+
+Para que um nodo replicado possa assumir sem perda de informação ou estado, as mensagens que o nodo principal recebe devem ser repassadas aos nodos de replicação. Dessa forma os agentes responsáveis por garantir a compatibilidade FIPA mantém seu estado sincronizado. Para que isso seja executado, o JADE deve carregar nos nodos de replicação e no \textit{main container} o serviço de notificação, \textit{NotificationService}. Por fim, os nodos na plataforma também devem ser capazes de perceber as mudanças no anél, sejam elas adições ou remoções. Para isso o serviço de notificação de endereços do JADE é utilizado \textit{AddressNotificationService}, sendo necessária sua inclusão tanto nos nodos principais, para que possam reorganizar o anél, quanto para os nodos comuns, para que possam detectar que ficaram órfãos e procurem um outro \textit{container} capaz de recebê-los \cite{bellifemine2007developing}.
+
+Com a replicação dos nodos principais garantida, deve-se realizar também a tolerância a falha do agente inspetor que encontra-se alocado apenas no \textit{container} principal. De forma a cumprir esse requisito, o agente inspetor é replicado em cada \textit{replication container}, mantendo o estado entre as réplicas e o agente operante sincronizado constantemente. A forma com que isso é possível dentro do JADE é carregando os serviços de replicação de agentes (\textit{AgentReplicationService}) e mobilidade de agentes (\textit{AgentMobilityService}) nos nodos onde faz-se necessário \cite{jade_replication}. Ao replicar o inspetor, ele torna-se um agente virtual, onde todas as mensagens que são delegadas a ele, convergem para um único endereço virtual no DF, que é então resolvido para o endereço da instância operante do agente. Após este passo, as réplicas são atualizadas com o novo estado do inspetor. Sendo assim, os serviços utilizados nesta aplicação pelos nodos do JADE são:
+
+\begin{enumerate}
+	\item \textit{AgentMobilityService}: usado para que agentes possam se deslocar de um nodo JADE para outro, necessário nos nodos de replicação e no principal;
+	\item \textit{AgentReplicationService}: serviço necessário para que agentes possam tornar-se tolerante a falhas através de replicação e virtualização;
+	\item \textit{MainReplicationService}: carregado nos nodos principais e de \textit{backup} para que possa ser realizado a replicação do \textit{main container};
+	\item \textit{AddressNotificationService}: usado para gerar notificações na plataforma de quando um \textit{main container} se conecta ou desconecta do grupo de nodos principais da plataforma;
+	\item \textit{NotificationService}: usado para que o JADE possa transmitir mensagens de estado para a plataforma.
+\end{enumerate}
+
+Do jeito que a plataforma foi implementada para tornar-se tolerante a falhas, nenhuma modificação se faz necessária ao aumentar o número de réplicas nas heurísticas do gerente de plataformas. Deve-se notar também que os \textit{containers} comuns não são tolerantes a falhas e os agentes residentes destes nodos serão destruídos caso estes \textit{containers} falhem. Isto não se caracteriza um problema uma vez que a destruição destes nodos é percebida pelo serviço de \textit{NotificationService}. Através desse mecanismo, o agente inspetor pode perceber a perda dos agentes e atuar para que eles possam ser recriados na plataforma, de acordo com sua definição em \ref{subsec:supervisor}. Nenhuma garantia é feita de que o trabalho e estado dos agentes destruídos seja recuperado, no entanto isso não é significativo para o contexto dessa aplicação.
+
+\subsection{Possibilitando o acesso dos agentes à API do Cloudstack}
+
+Uma vez que os agentes precisam utilizar serviços inerentes do Cloudstack para poder migrar VMs e desligar hosts, mantendo-se dissociados da ferramenta, é necessário configurar uma forma de garantir acesso a funções administrativas para os agentes sem expor as mesmas funcionalidades publicamente. De modo a acessar os métodos, é necessário que os agentes sejam capazes de utilizar a API REST do Cloudstack assim como devem faze-lo de modo autenticado.
+
+Para registrar um usuário com privilégios de administrador do Cloudstack para os agentes, um objeto java, chamado de \textit{PlataformAgentUserRegisterService}, é criado no \textit{framework} \textit{autonomic plataform}, dentro do módulo \textit{autonomic mas management} através do spring. Ao ser criado, este objeto verifica se já existe na base de dados do Cloudstack uma conta destinada aos agentes da plataforma. Se esta não existir, ele a cria.
+
+De modo a garantir que o novo usuário administrador destinado aos agentes não se constitua de um ponto inseguro no \textit{framework}, uma senha aleatória de 30 caractéres é gerada e nunca armazenada em memória após a criação. Sendo assim, a conta é criada de maneira autônoma durante a inicialização do Cloudstack.
+
+Com uma conta criada para os agentes são geradas as chaves de API desse usuário. Sendo estes os tokens necessários para a validação perante o Cloudstack. Estas chaves devem ser repassadas aos agentes para que eles possam consumir a API. Para que o gerente de plataforma tenha acesso a essas chaves, esse usa um objeto java instânciado pelo spring, chamado de \textit{AgentAccountService}. Sua função é encapsular a busca no banco de dados do Cloudstack pelas informações do usuário dos agentes.
+
+A transferência das chaves é feita após a criação das VMs que hospedam os nodos da plataforma JADE. Um arquivo de texto é criado e transferido através do método SCP disponibilizado pelo \textit{autonomic plugin common} ao gerente de plataforma. Uma vez nas VMs dos nodos JADE, os agentes podem acessar esse arquivo de chaves como um recurso para autenticarem-se perante o Cloudstack.

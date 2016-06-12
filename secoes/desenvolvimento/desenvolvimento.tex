@@ -20,8 +20,10 @@ Na Figura \ref{fig:mod_autonomiccs} pode-se observar dois tipos de relação entre
 
 \begin{enumerate}
 	\item Dependedência: os módulos que apresentam uma seta anotada por "depende" são aqueles que usam diretamente classes dentro de outro módulo;
-	\item Referência indireta: os módulos que contém uma seta anotada por "referência indireta" usam os métodos daquele módulo por chamadas de API REST. %TODO parei aqui
+	\item Referência indireta: os módulos que contém uma seta anotada por "referência indireta" usam métodos do módulo destino através de chamadas de \abreviatura{API}{\textit{Application Program Interface}}API (\textit{Application Program Interface}) disponíveis através do Cloudstack no formato \abreviatura{REST}{\textit{Representational State Transfer}}REST (\textit{\textit{Representational State Transfer}}).
 \end{enumerate}
+
+Detalhes sobre as ligações e os módulos \textit{autonomic mas management} e \textit{Jade plataform agents}, desenvolvidos nesse trabalho, serão explicados nas seções \ref{sec:gerente_plat_sma} e \ref{sec:agentes_da_plataforma} respectivamente.
 
 \input{secoes/desenvolvimento/gerente_sma.tex}
 

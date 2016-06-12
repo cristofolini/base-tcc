@@ -80,7 +80,7 @@ Com a replicação dos nodos principais garantida, deve-se realizar também a toler
 
 Do jeito que a plataforma foi implementada para tornar-se tolerante a falhas, nenhuma modificação se faz necessária ao aumentar o número de réplicas nas heurísticas do gerente de plataformas. Deve-se notar também que os \textit{containers} comuns não são tolerantes a falhas e os agentes residentes destes nodos serão destruídos caso estes \textit{containers} falhem. Isto não se caracteriza um problema uma vez que a destruição destes nodos é percebida pelo serviço de \textit{NotificationService}. Através desse mecanismo, o agente inspetor pode perceber a perda dos agentes e atuar para que eles possam ser recriados na plataforma, de acordo com sua definição em \ref{subsec:supervisor}. Nenhuma garantia é feita de que o trabalho e estado dos agentes destruídos seja recuperado, no entanto isso não é significativo para o contexto dessa aplicação.
 
-\subsection{Possibilitando o acesso dos agentes à API do Cloudstack}
+\subsection{Acesso dos agentes à API do Cloudstack}
 
 Uma vez que os agentes precisam utilizar serviços inerentes do Cloudstack para poder migrar VMs e desligar hosts, mantendo-se dissociados da ferramenta, é necessário configurar uma forma de garantir acesso a funções administrativas para os agentes sem expor as mesmas funcionalidades publicamente. De modo a acessar os métodos, é necessário que os agentes sejam capazes de utilizar a API REST do Cloudstack assim como devem faze-lo de modo autenticado.
 

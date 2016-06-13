@@ -1,17 +1,16 @@
-Embora não foram possíveis realizar testes nas mudanças feitas no \textit{framework} devido a quantidade de tempo despendida na coomprensão e implementando das mudanças sobre o \textit{framework}, podemos observas os efeitos que as modificações surtiram na organização e relação dos módulos do \textit{autonomic plataform}. Os serviços de gerência autônoma que estavam acoplados ao Cloudstack foram dissociados das ações administrativas da ferramenta de orquestração e modularizada para agentes. As vantagens dessa re-organização abrangem a modularização do código, a compatibilidade com o padrão FIPA para comunicação entre agentes, fazendo com que outras plataforma de SMA possam comunicar-se com o módulo de gerência da ferramenta de orquestração.
+Embora não tenha sido possível realizar testes nas mudanças feitas no \textit{framework} devido a quantidade de tempo despendida na compreensão e implementação das mudanças sobre o \textit{framework}, podemos observar os efeitos que as modificações surtiram na organização e relação dos módulos do \textit{autonomiccs plataform}. Os serviços de gerência autônoma que estavam acoplados ao Cloudstack foram dissociados das ações administrativas da ferramenta de orquestração e modularizados como agentes. As vantagens dessa re-organização abrangem a modularização do código, a compatibilidade com o padrão FIPA para comunicação entre agentes, fazendo com que outras plataforma de SMA possam comunicar-se com o módulo de gerência da ferramenta de orquestração.
 
-A comunicação criada entre JADE e Cloudstack permite com que desenvolvedores e pesquisadores possam ter um arcabouço para criar agentes capazes de acessar os recursos administrativos de uma ferramenta de orquestração. Além de fazer com que plataformas externas de SMA possam interoperar com os agentes do Cloudstack. As contribuições deste trabalho são as seguintes:
+A comunicação criada entre JADE e Cloudstack permite que desenvolvedores e pesquisadores possam ter um arcabouço para criar agentes capazes de acessar os recursos administrativos de uma ferramenta de orquestração. Além de fazer com que plataformas externas de SMA possam interoperar com os agentes do Cloudstack. As contribuições deste trabalho são as seguintes:
 
 \begin{itemize}
 	\item Estensão e reorganização de um \textit{framework} de código aberto proposto para alcançar a gerência autônoma de ambientes em nuvem.
 	\item Apresentação e implementação de uma forma de comunicação entre plataformas de sistemas multiagentes e ferramentas de orquestração a nível administrativo.
 \end{itemize}
 
-Acredita-se que pela capacidade de adicionar múltiplos agentes para realizar as heurísticas do ambiente na nuvem, sem adições extras no código, tornam essa abordagem mais escalavel e eficiênte. Entretanto, tendo em vista a ausência de testes para essa estensão, não há condições científicas de afirmar a eficiência e eficácia desta abordagem com sistemas multiagentes. Sendo assim, como trabalhos futuros, têm-se:
+Acredita-se que pela capacidade de adicionar múltiplos agentes para realizar as heurísticas do ambiente na nuvem, sem adições extras no código, tornam essa abordagem mais escalável e eficiente. Entretanto, tendo em vista a ausência de testes para essa estensão, não há condições científicas de afirmar a eficiência e eficácia desta abordagem com sistemas multiagentes. Sendo assim, como trabalhos futuros, têm-se:
 
 \begin{itemize}
-	\item Avaliar a eficiência e eficácia da abordagem de sistemas multiagentes contra a aplicação de serviços imbuídos na ferramenta de orquestração.
-	\item Verificar a capacidade de escalabilidade dessa abordagem em comparação com outras atuais.
+	\item Avaliar a eficiência e eficácia da abordagem de sistemas multiagentes contra a aplicação de serviços acoplados na ferramenta de orquestração, proposta em \cite{gabriel};
+	\item Verificar a capacidade de escalabilidade dessa abordagem em comparação com outras atuais, como a proposta em \cite{gabriel};
 	\item Testar a adaptabilidade do SMA a heurísticas que não sejam a consolidação do ambiente em nuvem.
 \end{itemize}
-

@@ -10,7 +10,7 @@ Jacamo combina três técnologias distintas, modulares e consolidadas para formar 
 	\item \textit{Moise}: usado para programar as organizações entre os agentes \cite{moise}.
 \end{enumerate}
 
-O desenvolvimento envolvendo o \textit{framework} parte do princípio que o ambiente é algo endógeno, ou seja este faz parte do sistema a ser desenvolvido. Dessa forma, através do uso do Cartago, pode-se desenvolver o ambiente enquanto o Jason serve de \textit{framework} para o desenvolvimento de agentes. Dessa forma o ambiente é exposto para os agentes como uma coleção de artefatos \cite{jacamo}, como é visto na Figura \ref{fig:jacamo}.
+O desenvolvimento envolvendo o \textit{framework} parte do princípio que o ambiente é algo endógeno, ou seja este faz parte do sistema a ser desenvolvido. Dessa forma, através do uso do Cartago, pode-se desenvolver o ambiente enquanto o Jason serve de \textit{framework} para o desenvolvimento de agentes. Assim, o ambiente é exposto para os agentes como uma coleção de artefatos \cite{jacamo}, como é visto na Figura \ref{fig:jacamo}.
 
 \begin{figure}[!htb]
 	\centering
@@ -27,7 +27,7 @@ Embora o jacamo encaixe bem no ambiente proposto por este trabalho, não há mençã
 \textit{Java Agent DEvelopment} \abreviatura{JADE}{\textit{Java Agent Development}}(JADE)\cite{jade} é um \textit{framework} para desenvolvimento de aplicações de agentes compatível com as especificações da FIPA para interoperabilidade entre sistemas multiagentes, desenvolvido inicialmente pela Telecom Italia (que, na data deste trabalho, ainda é detentora dos direitos autorais sobre a ferramenta), é distribuída em formato de código aberto sob as condições da LGPLv2 \cite{lgpl2}. O objetivo da ferramenta JADE é providenciar ao desenvolvedor uma maneira simples de desenvolver seu programa, facilitando a implementação dos padrões da FIPA. As características do JADE importantes para o problema apresentado neste trabalho são:
 
 \begin{itemize}
-	\item Plataforma que segue o padrão FIPA, incluindo os três agentes, necessários e descritos, ativados junto com a inicialização da plataforma;
+	\item Plataforma que segue o padrão FIPA, incluindo os três agentes necessários descritos na seção \ref{esp-fipa}, ativados junto com a inicialização da plataforma;
 
 	\item Plataforma de agentes distribuída. A plataforma pode ser dividida entre vários servidores, contanto que não haja \textit{firewall} entre eles, usando apenas uma aplicação em cada servidor, rodando em uma \textit{Java Virtual Machine}\abreviatura{JVM}{\textit{Java Virtual Machine}} (JVM). Agentes são implementados como uma \textit{thread} Java e suas ações paralelas são tratadas como tarefas, estas escalonadas pela própria plataforma de maneira leve e eficiente. A comunicação entre agentes na mesma JVM se dá pelo uso de \textit{Java Events};
 
@@ -90,12 +90,12 @@ O Jadex faz uso de \abreviatura{XML}{\textit{Extensible Markup Language}} \texti
 	\includegraphics[scale=0.45]{figuras/jadex2.png}
 \end{figure}
 
-O JADEX é executado sobre a plataforma do JADE. A integração ocorre através de uma ferramenta de integração desenvolvida para injetar os agentes JADEX dentro do banco de agentes do JADE. Estes agentes são então instanciados através de modelos criados a partir de seus arquivos descritores e seus comportamentos são mapeados como \emph{cyclic behaviours}, uma forma de comportamento disponível provido pela plataforma JADE. Dessa forma, os planos são executados passo a passo e mantém acesso sobre todas as características do agente. O JADEX, dessa forma, acaba servindo como uma extensão para a plataforma JADE, complementando-a com a possibilidade de especificar agentes cognitivos complexos que usam a estratégia de BDI para tomada de decisões.
+O JADEX é executado sobre a plataforma do JADE. A integração ocorre através de uma ferramenta de integração desenvolvida para injetar os agentes JADEX dentro do banco de agentes do JADE. Estes agentes são instanciados através de modelos criados a partir de seus arquivos descritores e seus comportamentos são mapeados como \emph{cyclic behaviours}, uma forma de comportamento disponível provido pela plataforma JADE. Dessa forma, os planos são executados passo a passo e mantém acesso sobre todas as características do agente. O JADEX acaba servindo como uma extensão para a plataforma JADE, complementando-a com a possibilidade de especificar agentes cognitivos complexos que usam a estratégia de BDI para tomada de decisões.
 
 
 \subsubsection{JASON}
 
-\textit{JASON} é um interpretador para uma versão estendida da linguagem de programação abstrata \textit{AgentSpeak} desenvolvido por \cite{bordini2007programming} utilizando a linguagem \textit{Java} e distribuído pela licensa LGPL \cite{jasonsite}. O \textit{JASON}, além de implementar a semântica operacional da linguagem, providencia uma plataforma para o desenvolvimento de sistemas multiagente, que suporta tanto o desenvolvimento de agentes reativos, quanto o de agentes baseados na arquitetura \textit{BDI}. Dentre as funcionalidades oferecidas pela plataforma \textit{JASON}, vale citar algumas das mais notáveis:
+\textit{JASON} é um interpretador para uma versão estendida da linguagem de programação abstrata \textit{AgentSpeak} desenvolvido por \cite{bordini2007programming} utilizando a linguagem \textit{Java} e distribuído pela licensa LGPL \cite{jasonsite}. O \textit{JASON}, além de implementar a semântica operacional da linguagem, providencia uma plataforma para o desenvolvimento de sistemas multiagente, que suporta tanto o desenvolvimento de agentes reativos, quanto o de agentes baseados na arquitetura \textit{BDI}. Dentre as funcionalidades oferecidas pela plataforma \textit{JASON}, vale citar:
 
 \begin{itemize}
 	\item Negação forte: permite modelos de mundos abertos e fechados;

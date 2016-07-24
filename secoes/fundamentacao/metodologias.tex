@@ -1,18 +1,14 @@
-A partir dos conceitos de modelagem de agentes apresentados, foram elaboradas diversas metodologias para a concepção e o desenvolvimento destes agentes. Em função da sua utilidade em relação ao desenvolvimento de agentes \emph{BDI}, sem deixar de ser útil para qualquer outro tipo de sistema multiagente, bem como a abundância de documentação e ferramentas de modelagem disponíveis, a metodologia utilizada no decorrer deste trabalho é a chamada \emph{Prometheus} \cite{prometheus}.
-
-A metodologia \emph{Prometheus} consiste de três fases, descritas por \citeonline{prometheus} da seguinte forma:
+A partir dos conceitos de modelagem de agentes apresentados, foram avaliadas diversas metodologias para a concepção e o desenvolvimento destes agentes. Em função da sua utilidade em relação ao desenvolvimento de agentes \emph{BDI}, sem deixar de ser útil para qualquer outro tipo de sistema multiagente, bem como a abundância de documentação e ferramentas de modelagem disponíveis, a metodologia utilizada no decorrer deste trabalho é a chamada \emph{Prometheus} \cite{prometheus}. A metodologia \emph{Prometheus} consiste de três fases, descritas por \citeonline{prometheus} da seguinte forma:
 \begin{itemize}
   \item Especificação de Sistema: é focada em identificar as funcionalidades básicas do sistema como um todo, tais como suas entradas (percepções), saídas (ações), e quaisquer fontes importantes de dados compartilhados;
   \item Modelagem Arquitetural: utiliza as saídas da fase anterior para determinar quais agentes o sistema conterá e como eles irão interagir;
   \item Modelagem Detalhada: é onde são especificados os componentes internos de cada agente e como tal agente realizará suas tarefas dentro do sistema.
 \end{itemize}
 
-A figura 5 demonstra estas três fases citadas acima de forma explícita, mostrando os artefatos gerados por cada fase, bem como os eventos que levam de uma fase a outra.
-
 \begin{figure}[!htb]
 	\centering
-	\caption{Diagrama explicitando as fases da metodologia \emph{Prometheus}, obtido de \cite{prometheus}.}\label{fig:promehteus}
+	\caption{Diagrama explicitando as fases da metodologia \emph{Prometheus}, obtido de \cite{prometheus}.}\label{fig:prometheus}
 	\includegraphics[width=1\textwidth]{figuras/prometheus.png}
 \end{figure}
 
-Vale notar que estas fases descritas acima e explicitadas na figura 5 constituem um processo iterativo de engenharia de software, e não um modelo de desenvolvimento do tipo cascata, sendo que estas fases não devem ser necessariamente executadas em alguma ordem em particular. \citeonline{prometheus} sugerem repetir o processo inteiro mais de uma vez, com um foco diferente a cada repetição, sendo que a primeira iteração pode consistir inteiramente de atividades associadas a fase de especificação de sistema, iterações subsequentes envolverão uma mistura de atividades de fases diferentes, eventualmente com uma presença maior de atividades das fases seguintes.
+A Figura \ref{fig:prometheus} demonstra estas três fases citadas anteriormente, mostrando os artefatos gerados por cada fase, bem como os eventos que levam de uma fase a outra. Vale notar que estas fases descritas constituem um processo iterativo de engenharia de software, e não um modelo de desenvolvimento do tipo cascata, sendo que estas fases não devem ser necessariamente executadas em alguma ordem em particular. \citeonline{prometheus} sugerem repetir o processo inteiro mais de uma vez, com um foco diferente a cada repetição, sendo que a primeira iteração pode consistir inteiramente de atividades associadas a fase de especificação de sistema, iterações subsequentes envolverão uma mistura de atividades de fases diferentes, eventualmente com uma presença maior de atividades das fases seguintes.

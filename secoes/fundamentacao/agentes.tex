@@ -1,5 +1,7 @@
-Agentes são entidades capazes de comunicar-se entre si, possuem mobilidade e comportam-se de forma independente dentro do ambiente. Um agente é um sistema computacional capaz de atuar autonomamente de maneira a alcançar seus objetivos \cite{wooldridge2009introduction}. Seu conceito pode ser  abstraído para uma entidade auto-contida, capaz de interagir (através de funções atuadoras e sensoras) com o 
-ambiente em que se encontra, consigo mesma e com outros agentes \cite{ia-ferramentas}. Ter vários agentes em um sistema implica que cada um deve raciocinar e agir levando em consideração os outros agentes no sistema, sendo que dentro de um sistema, diferentes agentes podem ou não ter um propósito em comum \cite{handbook-knowledge}. Este segundo caso é particularmente interessante, já que as diferentes entidades podem ter o mesmo objetivo, mas diferentes critérios possivelmente conflitantes. Independente de seu tipo e ambiente, agentes funcionam em um ciclo contínuo de perceber o mundo, decidir sua próxima ação e executá-la. A Figura \ref{fig:agente} representa o ciclo contínuo de execução de um agente.
+Agentes são entidades capazes de comunicar-se entre si, possuem mobilidade e comportam-se de forma independente dentro do ambiente. Um agente é um sistema computacional capaz de atuar autonomamente de maneira a alcançar seus objetivos \cite{wooldridge2009introduction}. Seu conceito pode ser  abstraído para uma entidade auto-contida, capaz de interagir (através de funções atuadoras e sensoras) com o
+ambiente em que se encontra, consigo mesma e com outros agentes \cite{ia-ferramentas}.
+
+Ter vários agentes em um sistema implica que cada um deve raciocinar e agir levando em consideração os outros agentes, sendo que dentro de um sistema, diferentes agentes podem ou não ter um propósito em comum \cite{handbook-knowledge}. Este segundo caso é particularmente interessante, já que as diferentes entidades podem ter o mesmo objetivo, mas diferentes critérios possivelmente conflitantes. Independente de seu tipo e ambiente, agentes funcionam em um ciclo contínuo de perceber o mundo, decidir sua próxima ação e executá-la. A Figura \ref{fig:agente} representa o ciclo contínuo de execução de um agente.
 
 \begin{figure}[!htb]
 	\centering
@@ -7,7 +9,7 @@ ambiente em que se encontra, consigo mesma e com outros agentes \cite{ia-ferrame
 	\includegraphics[width=1\textwidth]{figuras/imgAgent.png}
 \end{figure}
 
-Agentes possuem módulos que servem como sensores e atuadores, representando sua interface com o mundo. Eles estão diretamente relacionados com as capacidades dos agentes de perceber e agir. Através dos sensores, um agente consegue perceber o ambiente que ele está inserido. Esta entrada, na forma de percepções, é avaliada pelo agente, resultando em uma decisão de ação. Por fim, através dos atuadores, o agente é capaz de trabalhar/agir em seu ambiente, modificando o seu estado.
+Agentes possuem módulos que servem como sensores e atuadores, representando sua interface com o mundo. Eles estão diretamente relacionados com as capacidades dos agentes de perceber e agir. Através dos sensores, um agente consegue perceber o ambiente que ele está inserido. Esta entrada, na forma de percepções, é avaliada pelo agente, resultando em uma decisão de ação. Por fim, através dos atuadores, o agente é capaz de trabalhar/agir de forma a modificar o estado de um ambiente.
 
 \subsubsection{Características de Agentes}
 
@@ -41,10 +43,10 @@ agentes apenas através de modificações no ambiente \cite{ia-ferramentas}. Embora
 
 \subsubsection{Agentes Deliberativos}
 
-Agentes deliberativos são aqueles que tem alguma forma de retenção de conhecimento na forma de experiências passadas, criando um modelo explícito de mundo. Estes agentes também possuem uma explícita \\representação de outros agentes, memória (que
-permite que planejem suas ações tendo eventos passados como base) e capacidade de se comunicarem diretamente uns com os outros. Agentes cognitivos frequentemente são modelados como entidades cujo comportamento é determinados por estados mentais denominados crenças desejos e intenções, utilizado para permitir ao agente representar a sua percepção do ambiente e deliberar suas ações com base em seus propósitos e com o estado do mundo que ele percebe \cite{handbook-knowledge}.\par
+Agentes deliberativos são aqueles que tem alguma forma de retenção de conhecimento expressos como experiências passadas, criando um modelo explícito de mundo. Estes agentes também possuem uma explícita representação de outros agentes, memória (que
+permite que planejem suas ações tendo eventos passados como base) e capacidade de se comunicarem diretamente uns com os outros. Agentes cognitivos frequentemente são modelados como entidades cujo comportamento é determinados por estados mentais denominados crenças desejos e intenções, possibilitando assim que o agente represente a sua percepção do ambiente e delibere sobre suas ações com base em seus propósitos e com o estado do mundo que ele percebe \cite{handbook-knowledge}.\par
 
-Um agente cognitivo possui seu conjunto de crenças, estas são continuamente atualizadas com as percepções do agente, assim como são usadas para verificar condições necessárias para a escolha de próximos planos de ação. Na Figura \ref{fig:agente-BDI} pode-se observar a arquitetura de um agente deliberativo que possui \textit{Beliefs, Desire and Intentions} \abreviatura{BDI}{\textit{Beliefs Desire Intentions}}(BDI), em português crenças, desejos e intenções.
+Um agente cognitivo possui seu conjunto de crenças, estas são continuamente atualizadas com as percepções do agente, assim como são usadas para verificar condições necessárias para a escolha dos próximos planos de ação. Na Figura \ref{fig:agente-BDI} pode-se observar a arquitetura de um agente deliberativo que possui \textit{Beliefs, Desire and Intentions} \abreviatura{BDI}{\textit{Beliefs Desire Intentions}}(BDI), em português crenças, desejos e intenções.
 
 \begin{figure}[!htb]
 	\centering
